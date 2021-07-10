@@ -27,6 +27,12 @@ class Payment
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Command::class, inversedBy="payments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $command;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +58,18 @@ class Payment
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCommand(): ?Command
+    {
+        return $this->command;
+    }
+
+    public function setCommand(?Command $command): self
+    {
+        $this->command = $command;
 
         return $this;
     }
