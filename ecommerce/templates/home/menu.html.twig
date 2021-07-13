@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<ul class="first_div">
+    <li>
+        <a class="" href="#">
+            <img class="logo_desktop" src="{{ asset("images/logo_300.jpg") }}" alt="Symfony!" />
+        </a>
+    </li>
+    <li>
+        <form class="d-flex">
+            <input class="form-control search_input"
+                style="border: solid rgb(243, 154, 38);margin-top:2%; margin-right:-10px; height:50px;width: 50vw;"
+                type="search" placeholder="Chercher" aria-label="Search">
+            <button class=" search" style="border: solid rgb(243, 154, 38); " type="submit">Chercher</button>
+        </form>
+    </li>
+    <li><a href="#" class="btn user pull-right">
+        <img class="" src="{{ asset("images/user-shape.png") }}" alt="user_mobile!" />                
+             
+            <br>User
+        </a>
+    </li>
+    <li><a class=" pull-right cart" aria-current="page" href="#">
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <br> 0 items - 0.00 €
+            <br> My Cart
+        </a>
+    </li>
+</ul>
