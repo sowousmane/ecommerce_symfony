@@ -1,7 +1,4 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<ul class="first_div">
+<ul class="first_div" id="desktop" >
     <li>
         <a class="" href="#">
             <img class="logo_desktop" src="{{ asset("images/logo_300.jpg") }}" alt="Symfony!" />
@@ -28,3 +25,29 @@
         </a>
     </li>
 </ul>
+
+
+<div class="mobile  ">
+    <div class="row ">
+        <div class="col-3">
+            <img class="logo_mobile" src="{{ asset("images/logo_normal.jpg") }}" alt="logo_mobile!" />
+        </div>
+        <div class="col-3 div_search_mobile">
+            <a href="#" >
+                <img class="search_mobile" src="{{ asset("images/search.png") }}" alt="search_mobile!" />
+            </a>
+        </div>
+        <div class="col-2 user_mobile">
+            <a href="#" >
+                <img class="image_ronde_mobile" src="{{ asset("images/user.png") }}" alt="user_mobile!" />                
+            </a>
+        </div>
+        <div class="col-4 cart_mobile">
+            <a href="#" class="btn cart_mobile_a">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                <p> 0 items - 0.00 €</p>
+                <p> My Cart</p>
+            </a>
+        </div>
+    </div>
+</div>
