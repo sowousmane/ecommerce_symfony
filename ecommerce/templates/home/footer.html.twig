@@ -18,8 +18,17 @@
         </div>
          <div class="col-sm" id="footer_fird">
             <h3>NOUS CONTACTER</h3>
-            <p>Get all the latest information on Triedge Services, Events, Jobs
-                and Fairs. Sign up for our newsletter today.</p>
+            <a class="btn" href="https://touch.facebook.com/sowEtEcriture/?ref=bookmarks">
+                <img class=" img-network" src="{{ asset("images/facebook.png") }}" alt="user_mobile!" />                
+            </a>
+            <a class="btn" href="https://accounts.google.com/AccountChooser/signinchooser?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&flowName=GlifWebSignIn&flowEntry=AccountChooser"><img class=" img-network" src="{{ asset("images/gmail.png") }}" alt="user_mobile!" />                
+            </a>
+            <a class="btn" href="https://twitter.com/login">
+                <img class=" img-network" src="{{ asset("images/twitter.png") }}" alt="user_mobile!" />                
+            </a>
+            <a class="btn" href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin">
+                <img class=" img-network" src="{{ asset("images/linkedin.png") }}" alt="user_mobile!" />                
+            </a>
         </div>
         
     </div>
@@ -29,10 +38,14 @@
 </div>
 
 <style>
-
+.img-network{
+    width:30px;
+    height:30px;
+}
 #foot{
     background-color: rgb(128, 128, 128);
     width:100%;
+    padding:4% 5%;
     /* top | right | bottom | left */
 }
 #footer_first{
@@ -50,7 +63,7 @@
 
 }
 
-#footer_first a:hover, #footer_snd a:hover{
+#footer_first a:hover, #footer_snd a:hover, #footer_fird a:hover{
 
     background-color: rgb(243, 154, 38);
 }

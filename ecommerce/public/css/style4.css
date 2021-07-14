@@ -1,0 +1,11 @@
+#sidebar_id{
+    height: 500px;
+    width: 300px;
+    background-color: rgb(207, 207, 207);
+    /* top | right | bottom | left */
+    margin: 50px 0px 10px 65px;
+}
+.sidebar-header{
+    background-color: rgb(128, 128, 128);
+
+}
