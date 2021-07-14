@@ -79,6 +79,9 @@ class AdminController extends AbstractController
                 $doctrine->persist($admin);
                 $doctrine->persist($user);
                 $doctrine->flush();
+
+                $this->addFlash('message', 'L\'administrateur a été créé avec succès !');
+                return $this->redirectToRoute('admin');
             }
             
             return $this->render('admin/createAdmin.html.twig', [

@@ -80,10 +80,13 @@ class SecurityController extends AbstractController
             $url = $this->generateUrl('reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
             
             $message = (new \Swift_Message('Mot de passe oublié'))
-                ->setFrom('hassane.toiwilou@gmail.com')
+                ->setFrom('ecommerce.htos@gmail.com')
                 ->setTo($user->getEmail())
                 ->setBody(
-                    "Bonjour, ça marche => " . $url
+                    'Bonjour, 
+
+Vous venez de demander une reinitialisation de votre mot de passe.
+Cliquez sur ce lien ' . $url . ' pour continuer.'
                 )
             ;
 

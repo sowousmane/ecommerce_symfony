@@ -1,31 +1,38 @@
 <?php
 
 namespace App\Service;
+
+use App\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppService
 {
-    private $requestStack;
+    private Request $request;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct()
     {
-        $this->requestStack = $requestStack;
     }
 
-    public function setSession($value)
+    public function createUser($form, $role, $doctrine, $_user, $flashe)
     {
-        $session = $this->requestStack->getSession();
-        $session->set('id_login', $value);
-    }
+        $user = new User();
+        $form->handleRequest($this->request);
+        
+        $user->setEmail($_user->getEmail());
+        $user->setPassword(
+            $this->passwordEncoder->encodePassword(
+                $user,
+                $_user->getPassword()
+            )
+        );
+        $user->setRoles([$role]);
+        $doctrine->persist($_user);
+        $doctrine->persist($user);
+        $doctrine->flush();
 
-    public function getSession()
-    {
-        $session = $this->requestStack->getSession();
-        return $session->get('id_login');
-    }
-
-    public function isAdmin($role)
-    {
-        if($role == 'ROLE_ADMIN'){ return true; } return false;
+        $flashe;
     }
 }
