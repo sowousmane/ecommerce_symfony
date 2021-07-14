@@ -22,31 +22,21 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AppService $appService, 
-        AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        $path = $appService->getSession();
-        /* if ($this->getUser() && substr($_SERVER['REQUEST_URI'], 1) == $path) {
-            return $this->redirectToRoute($appService->getSession());
-        } */
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/' . $path . '.html.twig', [
+        return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername, 
             'error' => $error
         ]);
-    }
-
-    /**
-     * @Route("/connection", name="connection")
-     */
-    public function connection(AppService $appService): Response
-    {
-        return $this->redirectToRoute($appService->getSession());
     }
 
     /**
@@ -103,7 +93,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('reset_password_email');
         }
 
-        return $this->render('admin/resetPasswordEmail.html.twig', [
+        return $this->render('security/resetPasswordEmail.html.twig', [
             'emailForm' => $form->createView(),
         ]);
             
@@ -138,10 +128,8 @@ class SecurityController extends AbstractController
             }
         }
 
-        return $this->render('admin/resetPassword.html.twig', [
+        return $this->render('security/resetPassword.html.twig', [
             'token' => $token,
         ]);
     }
-
-    
 }

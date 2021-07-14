@@ -20,15 +20,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/access_admin", name="access_admin")
-     */
-    public function accessAdmin(AppService $appService): Response
-    {
-        $appService->setSession('admin');
-        return $this->render('admin/accessAdmin.html.twig');
-    }
-
-    /**
      * @Route("/admin", name="admin")
      */
     public function index(): Response

@@ -36,16 +36,6 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/access_profile", name="access_profile")
-     */
-    public function accessProfile(AppService $appService): Response
-    {
-        $appService->setSession('profile');
-        if ($this->getUser()) { return $this->redirectToRoute('profile'); }
-        return $this->redirectToRoute('app_login');
-    }
-
-    /**
      * @Route("/profile", name="profile")
      */
     public function profile(): Response
@@ -61,6 +51,32 @@ class HomeController extends AbstractController
         catch(\Exception $e){
             $this->addFlash('danger', $e->getMessage());
         }
+    }
+
+    /**
+     * @Route("/panier", name="panier")
+     */
+    public function panier(Request $request): Response
+    {
+        if($request->isMethod('POST')){
+            return $this->redirectToRoute('payment');
+        }
+
+        return $this->render('home/panier.html.twig', [
+            
+        ]);
+    }
+
+    /**
+     * @Route("/payment", name="payment")
+     */
+    public function payment(Request $request): Response
+    {
+        
+
+        return $this->render('home/payment.html.twig', [
+            
+        ]);
     }
 
     /**
