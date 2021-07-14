@@ -2,18 +2,67 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Client;
+use App\Entity\Product;
 use App\Entity\User;
 use App\Form\CreateClientFormType;
+use App\Service\AppService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-//use App\Entity\Product;
 
 class HomeController extends AbstractController
 {
+    /**
+     * @Route("/", name="home")
+     */
+    public function home(Request $request, AppService $appService): Response
+    {   
+        try{
+            $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+            $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+            
+            return $this->render('home/home.html.twig', [
+                'products' => $products,
+                'categories' => $categories,
+            ]);
+        }
+        catch(\Exception $e){
+            $this->addFlash('danger', $e->getMessage());
+        }
+    }
+
+    /**
+     * @Route("/access_profile", name="access_profile")
+     */
+    public function accessProfile(AppService $appService): Response
+    {
+        $appService->setSession('profile');
+        if ($this->getUser()) { return $this->redirectToRoute('profile'); }
+        return $this->redirectToRoute('app_login');
+    }
+
+    /**
+     * @Route("/profile", name="profile")
+     */
+    public function profile(): Response
+    {
+        try{
+            $user = $this->getDoctrine()->getRepository(Client::class)
+                ->findOneBy(['id' => $this->getUser()->getId()]);
+
+            return $this->render('client/profile.html.twig', [
+                'user' => $user,
+            ]);
+        }
+        catch(\Exception $e){
+            $this->addFlash('danger', $e->getMessage());
+        }
+    }
+
     /**
      * @Route("/create_client", name="create_client")
      */
@@ -42,7 +91,7 @@ class HomeController extends AbstractController
                 $doctrine->flush();
             }
             
-            return $this->render('home/createClient.html.twig', [
+            return $this->render('client/createClient.html.twig', [
                 'clientForm' => $form->createView(),
             ]);
         }

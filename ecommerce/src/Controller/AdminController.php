@@ -10,6 +10,7 @@ use App\Entity\Payment;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\CreateAdminFormType;
+use App\Service\AppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends AbstractController
 {
+    /**
+     * @Route("/access_admin", name="access_admin")
+     */
+    public function accessAdmin(AppService $appService): Response
+    {
+        $appService->setSession('admin');
+        return $this->render('admin/accessAdmin.html.twig');
+    }
+
     /**
      * @Route("/admin", name="admin")
      */
@@ -31,6 +41,8 @@ class AdminController extends AbstractController
             $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
             $commands = $this->getDoctrine()->getRepository(Command::class)->findAll();
             $payments = $this->getDoctrine()->getRepository(Payment::class)->findAll();
+            $user = $this->getDoctrine()->getRepository(Admin::class)
+                ->findOneBy(['id' => $this->getUser()->getId()]);
             //$commands = $this->getDoctrine()->getRepository(Command::class)->findAll();
             
             return $this->render('admin/index.html.twig', [
@@ -40,6 +52,7 @@ class AdminController extends AbstractController
                 'products' => $products,
                 'commands' => $commands,
                 'payments' => $payments,
+                'user' => $user,
                 //'admins' => $admins,
             ]);
         }

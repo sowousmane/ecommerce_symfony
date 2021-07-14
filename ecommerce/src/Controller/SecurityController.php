@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\AppService;
 use App\Entity\User;
 use App\Form\ResetPasswordFormType;
 use App\Repository\UserRepository;
@@ -21,18 +22,31 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AppService $appService, 
+        AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('admin');
-        }
+        $path = $appService->getSession();
+        /* if ($this->getUser() && substr($_SERVER['REQUEST_URI'], 1) == $path) {
+            return $this->redirectToRoute($appService->getSession());
+        } */
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('admin/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/' . $path . '.html.twig', [
+            'last_username' => $lastUsername, 
+            'error' => $error
+        ]);
+    }
+
+    /**
+     * @Route("/connection", name="connection")
+     */
+    public function connection(AppService $appService): Response
+    {
+        return $this->redirectToRoute($appService->getSession());
     }
 
     /**
@@ -128,4 +142,6 @@ class SecurityController extends AbstractController
             'token' => $token,
         ]);
     }
+
+    
 }
