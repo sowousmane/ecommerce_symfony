@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -39,4 +39,6 @@
         Sign in
     </button>
 </form>
+
+<a href="{{ path("reset_password_email") }}">mot de passe oublié ?</a>
 {% endblock %}
