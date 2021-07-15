@@ -3,46 +3,32 @@
 {% block body %}
 <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
-<div class="card_element row">
+<div class="card_element row" style="margin-top:50px; margin-bottom:20px; ">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
 
             {% include 'home/index4.html.twig' %}
         </div>
-        <div class="col-md-8">
-            <ul class="col-sm-10">
-            <li>
-                <div class="card">
-                    <img src="{{ asset("images/img_avatar2.png") }}" alt="Avatar" style="width:100%" />
-
-                    <div class="">
-                        <h4><b>John Doe</b></h4>
-                        <p>Architect & Engineer</p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="card">
-                    <img src="{{ asset("images/img_avatar2.png") }}" alt="Avatar" style="width:100%" />
-
-                    <div class="">
-                        <h4><b>John Doe</b></h4>
-                        <p>Architect & Engineer</p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="card">
-                    <img src="{{ asset("images/img_avatar2.png") }}" alt="Avatar" style="width:100%" />
-
-                    <div class="">
-                        <h4><b>John Doe</b></h4>
-                        <p>Architect & Engineer</p>
-                    </div>
-                </div>
-            </li>
-            
-        </ul>
+         
+         
+        <div class="col-md-9 ">
+            <div class="container">
+                <ul class='row'>                 
+                    {% for i in 0..8 %}
+                        <div class="col-md-3">
+                            <li>
+                                <div class="cardi">
+                                    <img src="{{ asset("images/img_avatar2.png") }}" alt="Avatar" style="width:100%" />
+                                    <h4>no user found</h4> 
+                                    <button type="submit" class="btn btn-add"><span class="fa fa-plus"></span> <strong>ajouter</strong></button>
+                                
+                                </div>
+                            </li>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+          
         </div>
         
     </div>

@@ -1,36 +1,177 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <!-- Our Custom CSS -->
+  <link rel="stylesheet" href="{{ asset('css/style4.css') }}" />
+
+  <!-- Font Awesome JS -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+    integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+    crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+    integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+    crossorigin="anonymous"></script>
+
+</head>
+
 <body>
 
-<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px;" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
-  <a href="#" class="w3-bar-item w3-button">Link 1</a>
-  <a href="#" class="w3-bar-item w3-button">Link 2</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
-</div>
+  <div class="wrapper">
+    <!-- Sidebar  -->
+    <div class="sidebar-header">
+      <h3>Affiner votre recherche</h3>
+    </div>
+    <nav id="sidebar">
 
-<div class="w3-main" style="margin-left:200px">
-<div class="w3-teal">
-  <button class="w3-button w3-teal w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
-  
-</div>
+      <div id="content">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fas fa-align-left"></i>
+        </button>
+      </div>
+      <div class="cat">
+        <h4>CATEGORIES </h4>
+      </div>
+      <ul class="list-unstyled components" id="ul_test">
+        <li class="active">
+          <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+
+            <img src="{{ asset("images/riz_2.png") }}" alt="Avatar" />
+
+            <span class="home1"> Alimentation</span>
+          </a>
+          <ul class="collapse list-unstyled" id="homeSubmenu">
+            <li>
+              <a href="#">Home 1</a>
+            </li>
+            <li>
+              <a href="#">Home 2</a>
+            </li>
+            <li>
+              <a href="#">Home 3</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <img src="{{ asset("images/evier-de-cuisine.png") }}" alt="Avatar" />
+            <span class="home1"> Hygiène && beauté</span>
+          </a>
+          <ul class="collapse list-unstyled" id="pageSubmenu">
+            <li>
+              <a href="#">Page 1</a>
+            </li>
+            <li>
+              <a href="#">Page 2</a>
+            </li>
+            <li>
+              <a href="#">Page 3</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#maisonSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <img src="{{ asset("images/robinet.png") }}" alt="Avatar" />
+            <span class="home1"> Maison</span>
+          </a>
+          <ul class="collapse list-unstyled" id="maisonSubmenu">
+            <li>
+              <a href="#">maison 1</a>
+            </li>
+            <li>
+              <a href="#">maison 2</a>
+            </li>
+            <li>
+              <a href="#">maison 3</a>
+            </li>
+          </ul>
+        </li>
+        <hr>
+        <div class="prix_c">
+
+          <h2>PRIX </h2>
+
+          <label class="container">
+            < 10€ <input type="checkbox" checked="checked">
+              <span class="checkmark"></span>
+          </label>
+          <label class="container">10 à 20€
+            <input type="checkbox">
+            <span class="checkmark"></span>
+          </label>
+          <label class="container">20 à 50€
+            <input type="checkbox">
+            <span class="checkmark"></span>
+          </label>
+          <label class="container"> >50€
+            <input type="checkbox">
+            <span class="checkmark"></span>
+          </label>
+
+        </div>
 
 
-   
-</div>
 
-<script>
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
+        <hr>
 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
-</script>
-     
+        <div class="prix_c">
+          <h2>Des questions? </h2>
+        <li>
+          <a href="#">
+            <img src="{{ asset("images/question.png") }}" alt="Avatar" />
+
+            <span class="home1"> FAQ</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="{{ asset("images/communicate.png") }}" alt="Avatar" />
+            <span class="home1"> Contact </span>
+          </a>
+        </li>
+        </div>
+      </ul>
+
+
+    </nav>
+
+    <!-- Page Content  -->
+
+  </div>
+
+  <!-- jQuery CDN - Slim version (=without AJAX) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <!-- Popper.JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+    integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+    integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $(".home1").each(function () {
+          $(this).removeClass("home1");
+          $(this).addClass("home");
+        });
+        $(".sidebar-header").hide();
+
+      });
+    });
+  </script>
 </body>
+
 </html>

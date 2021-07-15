@@ -1,31 +1,33 @@
-.card {
-    box-shadow: 0 4px 8px 0 rgba(99, 107, 92, 0.486);
-    transition: 0.3s;
-    width: 40%;
+.cardi {
+    width: 250px;
+    height: auto;
   }
-  
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(196, 133, 32, 0.2);
+.cardi_element li {
+    text-align: center;
+}
+
+
+@media screen and (min-width: 1000px) {
+  .cardi_element  ul {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .cardi_element li  {
+        flex-grow: 1;
+    }
+}
+.btn-add{
+    background-color: rgb(243, 154, 38);
+    height: 50px;
+}
+.btn-add strong, .btn-add h4{
+    font-size: 15px;
+}
+
+.container .row{
+    
+      display: grid;
+      grid-template-columns: repeat(12,1fr);
+    
   }
-  
-  
-    .card_element ul {
-        margin: 0;
-        padding: 0;
-    }
-
-   .card_element li {
-        list-style: none;
-        text-align: center;
-    }
-
-    @media screen and (min-width: 1000px) {
-      .card_element  ul {
-            display: flex;
-            flex-direction: row;
-        }
-
-        .card_element li  {
-            flex-grow: 1;
-        }
-    }
