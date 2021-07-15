@@ -21,29 +21,8 @@ class HomeController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder): Response
     {
         try{
-
-            $client = new Client();
-            $user = new User();
-            $form = $this->createForm(CreateClientFormType::class, $client);
-            $form->handleRequest($request);
-
-            if($form->isSubmitted() && $form->isValid()){
-                $user->setEmail($client->getEmail());
-                $user->setPassword(
-                    $passwordEncoder->encodePassword(
-                        $user,
-                        $client->getPassword()
-                    )
-                );
-                $user->setRoles(['ROLE_USER']);
-                $doctrine = $this->getDoctrine()->getManager();
-                $doctrine->persist($client);
-                $doctrine->persist($user);
-                $doctrine->flush();
-            }
-            
-            return $this->render('home/createClient.html.twig', [
-                'clientForm' => $form->createView(),
+            return $this->render('home/home.html.twig', [
+                'controller_name' => 'HomeController',
             ]);
         }
         catch(\Exception $e){

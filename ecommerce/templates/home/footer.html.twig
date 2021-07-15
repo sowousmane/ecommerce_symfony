@@ -1,0 +1,79 @@
+
+<div class="row" >
+    <div class="row" id="foot">
+        <div class="col-sm" id="footer_first">
+            <h3>LIENS RAPIDES</h3>
+            <a class="btn" href="#">〉Home </a><br>
+            <a class="btn" href="#">〉A propos de nous    </a><br>
+            <a class="btn" href="#">〉Nous contact </a><br>
+            <a class="btn" href="#">〉Termes & Conditions </a><br>
+            <a class="btn" href="#">〉Politique de confidentialité </a><br>
+        </div> 
+        <div class="col-sm" id="footer_snd">
+            <h3>NOS SERVICES</h3>
+            <a class="btn" href="#">〉Alimentation </a><br>
+            <a class="btn" href="#">〉Hygiène && Beauté    </a><br>
+            <a class="btn" href="#">〉Maison</a><br>
+        
+        </div>
+         <div class="col-sm" id="footer_fird">
+            <h3>NOUS CONTACTER</h3>
+            <a class="btn" href="https://touch.facebook.com/sowEtEcriture/?ref=bookmarks">
+                <img class=" img-network" src="{{ asset("images/facebook.png") }}" alt="user_mobile!" />                
+            </a>
+            <a class="btn" href="https://accounts.google.com/AccountChooser/signinchooser?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&flowName=GlifWebSignIn&flowEntry=AccountChooser"><img class=" img-network" src="{{ asset("images/gmail.png") }}" alt="user_mobile!" />                
+            </a>
+            <a class="btn" href="https://twitter.com/login">
+                <img class=" img-network" src="{{ asset("images/twitter.png") }}" alt="user_mobile!" />                
+            </a>
+            <a class="btn" href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin">
+                <img class=" img-network" src="{{ asset("images/linkedin.png") }}" alt="user_mobile!" />                
+            </a>
+        </div>
+        
+    </div>
+    <div class="copyright"> <p>Copyright 2021 &nbsp; | &nbsp; HT && OS.</p></div>
+    
+    
+</div>
+
+<style>
+.img-network{
+    width:30px;
+    height:30px;
+}
+#foot{
+    background-color: rgb(128, 128, 128);
+    width:100%;
+    padding:4% 5%;
+    /* top | right | bottom | left */
+}
+#footer_first{
+    margin-left:5%;
+}
+.copyright{
+    background-color: black;
+    width:100%;
+}
+#footer_first a, #footer_snd a{
+    text-align: center;
+    color:#e7e7e7;
+    font-weight: bold;
+    font-size: 15px;
+
+}
+
+#footer_first a:hover, #footer_snd a:hover, #footer_fird a:hover{
+
+    background-color: rgb(243, 154, 38);
+}
+.copyright p{
+    
+    text-align: center;
+    color:white;
+    padding:0.5%;
+    font-weight: bold;
+    font-size: 15px;
+
+}
+</style>

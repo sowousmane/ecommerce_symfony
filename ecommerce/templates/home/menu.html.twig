@@ -1,0 +1,53 @@
+<ul class="first_div" id="desktop" >
+    <li>
+        <a class="" href="#">
+            <img class="logo_desktop" src="{{ asset("images/logo_300.jpg") }}" alt="Symfony!" />
+        </a>
+    </li>
+    <li>
+        <form class="d-flex">
+            <input class="form-control search_input"
+                style="border: solid rgb(243, 154, 38);margin-top:2%; margin-right:-10px; height:50px;width: 50vw;"
+                type="search" placeholder="Chercher" aria-label="Search">
+            <button class=" search" style="border: solid rgb(243, 154, 38); " type="submit">Chercher</button>
+        </form>
+    </li>
+    <li><a href="#" class="btn user pull-right">
+        <img class=" img-user" src="{{ asset("images/user-shape.png") }}" alt="user_mobile!" />                
+             
+            <br>User
+        </a>
+    </li>
+    <li><a class=" pull-right cart" aria-current="page" href="#">
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <br> 0 items - 0.00 €
+            <br> My Cart
+        </a>
+    </li>
+</ul>
+
+
+<div class="mobile  ">
+    <div class="row ">
+        <div class="col-3">
+            <img class="logo_mobile" src="{{ asset("images/logo_normal.jpg") }}" alt="logo_mobile!" />
+        </div>
+        <div class="col-3 div_search_mobile">
+            <a href="#" >
+                <img class="search_mobile" src="{{ asset("images/search.png") }}" alt="search_mobile!" />
+            </a>
+        </div>
+        <div class="col-2 user_mobile">
+            <a href="#" >
+                <img class="image_ronde_mobile" src="{{ asset("images/user.png") }}" alt="user_mobile!" />                
+            </a>
+        </div>
+        <div class="col-4 cart_mobile">
+            <a href="#" class="btn cart_mobile_a">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                <p> 0 items - 0.00 €</p>
+                <p> My Cart</p>
+            </a>
+        </div>
+    </div>
+</div>

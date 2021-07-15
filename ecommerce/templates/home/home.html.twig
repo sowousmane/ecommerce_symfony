@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+
+<div class="card_element row" style="margin-top:50px; margin-bottom:20px; ">
+    <div class="row">
+        <div class="col-md-3">
+
+            {% include 'home/index4.html.twig' %}
+        </div>
+         
+         
+        <div class="col-md-9 ">
+            <div class="container">
+                <ul class='row'>                 
+                    {% for i in 0..8 %}
+                        <div class="col-md-3">
+                            <li>
+                                <div class="cardi">
+                                    <img src="{{ asset("images/img_avatar2.png") }}" alt="Avatar" style="width:100%" />
+                                    <h4>no user found</h4> 
+                                    <button type="submit" class="btn btn-add"><span class="fa fa-plus"></span> <strong>ajouter</strong></button>
+                                
+                                </div>
+                            </li>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+          
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
