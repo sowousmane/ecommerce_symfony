@@ -2,17 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
+use App\Entity\User;
+use App\Form\CreateClientFormType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 //use App\Entity\Product;
 
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/create_client", name="create_client")
      */
-    public function index(): Response
+    public function create_client(Request $request, 
+        UserPasswordEncoderInterface $passwordEncoder): Response
     {
         try{
             return $this->render('home/home.html.twig', [
@@ -20,9 +26,7 @@ class HomeController extends AbstractController
             ]);
         }
         catch(\Exception $e){
-            return $this->render('error.html.twig', [
-                'exception' => $e->getMessage(),
-            ]);
+            $this->addFlash('danger', $e->getMessage());
         }
     }
 }

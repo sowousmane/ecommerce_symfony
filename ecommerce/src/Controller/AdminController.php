@@ -34,7 +34,6 @@ class AdminController extends AbstractController
             //$commands = $this->getDoctrine()->getRepository(Command::class)->findAll();
             
             return $this->render('admin/index.html.twig', [
-                'controller_name' => 'AdminController',
                 'admins' => $admins,
                 'clients' => $clients,
                 'categories' => $categories,
@@ -45,9 +44,7 @@ class AdminController extends AbstractController
             ]);
         }
         catch(\Exception $e){
-            return $this->render('error.html.twig', [
-                'exception' => $e->getMessage(),
-            ]);
+            $this->addFlash('danger', $e->getMessage());
         }
         
     }
@@ -55,7 +52,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/create_admin", name="create_admin")
      */
-    public function createAdmin(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function createAdmin(Request $request, 
+        UserPasswordEncoderInterface $passwordEncoder): Response
     {
         try{
 
@@ -80,14 +78,11 @@ class AdminController extends AbstractController
             }
             
             return $this->render('admin/createAdmin.html.twig', [
-                'controller_name' => 'AdminController',
                 'adminForm' => $form->createView(),
             ]);
         }
         catch(\Exception $e){
-            return $this->render('error.html.twig', [
-                'exception' => $e->getMessage(),
-            ]);
+            $this->addFlash('danger', $e->getMessage());
         }
         
     }
