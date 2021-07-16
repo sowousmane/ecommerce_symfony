@@ -1,10 +1,44 @@
 .cardi {
     width: 250px;
     height: auto;
+    margin-bottom: 25px;
+    border: none;
+    background-color: #dfdfdf;
   }
 .cardi_element li {
     text-align: center;
 }
+.foot_article{
+    padding: 5px;
+    text-align: center;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.foot_article h4{
+    font-weight: bold;
+}
+
+.btn-add{
+    background-color: rgb(243, 154, 38);
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+}
+.btn-add strong, .btn-add h4{
+    font-size: 15px;
+}
+.btn-add .fa-heart{
+   color: rgb(255, 95, 95);
+   font-size:15px;
+}
+
+
+
+
+
+
+
 
 
 @media screen and (min-width: 1000px) {
@@ -17,17 +51,3 @@
         flex-grow: 1;
     }
 }
-.btn-add{
-    background-color: rgb(243, 154, 38);
-    height: 50px;
-}
-.btn-add strong, .btn-add h4{
-    font-size: 15px;
-}
-
-.container .row{
-    
-      display: grid;
-      grid-template-columns: repeat(12,1fr);
-    
-  }

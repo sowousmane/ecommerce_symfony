@@ -3,31 +3,42 @@
 {% block body %}
 <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
-<div class="card_element row" style="margin-top:50px; margin-bottom:20px; ">
+<div class="card_element " style="margin-top:50px; margin-bottom:20px; ">
     <div class="row">
         <div class="col-md-3">
 
-            {% include 'home/index4.html.twig' %}
+            {% include 'home/sidebar.html.twig' %}
         </div>
          
          
-        <div class="col-md-9 ">
-            <div class="container">
-                <ul class='row'>                 
-                    {% for i in 0..8 %}
-                        <div class="col-md-3">
-                            <li>
-                                <div class="cardi">
-                                    <img src="{{ asset("images/img_avatar2.png") }}" alt="Avatar" style="width:100%" />
-                                    <h4>no user found</h4> 
-                                    <button type="submit" class="btn btn-add"><span class="fa fa-plus"></span> <strong>ajouter</strong></button>
-                                
+        <div class="col-md-9  ">
+            <ul class='row'>                 
+                {% for i in 0..10 %}
+                    <div class="col-md-3">
+                        <li>
+                            <div class="cardi" >
+                                <img src="{{ asset("images/img_avatar2.png") }}" alt="Avatar" style="width:100%" />
+                                <div class="foot_article">
+                                    <h2>une femme</h2>
+                                    <h3>5€</h2>
+                                    <div class="btn-add">
+                                        <button type="submit" class="btn "> 
+                                            <span class="fa fa-plus"></span>
+                                            <strong>ajouter</strong>
+                                            
+                                        </button>
+                                        <button type="submit" class="btn pull-right"> 
+                                            <i class="fa fa-heart"></i>
+                                            
+                                        </button>
+                                        
+                                    </div>
                                 </div>
-                            </li>
-                        </div>
-                    {% endfor %}
-                </ul>
-            </div>
+                            </div>
+                        </li>
+                    </div>
+                {% endfor %}
+            </ul>
           
         </div>
         
