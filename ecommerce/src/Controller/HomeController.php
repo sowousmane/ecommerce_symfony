@@ -29,4 +29,19 @@ class HomeController extends AbstractController
             $this->addFlash('danger', $e->getMessage());
         }
     }
+
+     /**
+     * @Route("/", name="home")
+     */
+    public function index(): Response
+    {
+        try{
+            return $this->render('home/home.html.twig', [
+                'controller_name' => 'HomeController',
+            ]);
+        }
+        catch(\Exception $e){
+            $this->addFlash('danger', $e->getMessage());
+        }
+    }
 }
