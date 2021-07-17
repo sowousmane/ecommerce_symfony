@@ -1,6 +1,7 @@
-<ul class="first_div" id="desktop" >
+<link rel="stylesheet" href="{{ asset('css/style_menu.css') }}" />
+<ul class="first_div container-fluid" id="desktop" style="position:fixed; z-index: 9999 !important;">
     <li>
-        <a class="" href="#">
+        <a class="" href="{{ path("home") }}">
             <img class="logo_desktop" src="{{ asset("images/logo_300.jpg") }}" alt="Symfony!" />
         </a>
     </li>
@@ -27,7 +28,7 @@
 </ul>
 
 
-<div class="mobile  ">
+<div class="mobile">
     <div class="row ">
         <div class="col-3">
             <img class="logo_mobile" src="{{ asset("images/logo_normal.jpg") }}" alt="logo_mobile!" />
@@ -44,10 +45,13 @@
         </div>
         <div class="col-4 cart_mobile">
             <a href="#" class="btn cart_mobile_a">
-                <span class="glyphicon glyphicon-shopping-cart"></span>
+            <img class="" src="{{ asset("images/shopping-cart.png") }}" alt="chariot!" style="width:20px; height:20px;"/> 
                 <p> 0 items - 0.00 €</p>
                 <p> My Cart</p>
             </a>
         </div>
+
+
+  
     </div>
 </div>
