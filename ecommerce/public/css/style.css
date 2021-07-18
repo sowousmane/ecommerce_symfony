@@ -1,53 +1,87 @@
+.firstd {
+    margin-right: -100px;
+}
+
+@media screen and (max-width: 1400px) {
+    .firstd {
+        margin-right: -50px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .firstd {
+        margin-right: -20px;
+    }
+}
+
+@media screen and (max-width: 1060px) {
+    .firstd {
+        margin-right: -10px;
+    }
+}
+
+
+@media screen and (max-width: 1000px) {
+    .firstdo,
+    .firstd {
+        margin-top: -190px;
+    }
+    .firstd {
+        margin-right: 0px;
+    }
+    .articles {
+        flex-direction: column;
+    }
+    .articles .cardi {
+        width: 500px;
+        height: auto;
+    }
+}
+@media screen and (max-width: 770px) {
+    .firstdo
+     {
+        margin-top: -560px;
+        margin-left: 20%;
+    }
+    
+}
+@media screen and (max-width: 650px) {
+     .articles .cardi
+     {
+        margin-left: 20%;
+        width: 50%;
+    }
+    
+}
 .cardi {
-    width: 250px;
+    width: 100%;
     height: auto;
     margin-bottom: 25px;
     border: none;
     background-color: #dfdfdf;
-  }
-.cardi_element li {
-    text-align: center;
 }
-.foot_article{
+
+.foot_article {
     padding: 5px;
     text-align: center;
     padding-bottom: 0px;
     padding-left: 0px;
     padding-right: 0px;
 }
-.foot_article h4{
-    font-weight: bold;
-}
 
-.btn-add{
+.btn-add {
     background-color: rgb(243, 154, 38);
     height: 50px;
     width: 100%;
     padding: 10px;
 }
-.btn-add strong, .btn-add h4{
+
+.btn-add strong,
+.btn-add h4 {
     font-size: 15px;
 }
-.btn-add .fa-heart{
-   color: rgb(255, 95, 95);
-   font-size:15px;
-}
 
-
-
-
-
-
-
-
-
-@media screen and (min-width: 1000px) {
-  .cardi_element  ul {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .cardi_element li  {
-        flex-grow: 1;
-    }
+.btn-add .fa-heart {
+    color: rgb(255, 95, 95);
+    font-size: 15px;
 }

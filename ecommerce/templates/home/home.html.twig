@@ -3,16 +3,12 @@
 {% block body %}
 <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
-<div class="card_element " style="margin-top:50px; margin-bottom:20px; ">
-    <div class="row">
-        <div class="col-md-3">
-
-            {% include 'home/sidebar.html.twig' %}
-        </div>
-         
-         
-        <div class="col-md-9  ">
-            <ul class='row'>                 
+  <div class="row coucou" style="margin-top:217px; margin-bottom:20px;">
+    <div class="col-md-3 firstd" >
+      {% include 'home/sidebar.html.twig' %}
+    </div>
+    <div class="col-md-9 firstdo" >
+          <ul class='row articles'>                 
                 {% for i in 0..10 %}
                     <div class="col-md-3">
                         <li>
@@ -39,10 +35,9 @@
                     </div>
                 {% endfor %}
             </ul>
-          
-        </div>
-        
     </div>
-</div>
+    
+  
+  </div>
 
 {% endblock %}

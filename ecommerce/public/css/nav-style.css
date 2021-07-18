@@ -5,11 +5,12 @@
     padding: 1rem 1.5rem;
     position: fixed;
     width: 100%;
-
+    z-index: 9999 !important;
   }
 
   .nav_bar_div{
-      margin-top: 150px;
+      margin-top: 145px;
+      margin-left: 15px;
   }
 
   .hamburger {
@@ -35,6 +36,7 @@
     font-size: 1.6rem;
     font-weight: 400;
     color: #ffffff;
+    font-weight: bold;
 }
 @media only screen and (max-width: 1000px) {
     .nav-menu {

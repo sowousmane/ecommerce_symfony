@@ -96,6 +96,7 @@ ul#mobile {
 }
 
 /*mobile part*/
+
 div.mobile {
     display: none
 }
@@ -109,7 +110,26 @@ div.mobile {
         display: none
     }
 }
+.mobile .cart_mobile{
+    display: none;
+}
+@media (max-width: 400px) {
+    .mobile .search_mobile,  .mobile .logo_mobile , .mobile .image_ronde_mobile{
+        width: 20px;
+        height: 20px;
+    }
+    div.mobile.cart_mobile{
 
+        display: none;
+    }
+    .mobile .logo_mobile{
+
+        margin-top: 10px;
+    }
+   
+     
+ }
+ 
 /* search */
 .search_mobile {
     width: 50px;

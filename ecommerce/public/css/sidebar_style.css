@@ -1,281 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600|Open+Sans:600&display=swap');
 
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
-#sidebarCollapse{
-    display: none;
+.sidebar_home {
+    position: fixed;
+    width: 240px;
+    background: #adabab;
+    transition: all .5s ease;
+    margin-left: 5px;
+    
 }
 
-a,
-a:hover,
-a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.components li img{
-    width: 40px;
-    height: 40px;
- }
-
-span {
-    display: inline-block;
-}
-
-/* ---------------------------------------------------
-    SIDEBAR STYLE
------------------------------------------------------ */
-
-.wrapper {
-   padding-top: 2px;
-   padding-left: 20px;
-   padding-right: 20px;
-   margin-left: 50px;
-}
-
-#sidebar {
-    min-width: 250px;
-    max-width: 300px;
-    background: #adadad;
-    color: #fff;
-    transition: all 0.3s;
-    height: auto;
-    padding: 20px;
-}
-/*the active sidebar when we click on the button*/
-#sidebar.active {
-    min-width: 80px;
-    max-width: auto;
-    text-align: center;
-    padding: 20px;
-    height: auto;
-}
-
-#sidebar.active .sidebar-header h3 , #sidebar.active .cat h4 {
-    display: none;
-}
-
-
-#sidebar ul li a {
-    text-align: left;
-}
-
-#sidebar.active ul li a {
-    padding: 20px 10px;
-    text-align: center;
-    font-size: 14px;
-}
-
-.components li img{
-   width: 50px;
-   height: 50px;
-}
-
-#sidebar.active ul ul a {
-    padding: 10px !important;
-}
-
-#sidebar.active .dropdown-toggle::after {
-    top: auto;
-    bottom: 10px;
-    -webkit-transform: translateX(50%);
-    -ms-transform: translateX(50%);
-    transform: translateX(50%);
-    height: auto;
-}
-
-.sidebar-header {
-    padding: 10px;
-       background: #000000;
-    color: white;
-    text-align: center;
-     min-width: 250px;
-    max-width: 300px;
-}
-.sidebar-header h3{
-    font-size: 25px;
-    font-weight: bold;
-}
-
-
-#sidebar ul.components {
-    padding: 20px 0;
-}
-
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 14px;
-    display: block;
-}
-
-#sidebar ul li a:hover {
+.sidebar_home header {
+    font-size: 28px;
     color: black;
-    background: rgb(243, 154, 38);
-}
-.cat{
+    line-height: 70px;
     text-align: center;
-}
-.cat h4{
-    font-size: 25px;
-    font-weight: bold;
-}
-
-
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
-    color: #fff;
-       background: #adadad;
-}
-#sidebar ul li.active>a:hover,
-a[aria-expanded="true"] {
-    color: black;
-       background: rgb(243, 154, 38);
-}
-a[data-toggle="collapse"] {
-    position: relative;
-}
-
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
-
-ul ul a {
-    font-size: 10px !important;
-    padding-left: 30px !important;
-       background: #adadad;
-}
-
-.prix_c h2 {
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 14px;
-}
-  
-.prix_c{
-    text-align: center;
-}
-
-/* The container */
-.container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 14px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    background: #adabab;
     user-select: none;
-  }
-  
-  /* Hide the browser's default checkbox */
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-  }
-  
-  /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
-    background-color: rgb(255, 224, 189);
-  }
-  
-  /* When the checkbox is checked, add a this background color*/
-  .container input:checked ~ .checkmark {
-    background-color: rgb(243, 154, 38);
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  /* Style the checkmark/indicator */
-  .container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-
-@media (max-width: 1000px) {
-    #sidebarCollapse{
-        display: block;
-    }
-    .home{
-        display: block;
-    }
-    .home1, .cat, .sidebar-header, .prix_c h2{
-        display: none;
-    }
-   
-    #sidebar {
-        min-width: 80px;
-        max-width: auto;
-        text-align: center;
-        height: auto;
-    }
-    .dropdown-toggle::after {
-        top: auto;
-        bottom: 10px;
-        -webkit-transform: translateX(50%);
-        -ms-transform: translateX(50%);
-        transform: translateX(50%);
-    }
-    #sidebar.active {
-        margin-left: 0 !important;
-    }
-    #sidebar .sidebar-header h3 {
-        display: none;
-    }
-    #sidebar ul li a {
-        padding: 20px 10px;
-    }
-    #sidebar ul li a span {
-        font-size: 14px;
-    }
-  
-    #sidebar ul ul a {
-        padding: 10px !important;
-    }
-   
-    #sidebar {
-        margin-left: 0;
-    }
+    font-family: 'Montserrat', sans-serif;
 }
 
-#ul_test{
-    display: inherit;
+.sidebar_home a {
+    display: block;
+    height: 80px;
+    width: 100%;
+    color: black;
+    line-height: 50px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    border-left: 5px solid transparent;
+    font-family: 'Open Sans', sans-serif;
+    transition: all .5s ease;
+}
+
+.sidebar_home a.active,
+.sidebar_home a:hover {
+    border-left: 5px solid #b93632;
+    color: #020202;
+    background-color: rgb(243, 154, 38);;
+}
+
+.sidebar_home a span {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}  
+
+
+#check:checked~.sidebar_home {
+    left: 0;
+}
+
+#check:checked~label #btn {
+    margin-left: 245px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#check:checked~label  {
+    margin-left: 245px;
+    opacity: 1;
+    visibility: visible;
+}
+
+@media(max-width : 1000px) {
+    
+    .sidebar_home {
+        width: 100px;
+        text-align: center;
+        position: relative;
+    }
+
+    .sidebar_home header{
+        display: none;
+    }
+
+    .sidebar_home span {
+        position: absolute;
+        margin-left: 23px;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .sidebar_home a {
+        height: 80px;
+        padding-top: 9px;
+    }
+    .sidebar_home a img{
+        margin-left: -25px;
+    }
+
+    
+
+     a:hover {
+        width: 250px;
+    
+    }
+
+    .sidebar_home a:hover span {
+        opacity: 1;
+        visibility: visible;
+    }
 }
