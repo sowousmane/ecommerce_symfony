@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,19 +18,14 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="text")
      */
-    private $name;
+    private $description;
 
     /**
      * @ORM\Column(type="float")
      */
     private $price;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
 
     /**
      * @ORM\Column(type="string", length=45)
@@ -60,29 +53,19 @@ class Product
      */
     private $category;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Command::class, inversedBy="products")
-     */
-    private $commands;
-
-    public function __construct()
-    {
-        $this->commands = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getDescription(): ?string
     {
-        return $this->name;
+        return $this->description;
     }
 
-    public function setName(string $name): self
+    public function setDescription(string $description): self
     {
-        $this->name = $name;
+        $this->description = $description;
 
         return $this;
     }
@@ -95,18 +78,6 @@ class Product
     public function setPrice(float $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }
@@ -167,30 +138,6 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Command[]
-     */
-    public function getCommands(): Collection
-    {
-        return $this->commands;
-    }
-
-    public function addCommand(Command $command): self
-    {
-        if (!$this->commands->contains($command)) {
-            $this->commands[] = $command;
-        }
-
-        return $this;
-    }
-
-    public function removeCommand(Command $command): self
-    {
-        $this->commands->removeElement($command);
 
         return $this;
     }
