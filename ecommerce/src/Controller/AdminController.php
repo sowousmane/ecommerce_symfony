@@ -45,12 +45,51 @@ class AdminController extends AbstractController
                 'payments' => $payments,
                 'user' => $user,
                 //'admins' => $admins,
+                'current_page' => 'Dashboard',
             ]);
         }
         catch(\Exception $e){
             $this->addFlash('danger', $e->getMessage());
         }
+    }
+
+    /**
+     * @Route("/gestion_admin", name="gestion_admin")
+     */
+    public function gestion_admin(): Response
+    {
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
         
+        return $this->render('admin/gestion_admin.html.twig', [
+            'products' => $products,
+            'current_page' => 'Gestion administrative',
+        ]);
+    }
+
+    /**
+     * @Route("/history", name="history")
+     */
+    public function history(): Response
+    {
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        
+        return $this->render('admin/history.html.twig', [
+            'products' => $products,
+            'current_page' => 'Historique',
+        ]);
+    }
+
+    /**
+     * @Route("/galery", name="galery")
+     */
+    public function galery(): Response
+    {
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        
+        return $this->render('admin/galery.html.twig', [
+            'products' => $products,
+            'current_page' => 'Galerie',
+        ]);
     }
 
     /**

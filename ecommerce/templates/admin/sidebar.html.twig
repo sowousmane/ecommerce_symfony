@@ -1,9 +1,47 @@
 <div class="sidebar col-sm-3">
-    <div style="text-align: right; cursor: pointer; display: none;" class="sidebar-close"><i class="fa fa-window-close" aria-hidden="true"></i></div>
-    {# <div style="width: 68%; background-color: white; padding: 11% 13%; margin: 50px 12%; border-radius: 15px;" 
-        class="text-center shadow-sm bg-white"><h2>Admin</h2>
-    </div> #}
-    <div class="menu">
-        
+    <div style="text-align: right; cursor: pointer; display: none;" class="sidebar-close">
+        <i style="margin: 10px;" class="fa fa-window-close" aria-hidden="true"></i>
+    </div>
+    <div style="magin: 0; padding: 0;" class="sidebar-content">
+        <div style="width: 68%; background-color: white; padding: 11% 13%; margin: 50px 12%; border-radius: 15px;" 
+            class="text-center _logo shadow p-4 bg-white">
+            <strong>
+                <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+            </strong>
+        </div>
+        <div class="menu">
+            <div class="item">
+                <a class="a-menu" href="{{ path("admin") }}">
+                    <i style="margin-right: 25px;" class="fas fa-home"></i>Dashboard
+                </a>
+                <span><i class="rotate rotate-dashboard far fa-angle-right"></i></span>
+                <div class="dashboard-dive">
+                    <a {# href="{{ path("#") }}" #}>item</a>
+                    <a {# href="{{ path("#") }}" #}>item</a>
+                    <a {# href="{{ path("#") }}" #}>item</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="a-menu" href="{{ path("gestion_admin") }}">
+                    <i style="margin-right: 23px;" class="fas fa-user-cog"></i>Gestions
+                </a>
+                <span><i class="rotate rotate-gestions far fa-angle-right"></i></span>
+                <div class="gestions-dive">
+                    <a {# href="{{ path("#") }}" #}>item</a>
+                    <a {# href="{{ path("#") }}" #}>item</a>
+                    <a {# href="{{ path("#") }}" #}>item</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="a-menu" href="{{ path("history") }}">
+                    <i style="margin-right: 25px;" class="fas fa-history"></i>Historique
+                </a>
+            </div>
+            <div class="item">
+                <a class="a-menu" href="{{ path("galery") }}">
+                    <i style="margin-right: 25px;" class="fas fa-image"></i>Galerie
+                </a>
+            </div>
+        </div>
     </div>
 </div>
