@@ -1,3 +1,6 @@
+#desktop{
+    background-color: rgb(238, 238, 238);
+}
 .cart {
     background-color: rgb(243, 154, 38);
     padding: 5%;
@@ -26,16 +29,6 @@
     margin-top: 1%;
 }
 
-.img-user {
-    width: 40px;
-    height: 40px;
-}
-
-.first_div {
-    margin-top: 1%;
-    margin-right: 3%;
-    margin-left: 3%;
-}
 
 .fa:hover {
     opacity: 0.7;
@@ -98,6 +91,7 @@ ul#mobile {
 }
 
 /*mobile part*/
+
 div.mobile {
     display: none
 }
@@ -111,7 +105,26 @@ div.mobile {
         display: none
     }
 }
+.mobile .cart_mobile{
+    display: none;
+}
+@media (max-width: 400px) {
+    .mobile .search_mobile,  .mobile .logo_mobile , .mobile .image_ronde_mobile{
+        width: 20px;
+        height: 20px;
+    }
+    div.mobile.cart_mobile{
 
+        display: none;
+    }
+    .mobile .logo_mobile{
+
+        margin-top: 10px;
+    }
+   
+     
+ }
+ 
 /* search */
 .search_mobile {
     width: 50px;
@@ -152,3 +165,48 @@ div.mobile {
     margin-top: 2%;
 }
 
+/*=============================================================*/
+
+.img-user {
+    width: 40px;
+    height: 40px;
+}
+
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    text-align: center;
+    margin-top: 60%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+
+.dropdown-content a:hover {
+    background-color: rgb(243, 154, 38);
+    color: black;
+}

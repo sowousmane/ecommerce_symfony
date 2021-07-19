@@ -1,6 +1,8 @@
-<ul class="first_div" id="desktop" >
+    <link rel="stylesheet" href="{{ asset('css/style_menu.css') }}" />
+
+<ul class="first_div container-fluid" id="desktop" style="position:fixed; z-index: 9999 !important;">
     <li>
-        <a class="" href="#">
+        <a class="" href="{{ path("home") }}">
             <img class="logo_desktop" src="{{ asset("images/logo_300.jpg") }}" alt="Symfony!" />
         </a>
     </li>
@@ -12,10 +14,23 @@
             <button class=" search" style="border: solid rgb(243, 154, 38); " type="submit">Chercher</button>
         </form>
     </li>
-    <li><a href="#" class="btn user pull-right">
-        <img class=" img-user" src="{{ asset("images/user-shape.png") }}" alt="user_mobile!" />                
-             
-            <br>User
+    <li>
+        <a href="#" class="btn user pull-right">
+            <div class="dropdown">
+                <img class=" img-user" src="{{ asset("images/user-shape.png") }}" alt="user_mobile!" /> <br>               
+                <span class="dropbtn">Compte</span>
+                <div class="dropdown-content">
+                   {% if users %}
+                        <ul>
+                            {% for user in users %}
+                                <li>{{ user.username|e }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <a href="{{ path("app_login") }}" class="btn">Connection</a>
+                    <a href="#" class="btn">Inscription</a>
+                </div>
+            </div>
         </a>
     </li>
     <li><a class=" pull-right cart" aria-current="page" href="#">
@@ -27,7 +42,7 @@
 </ul>
 
 
-<div class="mobile  ">
+<div class="mobile">
     <div class="row ">
         <div class="col-3">
             <img class="logo_mobile" src="{{ asset("images/logo_normal.jpg") }}" alt="logo_mobile!" />
@@ -42,12 +57,22 @@
                 <img class="image_ronde_mobile" src="{{ asset("images/user.png") }}" alt="user_mobile!" />                
             </a>
         </div>
-        <div class="col-4 cart_mobile">
+        <div class="col-4 cart_mobile" style=" display: block;">
             <a href="#" class="btn cart_mobile_a">
-                <span class="glyphicon glyphicon-shopping-cart"></span>
+            <img class="" src="{{ asset("images/shopping-cart.png") }}" alt="chariot!" style="width:20px; height:20px;"/> 
                 <p> 0 items - 0.00 €</p>
                 <p> My Cart</p>
             </a>
+            
         </div>
+         <div class="col-4 cart_hide" style="width:20px; height:20px; display: none;">
+            
+            <a href="#" class="btn ">
+                <img class="" src="{{ asset("images/shopping-cart.png") }}" alt="chariot!" style="width:20px; height:20px;"/>        
+            </a>
+        </div>
+
+
+  
     </div>
 </div>

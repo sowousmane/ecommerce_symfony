@@ -1,22 +1,18 @@
+window.onscroll = function () { myFunction() };
 
-/*var id_nav = getElementById("ul_nav_second");
-function myFunction(x) {
-  if (x.matches) { // If media query matches
+//var header = document.getElementById("myHeader");
+var side_div = document.getElementById("firstd_id");
+var foter_id_ = document.getElementById("footer_id");
 
-    id_nav.style.color = 'red';
-    id_nav.style.backgroundColor = 'yellow';
-    id_nav.style.fontSize = '12px';
-  } else {
-   document.body.style.backgroundColor = "white";
-  }
+var foot__ = foter_id_.scrollHeight - foter_id_.scrollTop ; //hauter du footer
+var Y = foot__ +400; // position du scroll
+
+function myFunction() {
+    console.log(" quand je scroll fais ceci ==>  " + Y);
+    console.log(" footer height ===> " + foot__);
+    if (window.scrollY > Y) {
+        side_div.classList.add("sticky");
+    } else {
+        side_div.classList.remove("sticky");
+    }
 }
-
-var x = window.matchMedia("(max-width: 700px)")
-myFunction(x) // Call listener function at run time
-x.addListener(myFunction) // Attach listener function on state changes*/
-
-/*
-document.getElementById("MyElement").className =
-   document.getElementById("MyElement").className.replace
-      ( /(?:^|\s)MyClass(?!\S)/g , '' )
-*/
