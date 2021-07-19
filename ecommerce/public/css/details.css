@@ -1,0 +1,123 @@
+/* top | right | bottom | left *//* vertical | horizontal */
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+.back a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+.back span {
+    font-size: 50px;
+}
+.details_first{
+    margin: 50px;
+}
+.buy_btn strong{
+    font-size: 30px;
+}
+.buy_btn {
+    height: 60px;
+    width:  200px;
+    color: #020202;
+    background-color: rgb(243, 154, 38);
+    padding: 0px 20px 0px 0px;
+
+}
+.details_article .buy_btn{
+    text-decoration: none;
+}
+
+.bottom_details{
+    width: 100%;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 10px;
+    padding-bottom: 60px;
+    border: 0.5mm ridge rgba(189, 176, 189, 0.6);
+}
+.btm_details{
+    display: none;
+    width: 100%;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 10px;
+    padding-bottom: 60px;
+    border: 0.5mm ridge rgba(189, 176, 189, 0.6);
+}
+.like i{
+    font-size: 30px;
+
+}
+.bottom_details strong{
+    font-size: 20px;
+    font-weight: bold;
+}
+.test strong {
+
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 100px;
+}
+.details_pic{
+    margin-left: 10px;
+    margin-top: -10px;
+}
+.details_div{
+    background-color: rgb(221, 221, 221);
+    height: 350px;
+    padding-left: 40px;
+    position: fixed;
+    margin-left: 60%;
+    margin-top: 5%;
+    
+}
+.class_to_fix{
+    display: none;
+}
+.class_to_delete{
+    display: block;
+}
+
+
+
+@media(max-width : 1700px) {
+
+    .details_div{
+        height: auto;
+    } 
+    .bottom_details{
+        width: 100%;
+        height: 50px;
+        margin-top: 10px;
+        padding-bottom: 60px;
+    }
+    .bottom_details strong{
+        font-size: 10px;
+    }
+    .details_tohide{
+        display: block;
+        font-size: 10em;
+    }
+    .test strong {
+        font-size: 1em;
+        margin-left: 25px;
+    }
+}
+.class_details_product  h2{
+    font-weight: bold;
+}
+.class_details_product p {
+    font-family: cursive;
+    font-size: 20px;
+    padding: 50px;
+
+}
+.class_details_product pre{
+    border: none;
+    background-color: white;
+    font-size: 20px;
+    font-family: cursive;
+    padding-left: 50px;
+}

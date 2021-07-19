@@ -1,43 +1,84 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
-  <div class="row coucou" style="margin-top:217px; margin-bottom:20px;">
-    <div class="col-md-3 firstd" >
-      {% include 'home/sidebar.html.twig' %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+        
+   <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+</head>
+
+<body>
+
+    <div class="row" style="margin-top:217px; margin-bottom:20px;">
+    <div class="col-md-3 firstd" id="firstd_id">
+        {% include 'home/sidebar.html.twig' %}
     </div>
-    <div class="col-md-9 firstdo" >
-          <ul class='row articles'>                 
-                {% for i in 0..10 %}
-                    <div class="col-md-3">
-                        <li>
-                            <div class="cardi" >
-                                <img src="{{ asset("images/img_avatar2.png") }}" alt="Avatar" style="width:100%" />
-                                <div class="foot_article">
-                                    <h2>une femme</h2>
-                                    <h3>5€</h2>
-                                    <div class="btn-add">
-                                        <button type="submit" class="btn "> 
-                                            <span class="fa fa-plus"></span>
-                                            <strong>ajouter</strong>
-                                            
-                                        </button>
-                                        <button type="submit" class="btn pull-right"> 
-                                            <i class="fa fa-heart"></i>
-                                            
-                                        </button>
-                                        
-                                    </div>
-                                </div>
+    <div class="col-md-9 firstdo" id="firstdo_id">
+        <ul class='row articles'>
+            {% for i in 0..15 %}
+            <div class="col-md-3">
+                <li>
+                    <div class="cardi">
+                        <a href="{{ path("Details") }}">
+                            <img src="{{ asset("images/img_avatar2.png ") }}" alt="Avatar" style="width:100%" />
+                            <div class="foot_article">
+                                <h2>Asperges blanches ou violettes</h2>
+                                <h5>la botte de 500g</h5>
+                                <h5>5€ /kilogramme</h5>
+                                <h3>origine: France</h2>
+                                    <h2>2,50€</h2>
                             </div>
-                        </li>
+                        </a>
+
+                        <div class="btn-add">
+                            <button type="submit" class="btn ">
+                                <span class="fa fa-plus"></span>
+                                <strong>ajouter</strong>
+                            </button>
+                            <button type="submit" class="btn pull-right">
+                                <i class="fa fa-heart"></i>
+                            </button>
+
+                        </div>
                     </div>
-                {% endfor %}
-            </ul>
+                </li>
+            </div>
+            {% endfor %}
+        </ul>
     </div>
-    
-  
-  </div>
+
+
+</div>
+
+    <script>
+        var second_div_right = document.getElementById("firstdo_id");
+        var foot__ = second_div_right.scrollHeight - second_div_right.scrollTop ; //hauter du des produits
+        var Y = foot__ -1000; // position du scroll
+        console.log(" y =  " + Y);
+        $(window).scroll(function () {
+            console.log("scrollY   " + window.scrollY)
+            if (window.scrollY > Y) {
+                 $('#firstd_id').addClass("sticky");
+                 $('#firstdo_id').addClass("resize_div");
+
+            } else {
+             $('#firstd_id').removeClass("sticky");
+                 $('#firstdo_id').removeClass("resize_div");
+            }
+            
+        });
+    </script>
+
+</body>
+
+</html>
+{% block javascripts %}
+
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+{% endblock %}
 
 {% endblock %}

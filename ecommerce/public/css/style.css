@@ -53,6 +53,13 @@
     }
     
 }
+.articles a{
+    color: black;
+}
+.articles a:hover {
+    color: black;
+    text-decoration: none;
+}
 .cardi {
     width: 100%;
     height: auto;
@@ -72,16 +79,23 @@
 .btn-add {
     background-color: rgb(243, 154, 38);
     height: 50px;
-    width: 100%;
-    padding: 10px;
+    width: 100%;/* top | right | bottom | left *//* vertical | horizontal */
+    padding: 0px 10px 50px 20px ;
 }
 
 .btn-add strong,
-.btn-add h4 {
-    font-size: 15px;
+.btn-add i , .btn-add .fa-heart, .btn-add nav{
+    font-size: 25px;
 }
 
 .btn-add .fa-heart {
     color: rgb(255, 95, 95);
-    font-size: 15px;
+}
+
+
+.sticky {
+    display: none;
+}
+.resize_div{
+    margin-left: 300px;
 }

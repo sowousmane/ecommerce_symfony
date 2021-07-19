@@ -88,6 +88,21 @@ class HomeController extends AbstractController
         }
     }
 
+     /**
+     * @Route("/Details", name="Details")
+     */
+    public function Details(): Response
+    {
+        try{
+            return $this->render('home/Details.html.twig', [
+                'controller_name' => 'HomeController',
+            ]);
+        }
+        catch(\Exception $e){
+            $this->addFlash('danger', $e->getMessage());
+        }
+    }
+
     /**
     * @Route("/Maison", name="Maison")
     */
