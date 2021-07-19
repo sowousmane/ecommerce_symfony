@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600|Open+Sans:600&display=swap');
+
+.sidebar_home {
+    position: fixed;
+    width: 240px;
+    background: #adabab;
+    transition: all .5s ease;
+    margin-left: 20px;
+    
+}
+
+.sidebar_home header {
+    font-size: 28px;
+    color: black;
+    line-height: 70px;
+    text-align: center;
+    background: #adabab;
+    user-select: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sidebar_home a {
+    display: block;
+    height: 80px;
+    width: 100%;
+    color: black;
+    line-height: 50px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    border-left: 5px solid transparent;
+    font-family: 'Open Sans', sans-serif;
+    transition: all .5s ease;
+}
+
+.sidebar_home a.active,
+.sidebar_home a:hover {
+    border-left: 5px solid #b93632;
+    color: #020202;
+    background-color: rgb(243, 154, 38);;
+}
+
+.sidebar_home a span {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}  
+
+
+#check:checked~.sidebar_home {
+    left: 0;
+}
+
+#check:checked~label #btn {
+    margin-left: 245px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#check:checked~label  {
+    margin-left: 245px;
+    opacity: 1;
+    visibility: visible;
+}
+
+@media(max-width : 1000px) {
+    
+    .sidebar_home {
+        width: 100px;
+        text-align: center;
+        position: relative;
+    }
+
+    .sidebar_home header{
+        display: none;
+    }
+
+    .sidebar_home span {
+        position: absolute;
+        margin-left: 23px;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .sidebar_home a {
+        height: 80px;
+        padding-top: 9px;
+    }
+    .sidebar_home a img{
+        margin-left: -25px;
+    }
+
+    
+
+     a:hover {
+        width: 250px;
+    
+    }
+
+    .sidebar_home a:hover span {
+        opacity: 1;
+        visibility: visible;
+    }
+}

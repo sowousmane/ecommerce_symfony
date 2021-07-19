@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{ asset('css/nav-style.css') }}" />
+
+</head>
+
+<body>
+
+  <div class="nav_bar_div">
+  
+    <div class="row nav_bar">
+      <ul class="nav-menu">
+        <div class="col-sm">  <li class="nav-item">  <a href="{{ path("alimentation") }}" class="nav-link" >Féculents</a>  </li></div>
+        <div class="col-sm">  <li class="nav-item"> <a href="{{ path("Hygiene") }}" class="nav-link" >Fruits</a> </li>  </div>      
+        <div class="col-sm">  <li class="nav-item"> <a href="{{ path("Maison") }}" class="nav-link" >Légumes</a> </li>    </div>      
+        <div class="col-sm">  <li class="nav-item"> <a href="{{ path("Hygiene") }}" class="nav-link" >Cuisine</a> </li>    </div>              
+        <div class="col-sm">  <li class="nav-item"> <a href="{{ path("Hygiene") }}" class="nav-link" >Hygiène</a> </li>    </div>            
+        <div class="col-sm">  <li class="nav-item"> <a href="{{ path("Forum") }}" class="nav-link" >Forum</a> </li>    </div>             
+        <div class="col-sm">  <li class="nav-item"> <a href="{{ path("Contact") }}" class="nav-link" >Contact</a> </li>    </div> 
+        
+      </ul>
+      <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script>
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-menu");
+const navLink = document.querySelectorAll(".nav-link");
+
+hamburger.addEventListener("click", mobileMenu);
+navLink.forEach(n => n.addEventListener("click", closeMenu));
+
+function mobileMenu() {
+    hamburger.classList.toggle("active");
+    navMenu.classList.toggle("active");
+}
+
+function closeMenu() {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+}
+</script>
+</html>
