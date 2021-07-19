@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau client{% endblock %}
+
+{% block body %}
+
+{{ form(clientForm) }}
+
+<form method="POST">
+    <input type="hidden" name="id" value="client">
+    <a href="{{ path("app_login") }}">
+        <button type="submit">Mon profil</button>
+    </a>
+</form>
+
+{% endblock %}

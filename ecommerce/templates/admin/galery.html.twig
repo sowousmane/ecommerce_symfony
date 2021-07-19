@@ -1,6 +1,6 @@
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}Admin{% endblock %}
+{% block title %}Galerie{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,15 @@
     <div style="padding: 0 50px;" class="admin-content col-sm-9">
     {% include 'admin/header.html.twig' %}
         <div style="width: 100%; background-color: white; padding: 40px;" class="admin_content shadow">
-            
+            <div class="text-center">
+                {% for product in products %}
+
+                <div class="picture">
+                    <img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}">
+                </div>
+
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

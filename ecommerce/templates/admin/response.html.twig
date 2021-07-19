@@ -9,7 +9,10 @@
     <div style="padding: 0 50px;" class="admin-content col-sm-9">
     {% include 'admin/header.html.twig' %}
         <div style="width: 100%; background-color: white; padding: 40px;" class="admin_content shadow">
-            
+            <div class="{{ class }}" role="alert">
+                {{ response }}
+            </div>
+            <a href="{{ path("gestion_admin") }}">Retourner à la page d'administration</a>
         </div>
     </div>
 </div>

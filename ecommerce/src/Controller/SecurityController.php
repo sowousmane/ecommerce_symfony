@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\AppService;
 use App\Entity\User;
 use App\Form\ResetPasswordFormType;
 use App\Repository\UserRepository;
@@ -24,7 +25,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('admin');
+            return $this->redirectToRoute('home');
         }
 
         // get the login error if there is one
@@ -32,7 +33,10 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('admin/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername, 
+            'error' => $error
+        ]);
     }
 
     /**
@@ -76,10 +80,13 @@ class SecurityController extends AbstractController
             $url = $this->generateUrl('reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
             
             $message = (new \Swift_Message('Mot de passe oublié'))
-                ->setFrom('hassane.toiwilou@gmail.com')
+                ->setFrom('ecommerce.htos@gmail.com')
                 ->setTo($user->getEmail())
                 ->setBody(
-                    "Bonjour, ça marche => " . $url
+                    'Bonjour, 
+
+Vous venez de demander une reinitialisation de votre mot de passe.
+Cliquez sur ce lien ' . $url . ' pour continuer.'
                 )
             ;
 
@@ -89,7 +96,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('reset_password_email');
         }
 
-        return $this->render('admin/resetPasswordEmail.html.twig', [
+        return $this->render('security/resetPasswordEmail.html.twig', [
             'emailForm' => $form->createView(),
         ]);
             
@@ -124,7 +131,7 @@ class SecurityController extends AbstractController
             }
         }
 
-        return $this->render('admin/resetPassword.html.twig', [
+        return $this->render('security/resetPassword.html.twig', [
             'token' => $token,
         ]);
     }
