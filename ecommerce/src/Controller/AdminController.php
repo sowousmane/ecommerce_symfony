@@ -62,7 +62,7 @@ class AdminController extends AbstractController
         
         return $this->render('admin/gestion_admin.html.twig', [
             'products' => $products,
-            'current_page' => 'Gestion administrative',
+            'current_page' => 'Gestions administratives',
         ]);
     }
 
@@ -71,10 +71,9 @@ class AdminController extends AbstractController
      */
     public function history(): Response
     {
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        
         
         return $this->render('admin/history.html.twig', [
-            'products' => $products,
             'current_page' => 'Historique',
         ]);
     }
@@ -128,8 +127,46 @@ class AdminController extends AbstractController
             ]);
         }
         catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
+            return $this->render('admin/response.html.twig', [
+                'response' =>  $e->getMessage(),
+                'current_page' => 'Réponse',
+                'class' => 'alert alert-danger',
+            ]);
         }
         
+    }
+
+    /**
+     * @Route("/delete_product", name="delete_product")
+     */
+    public function deleteProduct(): Response
+    {
+        try{
+            $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => 11]);
+
+            if(!$product){
+                return $this->render('admin/response.html.twig', [
+                    'response' => 'Le produit n\'existe pas',
+                    'current_page' => 'Réponse',
+                    'class' => 'alert alert-danger',
+                ]);
+            }
+
+            $doctrine = $this->getDoctrine()->getManager();
+            $doctrine->remove($product);
+            //$doctrine->flush();
+
+            return $this->render('admin/response.html.twig', [
+                'response' => 'Produit supprimé !',
+                'current_page' => 'Réponse',
+                'class' => 'alert alert-success',
+            ]);
+        } catch (\Exception $e) {
+            return $this->render('admin/response.html.twig', [
+                'response' =>  $e->getMessage(),
+                'current_page' => 'Réponse',
+                'class' => 'alert alert-danger',
+            ]);
+        }
     }
 }
