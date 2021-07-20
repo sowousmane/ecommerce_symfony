@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html.twig' %}
 
-<head>
-    <meta charset="utf-8">
-    <!-- <title>Responsive Sidebar Menu</title> -->
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+{% block title %}SidebarHomePage{% endblock %}
 
+{% block body %}
     <link rel="stylesheet" href="{{ asset('css/sidebar_style.css') }}" />
-</head>
-<body>
     
     <div class="sidebar_home">
         <header>catégories</header>
@@ -45,6 +38,5 @@
             <span>Contact</span>
         </a>
     </div>
-</body>
 
-</html>
+{% endblock %}

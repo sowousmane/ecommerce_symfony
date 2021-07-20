@@ -1,11 +1,11 @@
-    <link rel="stylesheet" href="{{ asset('css/style_menu.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/style_menu.css') }}" />
 
 <ul class="first_div container-fluid" id="desktop" style="position:fixed; z-index: 9999 !important;">
     <li>
         <a class="" href="{{ path("home") }}">
             <img class="logo_desktop" src="{{ asset("images/logo_300.jpg") }}" alt="Symfony!" />
         </a>
-    </li> {{client.firstname}}
+    </li> 
     <li>
         <form class="d-flex">
             <input class="form-control search_input"
@@ -16,15 +16,7 @@
     </li>
     <li>
         <a href="#" class="btn user pull-right">
-            <div class="dropdown">
-                <img class=" img-user" src="{{ asset("images/user-shape.png") }}" alt="user_mobile!" /> <br>               
-                <span class="dropbtn">Compte</span>
-                <div class="dropdown-content">
-                   
-                    <a href="{{ path("app_login") }}" class="btn">Connection</a>
-                    <a href="#" class="btn">Inscription</a>
-                </div>
-            </div>
+            
         </a>
     </li>
     <li><a class=" pull-right cart" aria-current="page" href="#">

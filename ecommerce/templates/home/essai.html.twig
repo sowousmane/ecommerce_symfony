@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<link rel="stylesheet" href="{{ asset('css/login_style.css') }}" />
+
+<body>
+  <div class="container">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="true">compte <span class="caret"></span></button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#connectionModal">
+            Login
+        </button></li>
+        <li><a href="#" class="btn-round" data-toggle="modal" data-target="#connectionModal">connection</a></li>
+        <li><a href="#" class="btn-round" data-toggle="modal" data-target="#inscriptionModal">inscription</a></li>
+    </div>
+  </div>
+
+  <div class="modal fade" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-title text-center">
+            <h4>connection</h4>
+          </div>
+          <div class="d-flex flex-column text-center">
+            <form>
+              <div class="form-group">
+                <input type="email" class="form-control" id="email1" placeholder="Your email address...">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="password1" placeholder="Your password...">
+              </div>
+              <button type="button" class="btn btn-info btn-block btn-round">connection</button>
+            </form>
+
+            <div class="text-center text-muted delimiter">connectez-vous avec vos réseaux sociaux</div>
+              <div class="d-flex justify-content-center social-buttons">
+                <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top"
+                  title="Twitter">
+                  <i class="fab fa-twitter"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top"
+                  title="Facebook">
+                  <i class="fab fa-facebook"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top"
+                  title="Linkedin">
+                  <i class="fab fa-linkedin"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <div class="signup-section">Pas de compte? <a href="#a" class="text-info"> Inscrivez-vous</a>.</div>
+      </div>
+  </div>
+  <div class="modal fade" id="inscriptionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-title text-center">
+            <h4>inscription</h4>
+          </div>
+          <div class="d-flex flex-column text-center">
+            <form>
+              <div class="form-group">
+                <input type="email" class="form-control" id="email1" placeholder="Your email address...">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="password1" placeholder="Your password...">
+              </div>
+              <button type="button" class="btn btn-info btn-block btn-round">inscription</button>
+            </form>
+
+            <div class="text-center text-muted delimiter">créer un compte à partir de vos réseaux sociaux</div>
+              <div class="d-flex justify-content-center social-buttons">
+                <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top"
+                  title="Twitter">
+                  <i class="fab fa-twitter"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top"
+                  title="Facebook">
+                  <i class="fab fa-facebook"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top"
+                  title="Linkedin">
+                  <i class="fab fa-linkedin"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <div class="signup-section">vous aves un compte? <a href="#a" class="text-info"> connectez-vous</a>.</div>
+      </div>
+  </div>
+</body>
+<script>
+  $(document).ready(function () {
+    $('#inscriptionModal').modal('show');
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+  });
+</script>
+{% block javascripts %}
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+{% endblock %}
+
+</html>

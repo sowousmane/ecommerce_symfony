@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html.twig' %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% block title %}navbarHomePage{% endblock %}
+
+{% block body %}
   <link rel="stylesheet" href="{{ asset('css/nav-style.css') }}" />
-
-</head>
-
-<body>
 
   <div class="nav_bar_div">
   
@@ -33,24 +25,24 @@
       </div>
     </div>
   </div>
+  {% block javascripts %}        
+    <script>
+      const hamburger = document.querySelector(".hamburger");
+      const navMenu = document.querySelector(".nav-menu");
+      const navLink = document.querySelectorAll(".nav-link");
 
-</body>
-<script>
-const hamburger = document.querySelector(".hamburger");
-const navMenu = document.querySelector(".nav-menu");
-const navLink = document.querySelectorAll(".nav-link");
+      hamburger.addEventListener("click", mobileMenu);
+      navLink.forEach(n => n.addEventListener("click", closeMenu));
 
-hamburger.addEventListener("click", mobileMenu);
-navLink.forEach(n => n.addEventListener("click", closeMenu));
+      function mobileMenu() {
+          hamburger.classList.toggle("active");
+          navMenu.classList.toggle("active");
+      }
 
-function mobileMenu() {
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
-}
-
-function closeMenu() {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
-}
-</script>
-</html>
+      function closeMenu() {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+      }
+    </script>
+  {% endblock %}
+{% endblock %}
