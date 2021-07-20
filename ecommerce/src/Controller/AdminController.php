@@ -60,7 +60,7 @@ class AdminController extends AbstractController
     {
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
         
-        return $this->render('admin/gestion_admin.html.twig', [
+        return $this->render('admin/gestionAdmin.html.twig', [
             'products' => $products,
             'current_page' => 'Gestions administratives',
         ]);

@@ -1,18 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-        
-   <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-</head>
-
-<body>
-
     <div class="row" style="margin-top:217px; margin-bottom:20px;">
     <div class="col-md-3 firstd" id="firstd_id">
         {% include 'home/sidebar.html.twig' %}
@@ -72,13 +60,4 @@
             
         });
     </script>
-
-</body>
-
-</html>
-{% block javascripts %}
-
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-{% endblock %}
-
 {% endblock %}
