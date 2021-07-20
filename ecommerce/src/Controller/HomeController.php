@@ -52,7 +52,13 @@ class HomeController extends AbstractController
             $this->addFlash('danger', $e->getMessage());
         }
     }
-
+     /**
+     * @Route("/login_test", name="login_test")
+     */
+    public function login_test(): Response
+    {
+        return $this->render('admin/login_essai.html.twig');
+    }
     /**
      * @Route("/panier", name="panier")
      */
@@ -94,14 +100,7 @@ class HomeController extends AbstractController
             $this->addFlash('danger', $e->getMessage());
         }
     }
-    /**
-     * @Route("/", name="home")
-     */
-    public function home(): Response
-    {
-        return $this->render('home/home.html.twig');
-    }
-    
+  
     
     
      /**
