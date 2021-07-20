@@ -19,8 +19,13 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(Request $request, AppService $appService): Response
+    public function home(): Response
     {   
+        $client = null;
+        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
+            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+        }
+        
         try{
             $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
             $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
@@ -28,6 +33,7 @@ class HomeController extends AbstractController
             return $this->render('home/home.html.twig', [
                 'products' => $products,
                 'categories' => $categories,
+                'client' => $client,
             ]);
         }
         catch(\Exception $e){
@@ -83,27 +89,36 @@ class HomeController extends AbstractController
      * @Route("/create_client", name="create_client")
      */
     public function create_client(Request $request, 
-        UserPasswordEncoderInterface $passwordEncoder): Response
+    UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        try{
-            return $this->render('home/home.html.twig', [
-                'controller_name' => 'HomeController',
-            ]);
+        $client = new Client();
+        $user = new User();
+        $form = $this->createForm(CreateClientFormType::class, $client);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $user->setEmail($client->getEmail());
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $client->getPassword()
+                )
+            );
+            $user->setRoles(['ROLE_USER']);
+            $doctrine = $this->getDoctrine()->getManager();
+            $doctrine->persist($client);
+            $doctrine->persist($user);
+            $doctrine->flush();
+
+            $this->addFlash('message', 'Le client a été créé avec succès !');
+            return $this->redirectToRoute('app_login');
         }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
+        
+        return $this->render('client/createClient.html.twig', [
+            'clientForm' => $form->createView(),
+        ]);
     }
-    /**
-     * @Route("/", name="home")
-     */
-    public function home(): Response
-    {
-        return $this->render('home/home.html.twig');
-    }
-    
-    
-    
+
      /**
      * @Route("/alimentation", name="alimentation")
      */
