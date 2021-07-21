@@ -1,0 +1,85 @@
+body{
+    background-color: rgb(231, 229, 229);
+    text-align: center;
+  
+  }
+  .email-reset-password{
+    margin:auto ;
+    margin-top: 5%; 
+    width: 30%;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    padding: 3%;
+  }
+
+
+._logo{
+    width: auto; 
+    padding: 5% 3%; 
+    margin: 0px 12%;
+  }
+  ._logo strong{
+    font-size: 50px;
+    
+  }
+  ._logo a{
+    text-decoration: none;
+    color: black;
+  }
+
+.input-reset-email{
+    height: 40px;
+    width: 100%;
+}
+.email-reset-password h3{
+    text-align: left;
+    padding-bottom: 15px;
+}
+.email-reset-password h4{
+    text-align: justify;
+    padding-bottom: 15px;
+}
+::placeholder {
+    font-size: 1.5em;
+  }
+.retour-connexion{
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+
+}
+.email-reset-password a:hover{
+    text-decoration: none;
+}
+.btn-reset-email{
+    height: 40px;
+    background-color: rgb(243, 154, 38);
+    margin-top: 1.5%;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 1607px) {
+    
+    .email-reset-password{
+      width: 500px;
+    }
+    
+  }
+  @media only screen and (max-width: 600px) {
+     
+    .email-reset-password{
+      width: 300px;
+    }
+    ._logo{
+       margin: 10px;
+        
+      }
+      ._logo strong{
+        font-size: 40px;
+        
+      }
+    
+  }
+  

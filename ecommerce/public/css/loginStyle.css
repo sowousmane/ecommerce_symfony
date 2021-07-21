@@ -1,0 +1,98 @@
+body{
+  background-color: rgb(231, 229, 229);
+  text-align: center;
+
+}
+.loginDiv{
+  margin:auto ;
+  margin-top: 5%;
+  text-align: center;
+  width: 30%;
+  background-color: rgb(255, 255, 255);
+  padding: 3%;
+  padding-top: 0;
+  height: auto;
+}
+.loginDiv input{
+  margin-bottom:5% ;
+}
+.loginDiv h1{
+  text-align: left;
+}
+#inputPassword, #inputEmail{
+  height: 50px;
+}
+.btn-connexion{
+  height: auto;
+  background-color: rgb(243, 154, 38);
+  margin-top: 1.5%;
+  width: 100%;
+}
+.loginDiv a:hover{
+  text-decoration: none;
+}
+
+/* top | right | bottom | left *//* vertical | horizontal */
+
+._logo{
+  width: auto; 
+  padding: 5% 3%; 
+  margin: 0px 12%;
+}
+._logo strong{
+  font-size: 50px;
+  
+}
+._logo a{
+  text-decoration: none;
+  color: black;
+}
+
+.btn-inscription {
+  width: 100%;
+  height: auto;
+  border: solid rgb(243, 154, 38);
+  color: black;
+}
+.new-client{
+  font-weight: bold;
+}
+.new-client-div{
+  margin:auto ;
+  margin-top: -1%;
+  text-align: center;
+  width: 30%;
+  background-color: rgb(248, 248, 248);
+  padding: 3%;
+  padding-top: 0;
+  height: auto;
+}
+::placeholder {
+  font-size: 1.5em;
+}
+
+@media only screen and (max-width: 1607px) {
+
+  .loginDiv, .new-client-div{
+    width: 500px;
+  }
+  
+}
+
+
+
+@media only screen and (max-width: 600px) {
+   
+  .loginDiv, .new-client-div{
+    width: 300px;
+  }
+  ._logo{
+     margin: 10px;
+      
+    }
+    ._logo strong{
+      font-size: 40px;
+      
+    }
+  
+}

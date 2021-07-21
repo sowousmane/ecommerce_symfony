@@ -13,9 +13,16 @@ class ResetPasswordFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('Envoyer', SubmitType::class)
-        ;
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'input-reset-email',
+                    'placeholder' => "Saisissez votre email....."
+                ]
+            ])
+            ->add('Envoyer', SubmitType::class , [
+                'attr' => [
+                    'class' => 'btn-reset-email'
+                   ]]) ;  
     }
 
     public function configureOptions(OptionsResolver $resolver)
