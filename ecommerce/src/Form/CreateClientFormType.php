@@ -17,13 +17,47 @@ class CreateClientFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('address', TextType::class)
-            ->add('phone', TelType::class)
-            ->add('password', PasswordType::class)
-            ->add('Enregistrer', SubmitType::class)
+            ->add('firstname', TextType::class, [
+                'attr' => [
+                    'class' => 'input-create-firstname',
+                    'placeholder' => "Prenom"
+                ]
+            ])
+            ->add('lastname', TextType::class, [
+                'attr' => [
+                    'class' => 'input-create-lastname',
+                    'placeholder' => "Nom"
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'input-create-email',
+                    'placeholder' => "E-mail"
+                ]
+            ])
+            ->add('address', TextType::class, [
+                'attr' => [
+                    'class' => 'input-create-adresse',
+                    'placeholder' => "Adresse"
+                ]
+            ])
+            ->add('phone', TelType::class, [
+                'attr' => [
+                    'class' => 'input-create-phone',
+                    'placeholder' => "N° de téléphone"
+                ]
+            ])
+            ->add('password', PasswordType::class, [
+                'attr' => [
+                    'class' => 'input-create-password',
+                    'placeholder' => "Mot de passe"
+                ]
+            ])
+            ->add('Enregistrer', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn-connexion btn-lg btn'
+                ]
+            ])
         ;
     }
 

@@ -1,0 +1,38 @@
+label{
+    display: none;
+}
+.loginDiv input{
+    width: 100%;
+    height: 40px;
+}
+.loginDiv {
+    margin-top: 10px;
+}
+  @media only screen and (max-width: 1607px) {
+    .loginDiv, .new-client-div{
+      width: 500px;
+    }
+  } 
+  @media only screen and (max-width: 600px) { 
+    .loginDiv, .new-client-div{
+      width: 300px;
+    }
+    ._logo{
+       margin: 10px;
+        
+      }
+      ._logo strong{
+        font-size: 40px;
+        
+      }
+  }
+.btn-inscription{
+    margin-bottom: -20px;
+}
+
+.btn-inscription a:hover{
+    
+}
+.btn-connexion{
+    margin-bottom: -20px;
+}
