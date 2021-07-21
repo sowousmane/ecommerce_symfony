@@ -41,6 +41,7 @@ body{
 }
 ::placeholder {
     font-size: 1.5em;
+    
   }
 .retour-connexion{
     font-size: 18px;
@@ -51,7 +52,7 @@ body{
 .email-reset-password a:hover{
     text-decoration: none;
 }
-.btn-reset-email{
+.btn-connexion {
     height: 40px;
     background-color: rgb(243, 154, 38);
     margin-top: 1.5%;

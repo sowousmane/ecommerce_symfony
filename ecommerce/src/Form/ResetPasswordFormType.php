@@ -21,7 +21,7 @@ class ResetPasswordFormType extends AbstractType
             ])
             ->add('Envoyer', SubmitType::class , [
                 'attr' => [
-                    'class' => 'btn-reset-email'
+                    'class' => 'btn-connexion btn-lg btn'
                    ]]) ;  
     }
 

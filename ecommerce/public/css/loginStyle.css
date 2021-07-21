@@ -16,7 +16,7 @@ body{
 .loginDiv input{
   margin-bottom:5% ;
 }
-.loginDiv h1{
+.loginDiv h1, .new-client-div h1{
   text-align: left;
 }
 #inputPassword, #inputEmail{
@@ -54,9 +54,12 @@ body{
   border: solid rgb(243, 154, 38);
   color: black;
 }
-.new-client{
-  font-weight: bold;
+ .btn-inscription:hover {
+  background-color: rgb(243, 154, 38);
+  color: black;
 }
+
+
 .new-client-div{
   margin:auto ;
   margin-top: -1%;
