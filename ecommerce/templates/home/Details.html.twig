@@ -1,17 +1,7 @@
  {% extends 'base.html.twig' %} {% block body %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/details.css') }}" />
-<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-</head>
 
-<body>
     <div class="row details_first" style="margin-top:217px; margin-bottom:20px;">
         <div class="back" style=" position: fixed; ">
             <a href="{{ path("home") }}"><span>←</span> RETOUR </a>
@@ -130,13 +120,5 @@
         });
     </script
 
-</body>
 
-</html>
-
-
-{% block javascripts %}
-
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-{% endblock %}
 {% endblock %}
