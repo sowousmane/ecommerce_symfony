@@ -13,10 +13,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\Length;
 
 class HomeController extends AbstractController
 {
-    /**
+     /**
      * @Route("/", name="home")
      */
     public function home(): Response
@@ -25,11 +26,11 @@ class HomeController extends AbstractController
         if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
             $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
         }
-        
+
         try{
             $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
             $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-            
+
             return $this->render('home/home.html.twig', [
                 'categories' => $categories,
                 'products' => $products,
@@ -40,7 +41,6 @@ class HomeController extends AbstractController
             $this->addFlash('danger', $e->getMessage());
         }
     }
-
     /**
      * @Route("/profile", name="profile")
      */
@@ -60,40 +60,33 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/_home", name="_home")
-     */
-    public function _home(): Response
-    {
-
-        return $this->render('home/_home.html.twig', [
-            
-        ]);
-    }
-
-    /**
      * @Route("/panier", name="panier")
      */
     public function panier(Request $request): Response
     {
-        $client = null;
-        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
-            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
-        }
-
         if($request->isMethod('POST')){
             return $this->redirectToRoute('payment');
         }
 
         return $this->render('home/panier.html.twig', [
-            'client' => $client,
+            
         ]);
     }
 
     /**
+     * @Route("/login_test", name="login_test")
+     */
+    public function login_test():Response
+    {
+        return $this->render('home/login_essai.html.twig');
+    }
+    /**
      * @Route("/payment", name="payment")
      */
-    public function payment(): Response
+    public function payment(Request $request): Response
     {
+        
+
         return $this->render('home/payment.html.twig', [
             
         ]);
@@ -133,33 +126,38 @@ class HomeController extends AbstractController
         ]);
     }
 
-     
-
-
+    
 
      /**
      * @Route("/details/{id}", name="details")
      */
     public function details($id): Response
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
-
         try{
+            $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
+            $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $product->getCategory()]);
+            $_products = [];
+            for($i = 0; $i< count($products); $i++)
+            {
+                if($product->getId() != $products[$i]->getId())
+                {
+                    $_products[$i] = $products[$i];
+                }
+            }
             return $this->render('home/details.html.twig', [
+                'controller_name' => 'HomeController',
                 'product' => $product,
+                'products' => $_products,
             ]);
         }
         catch(\Exception $e){
             $this->addFlash('danger', $e->getMessage());
         }
     }
+
   
-
- 
-
     /**
     * @Route("/forum", name="forum")
-
     */
     public function forum(): Response
     {
