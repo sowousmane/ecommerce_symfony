@@ -41,6 +41,19 @@ class HomeController extends AbstractController
             $this->addFlash('danger', $e->getMessage());
         }
     }
+
+    /**
+     * @Route("/products_by_category/{id}", name="products_by_category")
+     */
+    public function productsByCategory($id): Response
+    {
+        $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $id]);
+        
+        return $this->render('home/productsByCategory.html.twig', [
+            'products' => $products,
+        ]);
+    }
+    
     /**
      * @Route("/profile", name="profile")
      */
@@ -135,19 +148,29 @@ class HomeController extends AbstractController
     {
         try{
             $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
-            $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $product->getCategory()]);
-            $_products = [];
-            for($i = 0; $i< count($products); $i++)
+            $_products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $product->getCategory()]);
+            $__products = [];
+            $products = [];
+
+            foreach($_products as $_product)
             {
-                if($product->getId() != $products[$i]->getId())
+                if($_product->getId() != $id)
                 {
-                    $_products[$i] = $products[$i];
+                    array_push($__products, $_product);
                 }
             }
+
+            $index = array_rand($__products, 3);
+
+            foreach($index as $i)
+            {
+                array_push($products, $__products[$i]);
+            }
+
             return $this->render('home/details.html.twig', [
                 'controller_name' => 'HomeController',
                 'product' => $product,
-                'products' => $_products,
+                'products' => $products,
             ]);
         }
         catch(\Exception $e){
