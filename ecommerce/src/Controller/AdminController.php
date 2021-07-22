@@ -137,16 +137,16 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/delete_product", name="delete_product")
+     * @Route("/delete_product/{id}", name="delete_product")
      */
-    public function deleteProduct(): Response
+    public function deleteProduct($id): Response
     {
         try{
-            $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => 11]);
-
+            $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
+            
             if(!$product){
                 return $this->render('admin/response.html.twig', [
-                    'response' => 'Le produit n\'existe pas',
+                    'response' => 'Le produit dont l\'id est ' . $id . ' n\'existe pas',
                     'current_page' => 'Réponse',
                     'class' => 'alert alert-danger',
                 ]);
@@ -157,7 +157,7 @@ class AdminController extends AbstractController
             //$doctrine->flush();
 
             return $this->render('admin/response.html.twig', [
-                'response' => 'Produit supprimé !',
+                'response' => 'Le produit dont l\'id est ' . $id . ' a été supprimé !',
                 'current_page' => 'Réponse',
                 'class' => 'alert alert-success',
             ]);

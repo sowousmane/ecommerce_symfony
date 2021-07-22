@@ -44,22 +44,13 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
-    public function getRoute()
-    {
-        if(substr($_SERVER['REQUEST_URI'], 1) == 'panier'){
-            return 'payment';
-        } else {
-            return '/';
-        }
-    }
-
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
         
-        return new RedirectResponse($this->getRoute());
+        return new RedirectResponse('/');
     }
 
     protected function getLoginUrl(Request $request): string

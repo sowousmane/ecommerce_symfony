@@ -5,7 +5,7 @@
         <a class="" href="{{ path("home") }}">
             <img class="logo_desktop" src="{{ asset("images/logo_300.jpg") }}" alt="Symfony!" />
         </a>
-    </li> {{client.firstname}}
+    </li>
     <li>
         <form class="d-flex">
             <input class="form-control search_input"
@@ -18,7 +18,13 @@
         <a href="#" class="btn user pull-right">
             <div class="dropdown">
                 <img class=" img-user" src="{{ asset("images/user-shape.png") }}" alt="user_mobile!" /> <br>               
-                <span class="dropbtn">Compte</span>
+                <span class="dropbtn">
+                    {% if client is defined and client  != null %}
+                        {{ client.firstname }}
+                    {% else %}
+                        Compte
+                    {% endif %}
+                </span>
                 <div class="dropdown-content">
                    
                     <a href="{{ path("app_login") }}" class="btn">Connection</a>
