@@ -3,10 +3,10 @@
     <link rel="stylesheet" href="{{ asset('css/details.css') }}" />
 
     <div class="row details_first" style="margin-top:217px; margin-bottom:20px;">
-        <div class="back" style=" position: fixed; ">
-            <a href="{{ path("home") }}"><span>←</span> RETOUR </a>
-        </div>
+        
         <div class="col-sm-8 class_details_product" id="class_details_product_id">
+             <div class="retour">  <a href="{{ path("home") }}"><span>←</span> RETOUR </a> </div>
+       
             <img src="{{ asset("images/img_avatar2.png ") }}" alt="Avatar" style="width:450px; height:450px; margin-left:300px;  margin-top: 5%;" />
 
             <h2> Caractéristiques produit</h2>
@@ -34,7 +34,7 @@
                         <div class="col-md-3" >
                             <li>
                                 <div class="cardi">
-                                    <a href="{{ path("Details") }}">
+                                    <a href="{{ path("details") }}">
                                         <img src="{{ asset("images/img_avatar2.png ") }}" alt="Avatar" style="width:100%" />
                                         <div class="foot_article">
                                             <h2>Asperges blanches ou violettes</h2>
