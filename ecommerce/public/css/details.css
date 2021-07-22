@@ -9,10 +9,15 @@
     font-weight: bold;
 }
 .retour{
-    margin-top: 150px;
+    background-color: rgb(243, 154, 38);
+    width: auto;
+    position: fixed;
+    z-index:99999;
+    height: 50px;
+    padding: 10px;
 }
-.retour span {
-    font-size: 50px;
+._details{
+    margin-top: 90px;
 }
 .details_first{
     margin: 50px;

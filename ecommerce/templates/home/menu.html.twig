@@ -22,15 +22,19 @@
                 <span class="dropbtn">
                     {% if client is defined and client  != null %}
                         {{ client.firstname }}
+                        
+                        <div class="dropdown-content">  
+                            <a href="{{path("app_logout")}}" class="btn">deconnexion</a>
+                        </div>
                     {% else %}
                         Compte
+                        <div class="dropdown-content">
+                            <a href="{{ path("app_login") }}" class="btn">Connexion</a>
+                            <a href="{{ path("create_client") }}" class="btn">Inscription</a>
+                        </div>
                     {% endif %}
                 </span>
-                <div class="dropdown-content">
-                   
-                    <a href="{{ path("app_login") }}" class="btn">Connexion</a>
-                    <a href="#" class="btn">Inscription</a>
-                </div>
+                
             </div>
         </a>
     </li>
