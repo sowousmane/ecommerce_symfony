@@ -3,9 +3,15 @@
     {% include 'home/menu.html.twig' %}
     {% include 'home/nav_bar.html.twig' %}
     <link rel="stylesheet" href="{{ asset('css/details.css') }}" />
-     <div class="retour" style="position:fixed;">  <a href="{{ path("home") }}"><span>←</span> RETOUR </a> </div>
-    <div class="row details_first" style="margin-top:217px; margin-bottom:20px;">     
-        <div class="col-sm-8 class_details_product" id="class_details_product_id">
+    
+    <div class="row details_first" style="margin-top:217px; margin-bottom:20px;"> 
+        <div class=" row retour">
+
+            <a  href="{{ path("home") }}">← retour </a> 
+        </div>
+
+        <div class="row _details">
+             <div class="col-sm-8 class_details_product" id="class_details_product_id">
             <img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}" alt="Avatar" style="width:450px; height:450px; margin-left:300px;  margin-top: 5%;" />
             <h2> Caractéristiques produit</h2>
             <p>
@@ -96,10 +102,8 @@
                 </a>
             </div>
         </div>
-
+        </div>
     </div>
-
-
     <script>
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();

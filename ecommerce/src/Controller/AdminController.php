@@ -122,8 +122,11 @@ class AdminController extends AbstractController
                 return $this->redirectToRoute('admin');
             }
             
+            $_user = $this->getDoctrine()->getRepository(Admin::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+            
             return $this->render('admin/createAdmin.html.twig', [
                 'adminForm' => $form->createView(),
+                'admin' => $_user,
             ]);
         }
         catch(\Exception $e){
