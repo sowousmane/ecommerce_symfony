@@ -1,0 +1,89 @@
+._contact_div input {
+  height: 50px;
+}
+
+._contact_div{
+   padding: 10%;
+    margin-top: 20px;
+  }
+
+h3, .panel-footer{
+    text-align: center;
+  }
+
+._contact_div a:hover{
+  text-decoration: none;
+}
+
+._contact_div a{
+  color: black;
+}
+
+.panel-heading{
+  padding: 10px;
+}
+
+.btn-connexion{
+  background-color: rgb(243, 154, 38);
+  width: 20%;
+  font-size: 18px;
+  
+}
+
+#send-email span{
+  color: red;
+}
+
+#send-email label{
+  left:0 ;
+}
+
+textarea {
+    padding: 10px;
+    max-width: 100%;
+    min-width: 100%;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+@media only screen and (max-width: 775px) {
+  #send-email{
+      display: flex !important;
+      flex-direction: column !important;
+  }
+  ._par_courriel input,  ._par_courriel textarea {
+    max-width: 500px;
+    min-width: 500px;
+    width: 500px;
+  }
+}
+@media only screen and (max-width: 665px) {
+  ._par_courriel input , ._par_courriel textarea {
+    max-width: 420px;
+    min-width: 420px;
+    width: 420px;
+  }  
+}
+
+@media only screen and (max-width: 590px) {
+  ._par_courriel input, ._par_courriel textarea {
+     width: 400px;
+     max-width: 400px;
+     min-width: 400px;
+   }
+ }
+@media only screen and (max-width: 575px) {
+ ._par_courriel input, ._par_courriel textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+}

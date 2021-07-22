@@ -173,15 +173,33 @@ class HomeController extends AbstractController
     /**
     * @Route("/contact", name="contact")
     */
-   public function contact(): Response
-   {
-       try{
-           return $this->render('home/contact.html.twig', [
+    public function contact(Request $request, \Swift_Mailer $mailer): Response
+    {
+        if($request->getMethod() == 'POST')
+        {
+            $email = $request->request->get('email');
+            $body = $request->request->get('message');
+            $_website = $request->request->get('website');
+            $message = (new \Swift_Message('Prise de contact'))
+            ->setFrom($email)
+            ->setTo('sowousmane4811@gmail.com')
+            ->setBody($body .  '
+
+Mon website est : ' . $_website . '
+
+Envoyé par : '. $email);
+            
+    
+            $mailer->send($message);
+        }
+
+        try{
+            return $this->render('home/contact.html.twig', [
                'controller_name' => 'HomeController',
-           ]);
-       }
-       catch(\Exception $e){
-           $this->addFlash('danger', $e->getMessage());
-       }
-   }
+            ]);
+        }
+        catch(\Exception $e){
+            $this->addFlash('danger', $e->getMessage());
+        }
+    }
 }
