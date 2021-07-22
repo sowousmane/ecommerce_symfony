@@ -134,20 +134,6 @@ class HomeController extends AbstractController
     }
 
      
-     /**
-     * @Route("/details", name="details")
-     */
-    public function details(): Response
-    {
-        try{
-            return $this->render('home/details.html.twig', [
-                'controller_name' => 'HomeController',
-            ]);
-        }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
-    }
 
 
 
