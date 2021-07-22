@@ -1,15 +1,12 @@
  {% extends 'base.html.twig' %} {% block body %}
 
+    {% include 'home/menu.html.twig' %}
+    {% include 'home/nav_bar.html.twig' %}
     <link rel="stylesheet" href="{{ asset('css/details.css') }}" />
-
-    <div class="row details_first" style="margin-top:217px; margin-bottom:20px;">
-        
+     <div class="retour" style="position:fixed;">  <a href="{{ path("home") }}"><span>←</span> RETOUR </a> </div>
+    <div class="row details_first" style="margin-top:217px; margin-bottom:20px;">     
         <div class="col-sm-8 class_details_product" id="class_details_product_id">
-             <div class="retour">  <a href="{{ path("home") }}"><span>←</span> RETOUR </a> </div>
-       
-
-            <img src="{{ asset("images/img_avatar2.png ") }}" alt="Avatar" style="width:450px; height:450px; margin-left:300px;  margin-top: 5%;" />
-
+            <img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}" alt="Avatar" style="width:450px; height:450px; margin-left:300px;  margin-top: 5%;" />
             <h2> Caractéristiques produit</h2>
             <p>
                 Eco-Score L'Eco-score vous indique l’impact sur l'environnement des produits alimentaires. Il a été élaboré pour favoriser une alimentation plus durable.<br>
@@ -31,14 +28,14 @@
             <h2>Vous pourriez aussi aimer</h2>
             <div class="row"> 
                 <ul class='row articles'>
-                    {% for i in 0..2 %}
+                    {% for _product in products %}
                         <div class="col-md-3" >
                             <li>
                                 <div class="cardi">
 
-                                    <a href="{{ path("details", {id: i}) }}">
+                                    <a href="{{ path("details", {id: _product.id}) }}">
 
-                                        <img src="{{ asset("images/img_avatar2.png ") }}" alt="Avatar" style="width:100%" />
+                                        <img src="{{ asset("images/products/" ~ _product.image ~ ".PNG") }}" alt="Avatar" style="width:100%" />
                                         <div class="foot_article">
                                             <h2>Asperges blanches ou violettes</h2>
                                             <h5>la botte de 500g</h5>
