@@ -1,44 +1,62 @@
-{% extends 'base.html.twig' %}
+{% block body %}   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/loginStyle.css') }}" />
+   
+   <div class="loginDiv">
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger ">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-{% block title %}Connexion{% endblock %}
+            {% if app.user %}
+                <div class="mb-3">
+                    Vous êtes connectez en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+            {% endif %}
 
-{% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+            <div  class="text-center _logo shadow p-4 ">
+                <strong>
+                    <a href="{{ path("home") }}" > 
+                        <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+                    </a>
+                </strong>
+            </div>
+            <h1 class="h3 mb-3 font-weight-normal ">Déjà client?</h1>
+            <label for="inputEmail"></label>
+            <input type="email" placeholder="Entrez votre email ici....." value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+            <label for="inputPassword"></label>
+            <input type="password" placeholder="Saisissez votre mot de passe....." name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Remember me
+                    </label>
+                </div>
+            #}
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-
-<a href="{{ path("reset_password_email") }}">mot de passe oublié ?</a>
+            <a href="{{ path("reset_password_email") }}" class="pull-right">mot de passe oublié ?</a>
+            <button class="btn btn-lg btn-connexion " type="submit">
+                Se connecter
+            </button>
+    
+        </form>
+        
+    </div>
+    <div class="new-client-div">
+        
+        <h1 class="h3 mb-3 new-client" >Nouveau client ?</h1>
+        <a href="{{ path("create_client") }}"  class="btn btn-lg btn-inscription " type="submit">
+            Créer mon compte
+        </a>
+    </div>  
+       
+    
 {% endblock %}

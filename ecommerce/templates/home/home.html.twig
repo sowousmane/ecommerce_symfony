@@ -8,6 +8,7 @@
     </div>
     <div class="col-md-9 firstdo" id="firstdo_id">
         <ul class='row articles'>
+
             {% for category in categories %}
                 <h1 id="link_{{ category.id }}">{{ category.name }}</h1>
                 {% for product in products %}

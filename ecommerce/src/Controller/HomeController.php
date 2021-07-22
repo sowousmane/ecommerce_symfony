@@ -133,13 +133,14 @@ class HomeController extends AbstractController
         ]);
     }
 
+     
      /**
-     * @Route("/alimentation", name="alimentation")
+     * @Route("/details", name="details")
      */
-    public function Alimentation(): Response
+    public function details(): Response
     {
         try{
-            return $this->render('home/Alimentation.html.twig', [
+            return $this->render('home/details.html.twig', [
                 'controller_name' => 'HomeController',
             ]);
         }
@@ -148,20 +149,7 @@ class HomeController extends AbstractController
         }
     }
 
-     /**
-     * @Route("/Hygiene", name="Hygiene")
-     */
-    public function Hygiene(): Response
-    {
-        try{
-            return $this->render('home/Hygiene.html.twig', [
-                'controller_name' => 'HomeController',
-            ]);
-        }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
-    }
+
 
      /**
      * @Route("/details/{id}", name="details")
@@ -180,13 +168,17 @@ class HomeController extends AbstractController
         }
     }
   
+
+ 
+
     /**
-    * @Route("/Forum", name="Forum")
+    * @Route("/forum", name="forum")
+
     */
-    public function Forum(): Response
+    public function forum(): Response
     {
         try{
-            return $this->render('home/Forum.html.twig', [
+            return $this->render('home/forum.html.twig', [
                 'controller_name' => 'HomeController',
             ]);
         }
@@ -195,9 +187,9 @@ class HomeController extends AbstractController
         }
     }
     /**
-    * @Route("/Contact", name="Contact")
+    * @Route("/contact", name="contact")
     */
-   public function Contact(): Response
+   public function contact(): Response
    {
        try{
            return $this->render('home/contact.html.twig', [

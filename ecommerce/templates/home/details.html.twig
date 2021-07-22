@@ -1,22 +1,13 @@
  {% extends 'base.html.twig' %} {% block body %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/details.css') }}" />
-<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-</head>
 
-<body>
     <div class="row details_first" style="margin-top:217px; margin-bottom:20px;">
-        <div class="back" style=" position: fixed; ">
-            <a href="{{ path("home") }}"><span>←</span> RETOUR </a>
-        </div>
+        
         <div class="col-sm-8 class_details_product" id="class_details_product_id">
+             <div class="retour">  <a href="{{ path("home") }}"><span>←</span> RETOUR </a> </div>
+       
+
             <img src="{{ asset("images/img_avatar2.png ") }}" alt="Avatar" style="width:450px; height:450px; margin-left:300px;  margin-top: 5%;" />
 
             <h2> Caractéristiques produit</h2>
@@ -44,7 +35,9 @@
                         <div class="col-md-3" >
                             <li>
                                 <div class="cardi">
+
                                     <a href="{{ path("details", {id: i}) }}">
+
                                         <img src="{{ asset("images/img_avatar2.png ") }}" alt="Avatar" style="width:100%" />
                                         <div class="foot_article">
                                             <h2>Asperges blanches ou violettes</h2>
@@ -130,13 +123,5 @@
         });
     </script>
 
-</body>
 
-</html>
-
-
-{% block javascripts %}
-
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-{% endblock %}
 {% endblock %}
