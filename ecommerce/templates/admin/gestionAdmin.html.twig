@@ -4,28 +4,132 @@
 
 {% block body %}
 
+<style>
+    td {
+        padding: 10px;
+    }
+
+    ._head {
+        font-size: 22px;
+        background-color: #c2beb6;
+    }
+
+    .table_produit {
+        width: 100%;
+    }
+
+    ._add {
+        border: 2px solid #ff8400;
+        background-color: #ff8400; 
+        color: white; 
+        margin-top: 20px;
+        margin-right: 8px;
+    }
+
+    ._add:hover {
+        border: 2px solid #f27d00;
+        background-color: #f27d00;
+        color: white;
+    }
+
+    ._all {
+        border: 2px solid #ff8400;
+        margin-top: 20px;
+        color: #ff4d00;
+    }
+
+    ._all:hover {
+        background-color: #ff8400;
+        color: white;
+    }
+</style>
+
 <div class="row">
     {% include 'admin/sidebar.html.twig' %}
     <div style="padding: 0 50px;" class="admin-content col-sm-9">
     {% include 'admin/header.html.twig' %}
         <div style="width: 100%; background-color: white; padding: 40px;" class="admin_content shadow">
+            
+            
+
             <table class="table_produit">
-                <tr>
-                    <td>Description</td>
-                    <td>Prix</td>
-                    <td>Stock</td>
-                    <td colspan="2">Actions</td>
+                <tr class="_head">
+                    <td><strong>Description</strong></td>
+                    <td><strong>Prix</strong></td>
+                    <td><strong>Stock</strong></td>
+                    <td colspan="2"><strong>Actions</strong></td>
                 </tr>
-                {% for product in products %}
+                {% for i in 0..4 %}
                 <tr>
-                    <td> {{ product.description }} </td>
-                    <td> {{ product.price }} </td>
-                    <td> {{ product.stock }} </td>
-                    <td>Mettre à jour</td>
-                    <td>Supprimer</td>
+                    <td> {{ products[i].description }} </td>
+                    <td> {{ products[i].price }} </td>
+                    <td> {{ products[i].stock }} </td>
+                    <td><button type="button" class="btn btn-outline-secondary">Modifier</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
+                            data-bs-target="#exampleModal{{products[i].id}}">Supprimer</button>
+                    </td>
                 </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{products[i].id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Confirmez la suppréssion</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{{ path("delete_product", {id: products[i].id}) }}">
+                                    <button type="button" class="btn btn-primary">Confirmer</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
+            
+                {% for i in 5..(products|length - 1) %}
+                <tr class="_none _tr">
+                    <td> {{ products[i].description }} </td>
+                    <td> {{ products[i].price }} </td>
+                    <td> {{ products[i].stock }} </td>
+                    <td><button type="button" class="btn btn-outline-secondary">Modifier</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
+                            data-bs-target="#exampleModal{{products[i].id}}">Supprimer</button>
+                    </td>
+                </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{products[i].id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Confirmez la suppréssion</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{{ path("delete_product", {id: products[i].id}) }}">
+                                    <button type="button" class="btn btn-primary">Confirmer</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
             </table>
+            <button type="button" class="btn _add">Ajouter un produit</button>
+            <button type="button" class="btn _all rounded">Voir tous les produits</button>
         </div>
     </div>
 </div>

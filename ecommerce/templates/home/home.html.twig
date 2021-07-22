@@ -1,40 +1,47 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
+    {% include 'home/menu.html.twig' %}
+    {% include 'home/nav_bar.html.twig' %}
     <div class="row" style="margin-top:217px; margin-bottom:20px;">
     <div class="col-md-3 firstd" id="firstd_id">
         {% include 'home/sidebar.html.twig' %}
     </div>
     <div class="col-md-9 firstdo" id="firstdo_id">
         <ul class='row articles'>
-            {% for i in 0..15 %}
-            <div class="col-md-3">
-                <li>
-                    <div class="cardi">
-                        <a href="{{ path("details") }}">
-                            <img src="{{ asset("images/img_avatar2.png ") }}" alt="Avatar" style="width:100%" />
-                            <div class="foot_article">
-                                <h2>Asperges blanches ou violettes</h2>
-                                <h5>la botte de 500g</h5>
-                                <h5>5€ /kilogramme</h5>
-                                <h3>origine: France</h2>
-                                    <h2>2,50€</h2>
-                            </div>
-                        </a>
 
-                        <div class="btn-add">
-                            <button type="submit" class="btn ">
-                                <span class="fa fa-plus"></span>
-                                <strong>ajouter</strong>
-                            </button>
-                            <button type="submit" class="btn pull-right">
-                                <i class="fa fa-heart"></i>
-                            </button>
+            {% for category in categories %}
+                <h1 id="link_{{ category.id }}">{{ category.name }}</h1>
+                {% for product in products %}
+                    {% if product.category.id == category.id %}
+                        <div class="col-md-3">
+                            <li>
+                                <div class="cardi">
+                                    <a href="{{ path("details", {id: product.id}) }}">
+                                        <img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}" alt="Avatar" style="width:100%" />
+                                        <div class="foot_article">
+                                            <h2>Asperges blanches ou violettes</h2>
+                                            <h5>la botte de 500g</h5>
+                                            <h5>5€ /kilogramme</h5>
+                                            <h3>{{ product.name }}</h2>
+                                                <h2> {{ product.price }} €</h2>
+                                        </div>
+                                    </a>
 
+                                    <div class="btn-add">
+                                        <button type="submit" class="btn ">
+                                            <span class="fa fa-plus"></span>
+                                            <strong>ajouter</strong>
+                                        </button>
+                                        <button type="submit" class="btn pull-right">
+                                            <i class="fa fa-heart"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </li>
                         </div>
-                    </div>
-                </li>
-            </div>
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
         </ul>
     </div>

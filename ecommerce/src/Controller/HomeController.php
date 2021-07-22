@@ -27,12 +27,12 @@ class HomeController extends AbstractController
         }
         
         try{
-            $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
             $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+            $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
             
             return $this->render('home/home.html.twig', [
-                'products' => $products,
                 'categories' => $categories,
+                'products' => $products,
                 'client' => $client,
             ]);
         }
@@ -60,26 +60,40 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/_home", name="_home")
+     */
+    public function _home(): Response
+    {
+
+        return $this->render('home/_home.html.twig', [
+            
+        ]);
+    }
+
+    /**
      * @Route("/panier", name="panier")
      */
     public function panier(Request $request): Response
     {
+        $client = null;
+        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
+            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+        }
+
         if($request->isMethod('POST')){
             return $this->redirectToRoute('payment');
         }
 
         return $this->render('home/panier.html.twig', [
-            
+            'client' => $client,
         ]);
     }
 
     /**
      * @Route("/payment", name="payment")
      */
-    public function payment(Request $request): Response
+    public function payment(): Response
     {
-        
-
         return $this->render('home/payment.html.twig', [
             
         ]);
@@ -135,10 +149,31 @@ class HomeController extends AbstractController
         }
     }
 
+
+
+     /**
+     * @Route("/details/{id}", name="details")
+     */
+    public function details($id): Response
+    {
+        $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
+
+        try{
+            return $this->render('home/details.html.twig', [
+                'product' => $product,
+            ]);
+        }
+        catch(\Exception $e){
+            $this->addFlash('danger', $e->getMessage());
+        }
+    }
+  
+
  
 
     /**
     * @Route("/forum", name="forum")
+
     */
     public function forum(): Response
     {

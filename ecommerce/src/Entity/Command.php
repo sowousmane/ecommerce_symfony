@@ -27,7 +27,7 @@ class Command
     /**
      * @ORM\Column(type="datetime")
      */
-    private $command_date;
+    private $date_command;
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="commands")
@@ -36,19 +36,19 @@ class Command
     private $client;
 
     /**
+     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="commands")
+     */
+    private $products;
+
+    /**
      * @ORM\OneToMany(targetEntity=Payment::class, mappedBy="command", orphanRemoval=true)
      */
     private $payments;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="commands")
-     */
-    private $products;
-
     public function __construct()
     {
-        $this->payments = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->payments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,14 +68,14 @@ class Command
         return $this;
     }
 
-    public function getCommandDate(): ?\DateTimeInterface
+    public function getDateCommand(): ?\DateTimeInterface
     {
-        return $this->command_date;
+        return $this->date_command;
     }
 
-    public function setCommandDate(\DateTimeInterface $command_date): self
+    public function setDateCommand(\DateTimeInterface $date_command): self
     {
-        $this->command_date = $command_date;
+        $this->date_command = $date_command;
 
         return $this;
     }
@@ -88,6 +88,30 @@ class Command
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        $this->products->removeElement($product);
 
         return $this;
     }
@@ -117,33 +141,6 @@ class Command
             if ($payment->getCommand() === $this) {
                 $payment->setCommand(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addCommand($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->removeElement($product)) {
-            $product->removeCommand($this);
         }
 
         return $this;

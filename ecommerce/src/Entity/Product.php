@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,6 +20,11 @@ class Product
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $name;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $description;
@@ -28,14 +35,14 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=45)
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $stock;
+
+    /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $image;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -53,9 +60,31 @@ class Product
      */
     private $category;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Command::class, mappedBy="products")
+     */
+    private $commands;
+
+    public function __construct()
+    {
+        $this->commands = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getDescription(): ?string
@@ -82,18 +111,6 @@ class Product
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
     public function getStock(): ?int
     {
         return $this->stock;
@@ -102,6 +119,18 @@ class Product
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
@@ -138,6 +167,33 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Command[]
+     */
+    public function getCommands(): Collection
+    {
+        return $this->commands;
+    }
+
+    public function addCommand(Command $command): self
+    {
+        if (!$this->commands->contains($command)) {
+            $this->commands[] = $command;
+            $command->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommand(Command $command): self
+    {
+        if ($this->commands->removeElement($command)) {
+            $command->removeProduct($this);
+        }
 
         return $this;
     }
