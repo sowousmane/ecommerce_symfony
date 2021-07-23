@@ -11,6 +11,7 @@ use App\Entity\Payment;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\CreateAdminFormType;
+use App\Form\CreateCategoryFormType;
 use App\Form\CreateProductFormType;
 use App\Service\AppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -148,7 +149,7 @@ class AdminController extends AbstractController
                 $doctrine->flush();
 
                 return $this->render('admin/response.html.twig', [
-                    'response' => 'message', 'L\'administrateur a été créé avec succès !',
+                    'response' => 'L\'administrateur a été créé avec succès !',
                     'current_page' => 'Réponse',
                     'class' => 'alert alert-success',
                 ]);
@@ -169,6 +170,52 @@ class AdminController extends AbstractController
             ]);
         }
         
+    }
+
+    /**
+     * @Route("/create_category", name="create_category")
+     */
+    public function createCategory(Request $request): Response
+    {
+        try{
+
+            $category = new Category();
+            $history = new History();
+            $form = $this->createForm(CreateCategoryFormType::class, $category);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $history->setTitle('Création d\'une catégorie de produit');
+                $history->setContent(
+                    "Informations de la catégorie créée : 
+                    Nom : " . $category->getName() 
+                );
+                $history->setSentAt(date('l jS \of F Y h:i:s A'));
+                $history->setColor('alert alert-success');
+
+                $doctrine = $this->getDoctrine()->getManager();
+                $doctrine->persist($category);
+                $doctrine->persist($history);
+                $doctrine->flush();
+
+                return $this->render('admin/response.html.twig', [
+                    'response' => 'La catégorie a été créée avec succès !',
+                    'current_page' => 'Réponse',
+                    'class' => 'alert alert-success',
+                ]);
+            }
+            
+            return $this->render('admin/createCategory.html.twig', [
+                'categoryForm' => $form->createView(),
+            ]);
+        }
+        catch(\Exception $e){
+            return $this->render('admin/response.html.twig', [
+                'response' =>  $e->getMessage(),
+                'current_page' => 'Réponse',
+                'class' => 'alert alert-danger',
+            ]);
+        }
     }
 
     /**
