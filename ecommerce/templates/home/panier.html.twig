@@ -4,6 +4,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/panierStyle.css') }}" />
 
+{% if items | length > 0 %}
     <div class="well">
         <div class=" row retour">
 
@@ -23,11 +24,11 @@
     </div>
 
     <div class="panier-first-div">
-        {% if items | length > 0 %}
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Produit</th>
+                        <th class="text-center">Produit</th>
+                        <th></th>
                         <th>Prix</th>
                         <th>Quantité</th>
                         <th>Total</th>
@@ -37,13 +38,16 @@
                 <tbody>
                     {% for item in items %}
                         <tr>
-                            <td>{{ item.product.name }}</td>
-                            <td>{{ item.product.price }}</td>
-                            <td>{{ item.quantity}}</td>
-                            <td>{{ item.quantity * item.product.price }}</td>
-                            <td>
+                            <td style=" padding-top: 40px; padding-left: 40px;">{{ item.product.name }}</td>
+                            <td style=" padding-top: 40px;padding-bottom: 20px;"> 
+                                <img src="{{ asset("images/products/" ~ item.product.image ~ ".PNG") }}" alt="Avatar" style="width:60px; height:60px" />          
+                            </td>
+                            <td style=" padding-top: 40px;">{{ item.product.price }} €</td>
+                            <td style=" padding-top: 40px;">{{ item.quantity}}</td>
+                            <td style=" padding-top: 40px;">{{ item.quantity * item.product.price }} €</td>
+                            <td style=" padding-top: 40px;">
                                 <a href="{{ path("cart_add", {'id': item.product.id}) }}" class="btn btn-success btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-plus"
                                         viewBox="0 0 16 16">
                                         <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
                                         <path
@@ -51,13 +55,13 @@
                                     </svg>
                                 </a>
                                 <a href="{{ path("cart_remove", {'id': item.product.id}) }}" class="btn btn-warning btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
                                         <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/>
                                         <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                                     </svg>
                                 </a>
                                 <a href="{{ path("cart_delete", {'id': item.product.id}) }}" class="btn btn-danger btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-x"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-x"
                                         viewBox="0 0 16 16">
                                         <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z"/>
                                         <path
@@ -67,6 +71,7 @@
                             </td>
 
                         </tr>
+                        <hr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
@@ -75,7 +80,7 @@
                         <td>{{ total }} €</td>
                         <td>
                              <a href="{{ path("cart_delete_all") }}" class="btn btn-danger btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-x"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-x"
                                     viewBox="0 0 16 16">
                                     <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z"/>
                                     <path
@@ -87,12 +92,32 @@
                 </tfoot>
 
             </table>
+            <form method="POST" class="text-center">
+                <button type="submit" class="btn btn-lg btn-valide-cart ">Valider mon panier</button>
+             </form>
         {% else %}
-            <p> Surprise votre panier est vide! </p>
+        <div class="well">
+            <div class="text-center _logo shadow  ">
+                <strong>
+                    <a href="{{ path("home") }}">
+                        <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span
+                            style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span
+                            style="color: #ff8400;">n</span><span
+                            style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+                    </a>
+                </strong>
+            </div>
+        </div>
+            <p class="empty-cart"> Surprise votre panier est vide! </p>
+            <h2 class="text-center text-success"> Mais pas de panique remplissez le ici : 
+                <a href="{{ path("home") }}" style="color:black;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                    </svg>
+                </a>
+            </h2>
         {% endif %}
     </div>
-    <form method="POST">
-        <button type="submit">Valider</button>
-    </form>
+    
 
 {% endblock %}
