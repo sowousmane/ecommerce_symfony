@@ -28,6 +28,14 @@
     padding: 0 20px;
 }
 
+._logo span {
+    font-size: 30px;
+}
+
+._online-shop:hover {
+    text-decoration: none;
+}
+
 .user {
     margin-top: 1%;
 }
@@ -163,9 +171,7 @@ div.mobile {
     font-size: 14px;
 }
 .mobile{
-    margin-left: 5%;
     margin-right: -10%;
-    margin-top: 2%;
 }
 
 /*=============================================================*/
