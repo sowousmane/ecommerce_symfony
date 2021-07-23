@@ -43,7 +43,6 @@ class HomeController extends AbstractController
             'products' => $products,
             'client' => $client,
             'user' => $user,
-            'items' => $cartService->getFullCart(),
             'total' => $cartService->getTotal(),
             'totalItem' => $cartService->getTotalItem(),
         ]);
@@ -53,7 +52,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/products_by_category/{id}", name="products_by_category")
      */
-    public function productsByCategory($id): Response
+    public function productsByCategory($id, CartService $cartService): Response
     {
         $user = '';
         $client = null;
@@ -68,6 +67,8 @@ class HomeController extends AbstractController
             'products' => $products,
             'client' => $client,
             'user' => $user,
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
         ]);
     }
     
@@ -108,7 +109,7 @@ class HomeController extends AbstractController
        
         $cartService->add($product);
 
-        return $this->redirectToRoute("panier");
+        return $this->redirectToRoute("home");
 
     }
 
@@ -212,7 +213,7 @@ class HomeController extends AbstractController
      /**
      * @Route("/details/{id}", name="details")
      */
-    public function details($id): Response
+    public function details($id, CartService $cartService): Response
     {
         $user = '';
         $client = null;
@@ -247,6 +248,8 @@ class HomeController extends AbstractController
                 'products' => $products,
                 'client' => $client,
                 'user' => $user,
+                'total' => $cartService->getTotal(),
+                'totalItem' => $cartService->getTotalItem(),
             ]);
         }
         catch(\Exception $e){

@@ -43,22 +43,17 @@
 
                                         <img src="{{ asset("images/products/" ~ _product.image ~ ".PNG") }}" alt="Avatar" style="width:100%" />
                                         <div class="foot_article">
-                                            <h2>Asperges blanches ou violettes</h2>
-                                            <h5>la botte de 500g</h5>
-                                            <h5>5€ /kilogramme</h5>
-                                            <h3>origine: France</h2>
-                                            <h2> {{ _product.price }} €</h2>
+                                            <h3>{{ product.name }}</h3>                                   
+                                            <h4>{{  product.description [:30] }} ...</h4>
+                                            <h2> {{ product.price }} €</h2>
                                         </div>
                                     </a>
 
                                     <div class="btn-add">
-                                        <button type="submit" class="btn "> 
-                                                            <span class="fa fa-plus"></span>
-                                                            <strong>ajouter</strong>
-                                                </button>
-                                        <button type="submit" class="btn pull-right"> 
-                                                            <i class="fa fa-heart"></i>
-                                                </button>
+                                        <a href="{{ path("cart_add", {'id': product.id}) }}" class="btn ">
+                                            <span class="fa fa-plus"></span>
+                                            <strong>ajouter</strong>
+                                        </a>
 
                                     </div>
                                 </div>
@@ -70,13 +65,11 @@
         </div>
         <div class="col-sm-4 details_div" id="div_to_show_id">
             <div class="details_article">
-                <h2>Asperges blanches ou violettes</h2>
-                <h5>la botte de 500g</h5>
-                <h5>5€ /kilogramme</h5>
-                <h3>origine: France</h2>
+                    <h3>{{ product.name }}</h3>                                   
+                    <h4>{{  product.description}}</h4>
                     <h2> {{ product.price }} €</h2>
-                    <a href="#" class="btn buy_btn">
-                        <button type="submit" class="btn " data-toggle="tooltip" data-placement="top" title="Ajouter ce produit dans votre panier"> 
+                    <a href="{{ path("cart_add", {'id': product.id}) }}" class="btn buy_btn">
+                        <button type="submit" class="btn " data-toggle="tooltip" data-placement="top" title="Ajouter ce produit dans votre panier">  
                         <strong>Acheter</strong>
                         <img class="" src="{{ asset("images/shopping-cart.png") }}" alt="chariot!" style="width:50px; height:50px;"/>        
                 
