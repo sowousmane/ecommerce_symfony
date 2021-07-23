@@ -6,10 +6,12 @@ use App\Entity\Admin;
 use App\Entity\Category;
 use App\Entity\Client;
 use App\Entity\Command;
+use App\Entity\History;
 use App\Entity\Payment;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\CreateAdminFormType;
+use App\Form\CreateProductFormType;
 use App\Service\AppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,10 +60,23 @@ class AdminController extends AbstractController
      */
     public function gestion_admin(): Response
     {
+        $admins = $this->getDoctrine()->getRepository(Admin::class)->findAll();
+        $clients = $this->getDoctrine()->getRepository(Client::class)->findAll();
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        $commands = $this->getDoctrine()->getRepository(Command::class)->findAll();
+        $payments = $this->getDoctrine()->getRepository(Payment::class)->findAll();
+        $user = $this->getDoctrine()->getRepository(Admin::class)
+            ->findOneBy(['id' => $this->getUser()->getId()]);
         
         return $this->render('admin/gestionAdmin.html.twig', [
+            'admins' => $admins,
+            'clients' => $clients,
+            'categories' => $categories,
             'products' => $products,
+            'commands' => $commands,
+            'payments' => $payments,
+            'user' => $user,
             'current_page' => 'Gestions administratives',
         ]);
     }
@@ -71,10 +86,11 @@ class AdminController extends AbstractController
      */
     public function history(): Response
     {
-        
+        $histories = $this->getDoctrine()->getRepository(History::class)->findAll();
         
         return $this->render('admin/history.html.twig', [
             'current_page' => 'Historique',
+            'histories' => $histories,
         ]);
     }
 
@@ -101,6 +117,7 @@ class AdminController extends AbstractController
 
             $admin = new Admin();
             $user = new User();
+            $history = new History();
             $form = $this->createForm(CreateAdminFormType::class, $admin);
             $form->handleRequest($request);
 
@@ -113,13 +130,28 @@ class AdminController extends AbstractController
                     )
                 );
                 $user->setRoles(['ROLE_ADMIN']);
+
+                $history->setTitle('Création d\'un administrateur');
+                $history->setContent(
+                    "Informations de l'administrateur créé : 
+                    Prénom : " . $admin->getFirstname() . "
+                    Nom : " . $admin->getLastname() . "
+                    E-mail : " . $admin->getEmail()
+                );
+                $history->setSentAt(date('l jS \of F Y h:i:s A'));
+                $history->setColor('alert alert-success');
+
                 $doctrine = $this->getDoctrine()->getManager();
                 $doctrine->persist($admin);
                 $doctrine->persist($user);
+                $doctrine->persist($history);
                 $doctrine->flush();
 
-                $this->addFlash('message', 'L\'administrateur a été créé avec succès !');
-                return $this->redirectToRoute('admin');
+                return $this->render('admin/response.html.twig', [
+                    'response' => 'message', 'L\'administrateur a été créé avec succès !',
+                    'current_page' => 'Réponse',
+                    'class' => 'alert alert-success',
+                ]);
             }
             
             return $this->render('admin/createAdmin.html.twig', [
@@ -134,6 +166,43 @@ class AdminController extends AbstractController
             ]);
         }
         
+    }
+
+    /**
+     * @Route("/edit_product", name="edit_product")
+     */
+    public function editProduct(Request $request): Response
+    {
+        $id = 1;
+        try{
+            $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
+
+            if(!$product){
+                return $this->render('admin/response.html.twig', [
+                    'response' => 'Le produit dont l\'id est ' . $id . ' n\'existe pas',
+                    'current_page' => 'Réponse',
+                    'class' => 'alert alert-danger',
+                ]);
+            }
+
+            $form = $this->createForm(CreateProductFormType::class, $product);
+            $form->handleRequest($request);
+
+            
+
+            return $this->render('admin/editProduct.html.twig', [
+                'editProductForm' => $form->createView(),
+                'response' => 'Le produit dont l\'id est ' . $id . ' a été modifié !',
+                'current_page' => 'Réponse',
+                'class' => 'alert alert-success',
+            ]);
+        } catch (\Exception $e) {
+            return $this->render('admin/response.html.twig', [
+                'response' =>  $e->getMessage(),
+                'current_page' => 'Réponse',
+                'class' => 'alert alert-danger',
+            ]);
+        }
     }
 
     /**
@@ -158,6 +227,40 @@ class AdminController extends AbstractController
 
             return $this->render('admin/response.html.twig', [
                 'response' => 'Le produit dont l\'id est ' . $id . ' a été supprimé !',
+                'current_page' => 'Réponse',
+                'class' => 'alert alert-success',
+            ]);
+        } catch (\Exception $e) {
+            return $this->render('admin/response.html.twig', [
+                'response' =>  $e->getMessage(),
+                'current_page' => 'Réponse',
+                'class' => 'alert alert-danger',
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/delete_admin/{id}", name="delete_admin")
+     */
+    public function deleteAdmin($id): Response
+    {
+        try{
+            $admin = $this->getDoctrine()->getRepository(Admin::class)->findOneBy(['id' => $id]);
+            
+            if(!$admin){
+                return $this->render('admin/response.html.twig', [
+                    'response' => 'L\'administrateur dont l\'id est ' . $id . ' n\'existe pas',
+                    'current_page' => 'Réponse',
+                    'class' => 'alert alert-danger',
+                ]);
+            }
+
+            $doctrine = $this->getDoctrine()->getManager();
+            $doctrine->remove($admin);
+            $doctrine->flush();
+
+            return $this->render('admin/response.html.twig', [
+                'response' => 'L\'administrateur dont l\'id est ' . $id . ' a été supprimé !',
                 'current_page' => 'Réponse',
                 'class' => 'alert alert-success',
             ]);

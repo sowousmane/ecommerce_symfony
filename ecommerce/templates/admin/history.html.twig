@@ -9,7 +9,13 @@
     <div style="padding: 0 50px;" class="admin-content col-sm-9">
     {% include 'admin/header.html.twig' %}
         <div style="width: 100%; background-color: white; padding: 40px;" class="admin_content shadow">
-            
+            {% for history in histories|sort|reverse %}
+                <div class="{{ history.color }}" role="alert">
+                    <h3> {{ history.title }} </h3>
+                    <p> {{ history.content }} </p>
+                    <span> {{ history.sentAt }} </span>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>

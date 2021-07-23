@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Client;
+use App\Entity\History;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\CreateClientFormType;
+use App\Form\SearchProductFormType;
+use App\Repository\ProductRepository;
 use App\Service\AppService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,21 +23,28 @@ class HomeController extends AbstractController
      /**
      * @Route("/", name="home")
      */
-    public function home(): Response
+    public function home(ProductRepository $productRepository, Request $request): Response
     {   
+        $user = '';
         $client = null;
         if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
             $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+            $user = $client->getFirstname() . ' ';
         }
 
         try{
-            $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
             $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+            $search = $request->request->get('search_product');
+            
+            if($request->getMethod() == 'POST')
+            {
+                $products = $productRepository->search($search);
+            }
 
             return $this->render('home/home.html.twig', [
-                'categories' => $categories,
                 'products' => $products,
                 'client' => $client,
+                'user' => $user,
             ]);
         }
         catch(\Exception $e){
@@ -113,6 +123,7 @@ class HomeController extends AbstractController
     {
         $client = new Client();
         $user = new User();
+        $history = new History();
         $form = $this->createForm(CreateClientFormType::class, $client);
         $form->handleRequest($request);
 
@@ -125,9 +136,21 @@ class HomeController extends AbstractController
                 )
             );
             $user->setRoles(['ROLE_USER']);
+
+            $history->setTitle('Inscription d\'un client');
+            $history->setContent(
+                "Informations du client inscrit : 
+                Prénom : " . $client->getFirstname() . "
+                Nom : " . $client->getLastname() . "
+                E-mail : " . $client->getEmail()
+            );
+            $history->setSentAt(date('l jS \of F Y h:i:s A'));
+            $history->setColor('alert alert-success');
+
             $doctrine = $this->getDoctrine()->getManager();
             $doctrine->persist($client);
             $doctrine->persist($user);
+            $doctrine->persist($history);
             $doctrine->flush();
 
             $this->addFlash('message', 'Le client a été créé avec succès !');
@@ -146,6 +169,13 @@ class HomeController extends AbstractController
      */
     public function details($id): Response
     {
+        $user = '';
+        $client = null;
+        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
+            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+            $user = $client->getFirstname() . ' ';
+        }
+
         try{
             $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
             $_products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $product->getCategory()]);
@@ -168,13 +198,16 @@ class HomeController extends AbstractController
             }
 
             return $this->render('home/details.html.twig', [
-                'controller_name' => 'HomeController',
                 'product' => $product,
                 'products' => $products,
+                'client' => $client,
+                'user' => $user,
             ]);
         }
         catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
+            return $this->render('error.html.twig', [
+                'error' => $e->getMessage(),
+            ]);
         }
     }
 
