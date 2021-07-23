@@ -23,6 +23,9 @@ body{
     text-decoration: none;
     color: black;
 }
+.btn-danger{
+  background-color: red;
+}
 tbody tr{
   background-color: rgb(255, 255, 255);
   margin-top: 105px;
@@ -32,21 +35,29 @@ tbody tr{
 }
 
 .btn-valide-cart {
-  height: auto;
   background-color: rgb(243, 154, 38);
-  margin-top: 1.5%;
   width: 200px;
   font-weight: bold;
+  color:black;
+}
+.empty{
+  font-size: 20px;
+  
 }
 .empty-cart{
   font-size: 90px;
   text-align: center;
 
 }
+
 /*========================================================================*/
 @media(max-width : 790px) {
   .retour{
     display: none;
   }
-
+  .panier-first-div{
+    margin: 0;
+    width: 100%;
+  }
 }
+

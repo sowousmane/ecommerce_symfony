@@ -18,26 +18,24 @@ class HomeController extends AbstractController
      /**
      * @Route("/", name="home")
      */
-    public function home(): Response
+    public function home( CartService $cartService)
     {   
         $client = null;
         if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
             $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
         }
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
 
-        try{
-            $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
-            $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-
-            return $this->render('home/home.html.twig', [
-                'categories' => $categories,
-                'products' => $products,
-                'client' => $client,
-            ]);
-        }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
+        return $this->render('home/home.html.twig', [
+            'categories' => $categories,
+            'products' => $products,
+            'client' => $client,
+            'items' => $cartService->getFullCart(),
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
+        ]);
+       
     }
     /**
      * @Route("/profile", name="profile")
@@ -65,6 +63,7 @@ class HomeController extends AbstractController
         return $this->render('home/panier.html.twig', [
             'items' => $cartService->getFullCart(),
             'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
         ]);
     }
 

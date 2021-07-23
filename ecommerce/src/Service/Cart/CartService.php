@@ -92,8 +92,22 @@ class CartService {
         foreach($this->getFullCart() as $item){
 
             $total += $item['product']->getPrice() * $item['quantity'];
+
         }
 
         return $total;
     } 
+    public function getTotalItem() : int {
+
+        $totalItem = 0;
+        
+        foreach($this->getFullCart() as $item){
+
+            $totalItem += $item['quantity'];
+            
+        }
+
+        return $totalItem;
+    } 
+
 }

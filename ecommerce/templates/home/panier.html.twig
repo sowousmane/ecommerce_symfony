@@ -74,13 +74,21 @@
                         <hr>
                     {% endfor %}
                 </tbody>
-                <tfoot>
+                <tfoot style="  font-weight: bold;">
                     <tr>
-                        <td colspan="3" class="text-right"> total:</td>
+                        <td colspan="4" class="text-right total-article"> Nombre d'articles :</td>
+                        <td>{{ totalItem }} </td>
+                        
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right"> Prix total :</td>
                         <td>{{ total }} €</td>
-                        <td>
-                             <a href="{{ path("cart_delete_all") }}" class="btn btn-danger btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-x"
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-right ">
+                             <a href="{{ path("cart_delete_all") }}" class="btn btn-danger  empty"style=" width: 250px;" >
+                               <span style=" margin-right: -20px;"> Vider votre panier </span>
+                               <svg style=" margin-left: -55px;" xmlns="http://www.w3.org/2000/svg" width="200" height="30" fill="currentColor" class="bi bi-cart-x"
                                     viewBox="0 0 16 16">
                                     <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z"/>
                                     <path
@@ -88,13 +96,14 @@
                                 </svg>
                             </a>
                         </td>
+                        <td >
+                            <a href="" class="btn btn-lg btn-valide-cart ">Valider mon panier</a>
+                        </td>
                     </tr>
                 </tfoot>
 
             </table>
-            <form method="POST" class="text-center">
-                <button type="submit" class="btn btn-lg btn-valide-cart ">Valider mon panier</button>
-             </form>
+            
         {% else %}
         <div class="well">
             <div class="text-center _logo shadow  ">
