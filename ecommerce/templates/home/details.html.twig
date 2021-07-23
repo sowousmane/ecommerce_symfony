@@ -35,7 +35,7 @@
             <div class="row"> 
                 <ul class='row articles'>
                     {% for _product in products %}
-                        <div class="col-md-3" >
+                        <div class="col-md-4" >
                             <li>
                                 <div class="cardi">
 
@@ -47,7 +47,7 @@
                                             <h5>la botte de 500g</h5>
                                             <h5>5€ /kilogramme</h5>
                                             <h3>origine: France</h2>
-                                            <h2>2,50€</h2>
+                                            <h2> {{ _product.price }} €</h2>
                                         </div>
                                     </a>
 
@@ -74,13 +74,13 @@
                 <h5>la botte de 500g</h5>
                 <h5>5€ /kilogramme</h5>
                 <h3>origine: France</h2>
-                    <h2>2,50€</h2>
+                    <h2> {{ product.price }} €</h2>
                     <a href="#" class="btn buy_btn">
                         <button type="submit" class="btn " data-toggle="tooltip" data-placement="top" title="Ajouter ce produit dans votre panier"> 
                         <strong>Acheter</strong>
                         <img class="" src="{{ asset("images/shopping-cart.png") }}" alt="chariot!" style="width:50px; height:50px;"/>        
                 
-					</button>
+					    </button>
                     </a>
                     <button type="submit" class="btn like pull-right"> 
 					<i class="fa fa-heart"></i>
