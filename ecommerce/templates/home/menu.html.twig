@@ -1,21 +1,26 @@
     <link rel="stylesheet" href="{{ asset('css/style_menu.css') }}" />
 
-<ul class="first_div container-fluid" id="desktop" style="position:fixed; z-index: 9999 !important;">
-    <li>
-        <a class="" href="{{ path("home") }}">
-            <img class="logo_desktop" src="{{ asset("images/logo_300.jpg") }}" alt="Symfony!" />
+<ul class="first_div container-fluid" id="desktop" style="position:fixed; z-index: 9999 !important; margin: 0;">
+    <li style="height: 150px">
+        <a class="_online-shop" href="{{ path("home") }}">
+            <div style="width: 60%; background-color: white; padding: 11% 13%; margin: 30px 12%; border-radius: 15px; min-width: 200px;" 
+                class="text-center _logo shadow p-4 bg-white">
+                <strong>
+                    <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span style="color: black;">S</span><span style="color: black;">h</span><span style="color: black;">o</span><span style="color: black;">p</span>
+                </strong>
+            </div>
         </a>
     </li>
 
-    <li>
-        <form class="d-flex" method="POST">
+    <li style="padding-top: 22px;">
+        <form style="margin-left: 7%;" class="d-flex" method="POST">
             <input class="form-control search_input"
                 style="border: solid rgb(243, 154, 38);margin-top:2%; margin-right:-10px; height:50px;width: 50vw;"
                 type="search" placeholder="Que recherchez vous {{ user }}?" aria-label="Search" name="search_product">
             <button class="search" style="border: solid rgb(243, 154, 38); " type="submit">Rechercher</button>
         </form>
     </li>
-    <li>
+    <li style="padding-top: 22px;" class="text-right">
         <a href="#" class="btn user pull-right">
             <div class="dropdown">
                 <img class=" img-user" src="{{ asset("images/user-shape.png") }}" alt="user_mobile!" /> <br>               
@@ -50,7 +55,14 @@
 <div class="mobile row">
     <div class="row ">
         <div class="col-3">
-            <img class="logo_mobile" src="{{ asset("images/logo_normal.jpg") }}" alt="logo_mobile!" />
+            <a class="_online-shop" href="{{ path("home") }}">
+                <div style="width: 60%; background-color: white; padding: 11% 13%; margin: 30px 12%; border-radius: 15px; min-width: 200px;" 
+                    class="text-center _logo shadow p-4 bg-white">
+                    <strong>
+                        <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span style="color: black;">S</span><span style="color: black;">h</span><span style="color: black;">o</span><span style="color: black;">p</span>
+                    </strong>
+                </div>
+            </a>
         </div>
         <div class="col-3 div_search_mobile">
             <a href="#" >
