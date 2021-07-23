@@ -9,6 +9,8 @@
           <h3>
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
               <span data-toggle="tooltip" title="cliquez pour me cacher ou m'afficher">
+                <img class="" src="{{ asset("images/enveloppe.png") }}" alt="email!"
+                  style="width:30px; height:30px;" />                
                 <strong>  Par courriel</strong>
               </span>
           </a>
@@ -41,54 +43,77 @@
           <h3>
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
               <span data-toggle="tooltip" title="cliquez pour me cacher ou m'afficher">
-                <strong>  Via un conseiller au téléphone</strong>
+                <img class="" src="{{ asset("images/telephone.png") }}" alt="telephone!"/> 
+                <strong>  Par téléphone</strong>
               </span>
             </a>
           </h3>
         </div>
         <div id="collapse2" class="panel-collapse collapse">
-          <div class="panel-body">
-            Besoin d'un conseil ?
+          <div class="panel-body" id="phone-id">
+              <h4><strong>Besoin d'un conseil ?</strong></h4>
 
-            Simplicité et sécurité, commandez n'importe quel produit du site en 2 étapes :
+              <p> Simplicité et sécurité, commandez n'importe quel produit du site en 2 étapes :</p>
 
-            • Composez le 3979 (Du lundi au vendredi de 9h à 19h. Week-ends et Jours Fériés de 9h à 18h.)
+              <p> • Composez le 07 06 06 06 06 (Du lundi au vendredi de 9h à 19h. Week-ends et Jours Fériés de 9h à 18h.)</p>
 
-            • Passez commande avec l‘un de nos conseillers
+              <p> • Passez commande avec l‘un de nos conseillers</p>
           </div>
-          <div class="panel-footer">Panel Footer</div>
         </div>
       </div>
-      <div class="panel panel-default _par_courrier ">
-        <div class="panel-heading">
-          <h3>
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-              <span data-toggle="tooltip" title="cliquez pour me cacher ou m'afficher">
-                <strong>  Via nos réseaux sociaux</strong> 
-              </span>
-            </a>
-          </h3>
-        </div>
-        <div id="collapse3" class="panel-collapse collapse">
-          <div class="panel-body"></div>
-          <div class="panel-footer">Panel Footer</div>
-        </div>
-      </div>
-      <div class="panel panel-default _via_reseau_sociaux">
+      <div class="panel panel-default _par_courrier">
         <div class="panel-heading">
           <h3>
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
               <span data-toggle="tooltip" title="cliquez pour me cacher ou m'afficher">
-                <strong>  Via nos réseaux sociaux</strong> 
+                <img class="" src="{{ asset("images/delivery-man.png") }}" alt="telephone!"
+                  style="width:40px; height:40px;"/> 
+                <strong>  Par courrier</strong> 
               </span>
             </a>
           </h3>
         </div>
         <div id="collapse4" class="panel-collapse collapse">
-          <div class="panel-body"></div>
-          <div class="panel-footer">Panel Footer</div>
+          <div class="panel-body" id="phone-id">
+            <h4><strong>Besoin d'un conseil ?</strong></h4>
+            <p> En indiquant votre nom, prénom et numéro de commande:</p>
+            <p> <strong> HT&&OShopOnline.com </strong></p>
+            <p> Service Clients</p>
+            <p> BP 17200</p>
+            <p> 611 boulevard shopOnline 93472 Neuilly Sur Marne</p>
+            <p> Merci de ne faire aucun retour de colis à cette adresse</p>
+          </div>
         </div>
       </div>
+      <div class="panel panel-default _via_reseau_sociaux ">
+        <div class="panel-heading">
+          <h3>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+              <span data-toggle="tooltip" title="cliquez pour me cacher ou m'afficher">
+                <img class="" src="{{ asset("images/reseaux-sociaux_2.jpg") }}" alt="telephone!"
+                  style="width:60px; height:60px;"/> 
+                <strong>  Par réseaux sociaux</strong> 
+              </span>
+            </a>
+          </h3>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+          <div class="panel-body">
+          <strong> Rejoignez-nous sur  &nbsp;  &nbsp; </strong>
+            <a class="btn" href="https://touch.facebook.com/sowEtEcriture/?ref=bookmarks">
+              <img class=" img-network" src="{{ asset("images/facebook.png") }}" alt="user_mobile!" />                
+            </a>
+            
+            <a class="btn" href="https://twitter.com/login">
+              <img class=" img-network" src="{{ asset("images/twitter.png") }}" alt="user_mobile!" />                
+            </a>
+            <a class="btn" href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin">
+              <img class=" img-network" src="{{ asset("images/linkedin.png") }}" alt="user_mobile!" />                
+            </a>
+          </div>
+        </div>
+      </div>
+      
     </div> 
   </div>
    

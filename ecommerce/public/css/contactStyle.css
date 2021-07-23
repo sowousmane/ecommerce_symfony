@@ -7,7 +7,7 @@
     margin-top: 20px;
   }
 
-h3, .panel-footer{
+._contact_div h3, ._contact_div .panel-footer, ._contact_div h4{
     text-align: center;
   }
 
@@ -19,7 +19,7 @@ h3, .panel-footer{
   color: black;
 }
 
-.panel-heading{
+._contact_div .panel-heading{
   padding: 10px;
 }
 
@@ -34,11 +34,9 @@ h3, .panel-footer{
   color: red;
 }
 
-#send-email label{
-  left:0 ;
-}
 
-textarea {
+
+._contact_div textarea {
     padding: 10px;
     max-width: 100%;
     min-width: 100%;
@@ -48,12 +46,34 @@ textarea {
     box-shadow: 1px 1px 1px #999;
 }
 
-label {
+._contact_div label {
     display: block;
     margin-bottom: 10px;
+    left:0 ;
 }
+/*=======================Contacter par phone============================*/
+#phone-id{
+  padding:20px;
+  text-align: center;/* vertical | horizontal */
+  margin: 0 20%;
 
-
+}
+#phone-id p{
+  font-size: 18px;
+}
+/*=======================Via nos réseaux sociaux============================*/
+._via_reseau_sociaux .img-network{
+  width:50px;
+  height:50px;
+}
+._via_reseau_sociaux .panel-body{
+  text-align: center;
+}
+._via_reseau_sociaux .panel-body strong{
+  font-size: 20px;
+}
+/*=======================Contacter par courrier============================*/
+/*======================================================================*/
 @media only screen and (max-width: 775px) {
   #send-email{
       display: flex !important;
