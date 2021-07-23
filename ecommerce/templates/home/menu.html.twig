@@ -38,7 +38,7 @@
             </div>
         </a>
     </li>
-    <li><a class=" pull-right cart" aria-current="page" href="#">
+    <li><a class=" pull-right cart" aria-current="page" href="{{path("panier")}}">
             <span class="glyphicon glyphicon-shopping-cart"></span>
             <br> 0 items - 0.00 €
             <br> My Cart
@@ -63,7 +63,7 @@
             </a>
         </div>
         <div class="col-4 cart_mobile" style=" display: block;">
-            <a href="#" class="btn cart_mobile_a">
+            <a href="{{path("panier")}}" class="btn cart_mobile_a">
             <img class="" src="{{ asset("images/shopping-cart.png") }}" alt="chariot!" style="width:20px; height:20px;"/> 
                 <p> 0 items - 0.00 €</p>
                 <p> My Cart</p>

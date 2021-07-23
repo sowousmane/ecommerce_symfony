@@ -1,19 +1,17 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Category;
 use App\Entity\Client;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\CreateClientFormType;
-use App\Service\AppService;
+use App\Service\Cart\CartService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Validator\Constraints\Length;
 
 class HomeController extends AbstractController
 {
@@ -62,15 +60,52 @@ class HomeController extends AbstractController
     /**
      * @Route("/panier", name="panier")
      */
-    public function panier(Request $request): Response
-    {
-        if($request->isMethod('POST')){
-            return $this->redirectToRoute('payment');
-        }
+    public function panier(CartService $cartService){
 
         return $this->render('home/panier.html.twig', [
-            
+            'items' => $cartService->getFullCart(),
+            'total' => $cartService->getTotal(),
         ]);
+    }
+
+      /**
+     * @Route("/panier/add/{id}", name="cart_add")
+     */
+    public function add(Product $product, CartService $cartService){
+       
+        $cartService->add($product);
+
+        return $this->redirectToRoute("panier");
+
+    }
+
+    /**
+     * @Route("panier/remove/{id}", name="cart_remove")
+     */
+    public function remove(Product $product, CartService $cartService){
+       
+        $cartService->remove($product);
+
+        return $this->redirectToRoute("panier");
+    }
+    /**
+     * @Route("panier/delete/{id}", name="cart_delete")
+     */
+    public function delete(Product $product, CartService $cartService){
+       
+        $cartService->delete($product);
+
+        return $this->redirectToRoute("panier");
+    }
+
+    /**
+     * @Route("panier/delete", name="cart_delete_all")
+     */
+    public function deleteAll( CartService $cartService){
+       
+        $cartService->deleteAll();
+
+        return $this->redirectToRoute("panier");
     }
 
     /**
