@@ -22,7 +22,7 @@ class HomeController extends AbstractController
      /**
      * @Route("/", name="home")
      */
-    public function home( CartService $cartService)
+    public function home( CartService $cartService, Request $request, ProductRepository $productRepository)
     {   
         $user = '';
         $client = null;
@@ -32,11 +32,17 @@ class HomeController extends AbstractController
         }
         $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        $search = $request->request->get('search_product');
 
+        if($request->getMethod() == 'POST')
+        {
+            $products = $productRepository->search($search);
+        }
         return $this->render('home/home.html.twig', [
             'categories' => $categories,
             'products' => $products,
             'client' => $client,
+            'user' => $user,
             'items' => $cartService->getFullCart(),
             'total' => $cartService->getTotal(),
             'totalItem' => $cartService->getTotalItem(),
