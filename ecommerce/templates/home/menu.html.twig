@@ -8,11 +8,11 @@
     </li>
 
     <li>
-        <form class="d-flex">
+        <form class="d-flex" method="POST">
             <input class="form-control search_input"
                 style="border: solid rgb(243, 154, 38);margin-top:2%; margin-right:-10px; height:50px;width: 50vw;"
-                type="search" placeholder="Chercher" aria-label="Search">
-            <button class=" search" style="border: solid rgb(243, 154, 38); " type="submit">Chercher</button>
+                type="search" placeholder="Que recherchez vous {{ user }}?" aria-label="Search" name="search_product">
+            <button class="search" style="border: solid rgb(243, 154, 38); " type="submit">Rechercher</button>
         </form>
     </li>
     <li>

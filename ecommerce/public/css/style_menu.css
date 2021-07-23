@@ -23,6 +23,9 @@
     height: 50px;
     background-color: rgb(243, 154, 38);
     margin-top: 2%;
+    border-radius:0 5px 5px 0;
+    font-size: 17px;
+    padding: 0 20px;
 }
 
 .user {
@@ -239,4 +242,10 @@ div.mobile {
 .dropdown-content a:hover {
     background-color: rgb(243, 154, 38);
     color: black;
+}
+
+
+.search_input::placeholder {
+    font-size: 17px;
+    font-style: italic;
 }

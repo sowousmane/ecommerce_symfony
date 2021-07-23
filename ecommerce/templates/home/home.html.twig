@@ -8,7 +8,22 @@
     </div>
     <div class="col-md-9 firstdo" id="firstdo_id">
         <ul class='row articles'>
+            {% for product in products %}
+                <div class="col-md-3">
+                    <li>
+                        <div class="cardi">
+                            <a href="{{ path("details", {id: product.id}) }}">
+                                <img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}" alt="Avatar" style="width:100%" />
+                                <div class="foot_article">
+                                    <h2>Asperges blanches ou violettes</h2>
+                                    <h5>la botte de 500g</h5>
+                                    <h5>5€ /kilogramme</h5>
+                                    <h3>{{ product.name }}</h2>
+                                        <h2> {{ product.price }} €</h2>
+                                </div>
+                            </a>
 
+<<<<<<< HEAD
             {% for category in categories %}
                 <h1 id="link_{{ category.id }}">{{ category.name }}</h1>
                 {% for product in products %}
@@ -35,13 +50,48 @@
                                         <button type="submit" class="btn pull-right">
                                             <i class="fa fa-heart"></i>
                                         </button>
+||||||| 08426f2
+            {% for category in categories %}
+                <h1 id="link_{{ category.id }}">{{ category.name }}</h1>
+                {% for product in products %}
+                    {% if product.category.id == category.id %}
+                        <div class="col-md-3">
+                            <li>
+                                <div class="cardi">
+                                    <a href="{{ path("details", {id: product.id}) }}">
+                                        <img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}" alt="Avatar" style="width:100%" />
+                                        <div class="foot_article">
+                                            <h2>Asperges blanches ou violettes</h2>
+                                            <h5>la botte de 500g</h5>
+                                            <h5>5€ /kilogramme</h5>
+                                            <h3>{{ product.name }}</h2>
+                                                <h2> {{ product.price }} €</h2>
+                                        </div>
+                                    </a>
 
-                                    </div>
-                                </div>
-                            </li>
+                                    <div class="btn-add">
+                                        <button type="submit" class="btn ">
+                                            <span class="fa fa-plus"></span>
+                                            <strong>ajouter</strong>
+                                        </button>
+                                        <button type="submit" class="btn pull-right">
+                                            <i class="fa fa-heart"></i>
+                                        </button>
+=======
+                            <div class="btn-add">
+                                <button type="submit" class="btn ">
+                                    <span class="fa fa-plus"></span>
+                                    <strong>ajouter</strong>
+                                </button>
+                                <button type="submit" class="btn pull-right">
+                                    <i class="fa fa-heart"></i>
+                                </button>
+>>>>>>> 2492218c84e4f4220d192a64cee32dcff94e24c8
+
+                            </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
+                    </li>
+                </div>
             {% endfor %}
         </ul>
     </div>
