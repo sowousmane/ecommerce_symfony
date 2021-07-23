@@ -38,16 +38,16 @@
             </div>
         </a>
     </li>
-    <li><a class=" pull-right cart" aria-current="page" href="#">
+    <li><a class=" pull-right cart" aria-current="page" href="{{path("panier")}}">
             <span class="glyphicon glyphicon-shopping-cart"></span>
-            <br> 0 items - 0.00 €
+            <br> {{ totalItem}}   articles :     &nbsp; {{total}} €
             <br> My Cart
         </a>
     </li>
 </ul>
 
 
-<div class="mobile">
+<div class="mobile row">
     <div class="row ">
         <div class="col-3">
             <img class="logo_mobile" src="{{ asset("images/logo_normal.jpg") }}" alt="logo_mobile!" />
@@ -59,13 +59,21 @@
         </div>
         <div class="col-2 user_mobile">
             <a href="#" >
-                <img class="image_ronde_mobile" src="{{ asset("images/user.png") }}" alt="user_mobile!" />                
+                <div class="dropdown">
+                    <img class="image_ronde_mobile dropbtn" src="{{ asset("images/user.png") }}" alt="user_mobile!" /> 
+                
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>                  
             </a>
         </div>
         <div class="col-4 cart_mobile" style=" display: block;">
-            <a href="#" class="btn cart_mobile_a">
+            <a href="{{path("panier")}}" class="btn cart_mobile_a">
             <img class="" src="{{ asset("images/shopping-cart.png") }}" alt="chariot!" style="width:20px; height:20px;"/> 
-                <p> 0 items - 0.00 €</p>
+                <p> {{ totalItem}} items -  &nbsp; {{total}} €</p>
                 <p> My Cart</p>
             </a>
             

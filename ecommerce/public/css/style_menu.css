@@ -107,9 +107,39 @@ div.mobile {
     ul#desktop {
         display: none
     }
-}
-.mobile .cart_mobile{
-    display: none;
+    .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+      
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      
+    .mobile .cart_mobile{
+        display: none;
+    }
 }
 @media (max-width: 400px) {
     .mobile .search_mobile,  .mobile .logo_mobile , .mobile .image_ronde_mobile{
@@ -213,6 +243,7 @@ div.mobile {
     background-color: rgb(243, 154, 38);
     color: black;
 }
+
 
 .search_input::placeholder {
     font-size: 17px;

@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Category;
 use App\Entity\Client;
 use App\Entity\History;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\CreateClientFormType;
+use App\Service\Cart\CartService;
 use App\Form\SearchProductFormType;
 use App\Repository\ProductRepository;
 use App\Service\AppService;
@@ -16,14 +16,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Validator\Constraints\Length;
 
 class HomeController extends AbstractController
 {
      /**
      * @Route("/", name="home")
      */
-    public function home(ProductRepository $productRepository, Request $request): Response
+    public function home( CartService $cartService)
     {   
         $user = '';
         $client = null;
@@ -31,25 +30,18 @@ class HomeController extends AbstractController
             $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
             $user = $client->getFirstname() . ' ';
         }
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
 
-        try{
-            $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-            $search = $request->request->get('search_product');
-            
-            if($request->getMethod() == 'POST')
-            {
-                $products = $productRepository->search($search);
-            }
-
-            return $this->render('home/home.html.twig', [
-                'products' => $products,
-                'client' => $client,
-                'user' => $user,
-            ]);
-        }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
+        return $this->render('home/home.html.twig', [
+            'categories' => $categories,
+            'products' => $products,
+            'client' => $client,
+            'items' => $cartService->getFullCart(),
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
+        ]);
+       
     }
 
     /**
@@ -85,15 +77,53 @@ class HomeController extends AbstractController
     /**
      * @Route("/panier", name="panier")
      */
-    public function panier(Request $request): Response
-    {
-        if($request->isMethod('POST')){
-            return $this->redirectToRoute('payment');
-        }
+    public function panier(CartService $cartService){
 
         return $this->render('home/panier.html.twig', [
-            
+            'items' => $cartService->getFullCart(),
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
         ]);
+    }
+
+      /**
+     * @Route("/panier/add/{id}", name="cart_add")
+     */
+    public function add(Product $product, CartService $cartService){
+       
+        $cartService->add($product);
+
+        return $this->redirectToRoute("panier");
+
+    }
+
+    /**
+     * @Route("panier/remove/{id}", name="cart_remove")
+     */
+    public function remove(Product $product, CartService $cartService){
+       
+        $cartService->remove($product);
+
+        return $this->redirectToRoute("panier");
+    }
+    /**
+     * @Route("panier/delete/{id}", name="cart_delete")
+     */
+    public function delete(Product $product, CartService $cartService){
+       
+        $cartService->delete($product);
+
+        return $this->redirectToRoute("panier");
+    }
+
+    /**
+     * @Route("panier/delete", name="cart_delete_all")
+     */
+    public function deleteAll( CartService $cartService){
+       
+        $cartService->deleteAll();
+
+        return $this->redirectToRoute("panier");
     }
 
     /**
