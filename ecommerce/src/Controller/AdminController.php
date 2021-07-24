@@ -27,33 +27,15 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-        try{
-
-            $admins = $this->getDoctrine()->getRepository(Admin::class)->findAll();
-            $clients = $this->getDoctrine()->getRepository(Client::class)->findAll();
-            $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
-            $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-            $commands = $this->getDoctrine()->getRepository(Command::class)->findAll();
-            $payments = $this->getDoctrine()->getRepository(Payment::class)->findAll();
-            $user = $this->getDoctrine()->getRepository(Admin::class)
-                ->findOneBy(['id' => $this->getUser()->getId()]);
-            //$commands = $this->getDoctrine()->getRepository(Command::class)->findAll();
-            
-            return $this->render('admin/index.html.twig', [
-                'admins' => $admins,
-                'clients' => $clients,
-                'categories' => $categories,
-                'products' => $products,
-                'commands' => $commands,
-                'payments' => $payments,
-                'user' => $user,
-                //'admins' => $admins,
-                'current_page' => 'Dashboard',
-            ]);
-        }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
+        $user = $this->getDoctrine()->getRepository(Admin::class)
+            ->findOneBy(['id' => $this->getUser()->getId()]);
+        //$commands = $this->getDoctrine()->getRepository(Command::class)->findAll();
+        
+        return $this->render('admin/index.html.twig', [
+            'user' => $user,
+            //'admins' => $admins,
+            'current_page' => 'Dashboard',
+        ]);
     }
 
     /**
@@ -204,7 +186,7 @@ class AdminController extends AbstractController
                     'class' => 'alert alert-success',
                 ]);
             }
-            
+
             return $this->render('admin/createCategory.html.twig', [
                 'categoryForm' => $form->createView(),
             ]);

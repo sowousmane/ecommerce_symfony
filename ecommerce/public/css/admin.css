@@ -135,3 +135,11 @@
 ._none {
     display: none;
 }
+
+._chiffres {
+    margin: 5px;
+    padding: 10px;
+    height: 180px;
+    border-radius: 15px;
+    color: white;
+}

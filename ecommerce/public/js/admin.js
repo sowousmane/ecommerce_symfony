@@ -7,6 +7,9 @@ var rotateGestions = document.querySelector('.rotate-gestions');
 var rotateDashboard = document.querySelector('.rotate-dashboard');
 var gestionsDive = document.querySelector('.gestions-dive');
 var dashboardDive = document.querySelector('.dashboard-dive');
+var _allProducts = document.querySelector('._all-products'); 
+var _littleProducts = document.querySelector('._little-products');
+var _length = _allProducts.id;
 
 barsNav.addEventListener('click', function(){
     sidebar.style.width = '350px';
@@ -50,6 +53,22 @@ rotateGestions.addEventListener('click', function(){
         dashboardDive.style.visibility = 'hidden';
     }
 });
+
+_allProducts.addEventListener('click', function(){
+    for(var i = 5; i < _length; i++){
+        document.querySelector('#_tr' + i).classList.remove('_none');
+        _allProducts.classList.add('_none');
+        _littleProducts.classList.remove('_none');
+    }
+});
+
+_littleProducts.addEventListener('click', function(){
+    for(var i = 5; i < _length; i++){
+        document.querySelector('#_tr' + i).classList.add('_none');
+        _allProducts.classList.remove('_none');
+        _littleProducts.classList.add('_none');
+    }
+})
 
 function onResize(evnt){
     sidebarClose.style.display = 'none';
