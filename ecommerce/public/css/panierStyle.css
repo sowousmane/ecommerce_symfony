@@ -1,0 +1,63 @@
+body{
+    background-color: rgb(231, 229, 229); 
+  }
+
+  .retour a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+.retour{
+    width: auto;
+    position: fixed;
+    z-index:99999;
+    height: 50px;
+    padding: 10px;
+    margin: 20px;
+}
+._logo strong{
+    font-size: 50px;
+}
+._logo a{
+    text-decoration: none;
+    color: black;
+}
+.btn-danger{
+  background-color: red;
+}
+tbody tr{
+  background-color: rgb(255, 255, 255);
+  margin-top: 105px;
+}
+.panier-first-div{
+  margin: 50px;
+}
+
+.btn-valide-cart {
+  background-color: rgb(243, 154, 38);
+  width: 200px;
+  font-weight: bold;
+  color:black;
+}
+.empty{
+  font-size: 20px;
+  
+}
+.empty-cart{
+  font-size: 90px;
+  text-align: center;
+
+}
+
+/*========================================================================*/
+@media(max-width : 790px) {
+  .retour{
+    display: none;
+  }
+  .panier-first-div{
+    margin: 0;
+    width: 100%;
+  }
+}
+

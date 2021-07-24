@@ -15,11 +15,10 @@
                             <a href="{{ path("details", {id: product.id}) }}">
                                 <img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}" alt="Avatar" style="width:100%" />
                                 <div class="foot_article">
-                                    <h2>Asperges blanches ou violettes</h2>
-                                    <h5>la botte de 500g</h5>
-                                    <h5>5€ /kilogramme</h5>
-                                    <h3>{{ product.name }}</h2>
-                                        <h2> {{ product.price }} €</h2>
+                                    <h3>{{ product.name }}  {{ 'abcd45'[:12] }} {# will display "12" #}</h3>
+                                   
+                                    <h4>{{ product.description }}</h4>
+                                    <h2> {{ product.price }} €</h2>
                                 </div>
                             </a>
 
