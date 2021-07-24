@@ -134,7 +134,7 @@
                 {% endfor %}
 
             </table>
-            <button type="button" class="btn _add">Ajouter un produit</button>
+            <a href="{{ path("add_product") }}"><button type="button" class="btn _add">Ajouter un produit</button></a>
             <button id="{{ products|length }}" type="button" class="btn _all _all-products rounded">Voir tous les produits</button>
             <a class="_link-little-products" href="#_title-products"><button type="button" class="btn _none _all _little-products rounded">Voir moins de produits</button></a>
 
