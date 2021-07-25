@@ -3,17 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
-use App\Entity\Category;
-use App\Entity\Client;
-use App\Entity\Command;
 use App\Entity\History;
-use App\Entity\Payment;
-use App\Entity\Product;
 use App\Entity\User;
 use App\Form\CreateAdminFormType;
-use App\Form\CreateCategoryFormType;
-use App\Form\CreateProductFormType;
-use App\Service\AppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,88 +15,21 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin")
-     */
-    public function index(): Response
-    {
-        $user = $this->getDoctrine()->getRepository(Admin::class)
-            ->findOneBy(['id' => $this->getUser()->getId()]);
-        //$commands = $this->getDoctrine()->getRepository(Command::class)->findAll();
-        
-        return $this->render('admin/index.html.twig', [
-            'user' => $user,
-            //'admins' => $admins,
-            'current_page' => 'Dashboard',
-        ]);
-    }
-
-    /**
-     * @Route("/gestion_admin", name="gestion_admin")
-     */
-    public function gestion_admin(): Response
-    {
-        $admins = $this->getDoctrine()->getRepository(Admin::class)->findAll();
-        $clients = $this->getDoctrine()->getRepository(Client::class)->findAll();
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        $commands = $this->getDoctrine()->getRepository(Command::class)->findAll();
-        $payments = $this->getDoctrine()->getRepository(Payment::class)->findAll();
-        $user = $this->getDoctrine()->getRepository(Admin::class)
-            ->findOneBy(['id' => $this->getUser()->getId()]);
-        
-        return $this->render('admin/gestionAdmin.html.twig', [
-            'admins' => $admins,
-            'clients' => $clients,
-            'categories' => $categories,
-            'products' => $products,
-            'commands' => $commands,
-            'payments' => $payments,
-            'user' => $user,
-            'current_page' => 'Gestions administratives',
-        ]);
-    }
-
-    /**
-     * @Route("/history", name="history")
-     */
-    public function history(): Response
-    {
-        $histories = $this->getDoctrine()->getRepository(History::class)->findAll();
-        
-        return $this->render('admin/history.html.twig', [
-            'current_page' => 'Historique',
-            'histories' => $histories,
-        ]);
-    }
-
-    /**
-     * @Route("/galery", name="galery")
-     */
-    public function galery(): Response
-    {
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        
-        return $this->render('admin/galery.html.twig', [
-            'products' => $products,
-            'current_page' => 'Galerie',
-        ]);
-    }
-
-    /**
      * @Route("/create_admin", name="create_admin")
      */
     public function createAdmin(Request $request, 
         UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        try{
-
+        try
+        {
             $admin = new Admin();
             $user = new User();
             $history = new History();
             $form = $this->createForm(CreateAdminFormType::class, $admin);
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()){
+            if($form->isSubmitted() && $form->isValid())
+            {
                 $user->setEmail($admin->getEmail());
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
@@ -136,12 +61,8 @@ class AdminController extends AbstractController
                     'class' => 'alert alert-success',
                 ]);
             }
-            
-            $_user = $this->getDoctrine()->getRepository(Admin::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
-            
             return $this->render('admin/createAdmin.html.twig', [
                 'adminForm' => $form->createView(),
-                'admin' => $_user,
             ]);
         }
         catch(\Exception $e){
@@ -155,40 +76,42 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/create_category", name="create_category")
+     * @Route("/edit_admin/{id}", name="edit_admin")
      */
-    public function createCategory(Request $request): Response
+    public function editAdmin(Request $request, $id, 
+        UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        try{
-
-            $category = new Category();
-            $history = new History();
-            $form = $this->createForm(CreateCategoryFormType::class, $category);
+        try
+        {
+            $admin = $this->getDoctrine()->getRepository(Admin::class)->findOneBy(['id' => $id]);
+            $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $admin->getEmail()]);
+            $form = $this->createForm(CreateAdminFormType::class, $admin);
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()){
-                $history->setTitle('Création d\'une catégorie de produit');
-                $history->setContent(
-                    "Informations de la catégorie créée : 
-                    Nom : " . $category->getName() 
+            if($form->isSubmitted() && $form->isValid())
+            {
+                $user->setEmail($admin->getEmail());
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $admin->getPassword()
+                    )
                 );
-                $history->setSentAt(date('l jS \of F Y h:i:s A'));
-                $history->setColor('alert alert-success');
 
                 $doctrine = $this->getDoctrine()->getManager();
-                $doctrine->persist($category);
-                $doctrine->persist($history);
+                $doctrine->persist($admin);
+                $doctrine->persist($user);
                 $doctrine->flush();
 
                 return $this->render('admin/response.html.twig', [
-                    'response' => 'La catégorie a été créée avec succès !',
+                    'response' => 'Votre profil a été mis à jour !',
                     'current_page' => 'Réponse',
                     'class' => 'alert alert-success',
                 ]);
             }
 
-            return $this->render('admin/createCategory.html.twig', [
-                'categoryForm' => $form->createView(),
+            return $this->render('admin/editAdmin.html.twig', [
+                'editAdminForm' => $form->createView(),
             ]);
         }
         catch(\Exception $e){
@@ -198,77 +121,7 @@ class AdminController extends AbstractController
                 'class' => 'alert alert-danger',
             ]);
         }
-    }
-
-    /**
-     * @Route("/edit_product", name="edit_product")
-     */
-    public function editProduct(Request $request): Response
-    {
-        $id = 1;
-        try{
-            $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
-
-            if(!$product){
-                return $this->render('admin/response.html.twig', [
-                    'response' => 'Le produit dont l\'id est ' . $id . ' n\'existe pas',
-                    'current_page' => 'Réponse',
-                    'class' => 'alert alert-danger',
-                ]);
-            }
-
-            $form = $this->createForm(CreateProductFormType::class, $product);
-            $form->handleRequest($request);
-
-            
-
-            return $this->render('admin/editProduct.html.twig', [
-                'editProductForm' => $form->createView(),
-                'response' => 'Le produit dont l\'id est ' . $id . ' a été modifié !',
-                'current_page' => 'Réponse',
-                'class' => 'alert alert-success',
-            ]);
-        } catch (\Exception $e) {
-            return $this->render('admin/response.html.twig', [
-                'response' =>  $e->getMessage(),
-                'current_page' => 'Réponse',
-                'class' => 'alert alert-danger',
-            ]);
-        }
-    }
-
-    /**
-     * @Route("/delete_product/{id}", name="delete_product")
-     */
-    public function deleteProduct($id): Response
-    {
-        try{
-            $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
-            
-            if(!$product){
-                return $this->render('admin/response.html.twig', [
-                    'response' => 'Le produit dont l\'id est ' . $id . ' n\'existe pas',
-                    'current_page' => 'Réponse',
-                    'class' => 'alert alert-danger',
-                ]);
-            }
-
-            $doctrine = $this->getDoctrine()->getManager();
-            $doctrine->remove($product);
-            //$doctrine->flush();
-
-            return $this->render('admin/response.html.twig', [
-                'response' => 'Le produit dont l\'id est ' . $id . ' a été supprimé !',
-                'current_page' => 'Réponse',
-                'class' => 'alert alert-success',
-            ]);
-        } catch (\Exception $e) {
-            return $this->render('admin/response.html.twig', [
-                'response' =>  $e->getMessage(),
-                'current_page' => 'Réponse',
-                'class' => 'alert alert-danger',
-            ]);
-        }
+        
     }
 
     /**

@@ -7,7 +7,23 @@
 <div class="row">
     {% include 'admin/sidebar.html.twig' %}
     <div style="padding: 0 50px;" class="admin-content col-sm-9">
-    {% include 'admin/header.html.twig' %}
+        <div style="width: 100%; background-color: white; margin: 50px 0; border-radius: 8px;" 
+            class="text-center shadow">
+            <div class="row" style="padding: 15px 0;">
+                <div style="text-align: left; padding-left: 40px;" class="col-sm-8" style="padding-left: 40px;">
+                    <div style="cursor: pointer; font-size: 25px;" class="bars-nav"><i class="fas fa-bars"></i></div>
+                    <h4 class="current-title">
+                        <i style="margin-right: 20px; color: #ff6f00;" class="fas fa-chevron-circle-right"></i><strong>{{ current_page }}</strong>
+                    </h4>
+                </div>
+                <div class="col-sm-4">
+                    <div style="width: 200px; float: right;">
+                        <div class="row">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div style="width: 100%; background-color: white; padding: 40px;" class="admin_content shadow">
             <div class="{{ class }}" role="alert">
                 {{ response }}

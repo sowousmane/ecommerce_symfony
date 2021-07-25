@@ -1,17 +1,55 @@
 <div style="width: 100%; background-color: white; margin: 50px 0; border-radius: 8px;" 
     class="text-center shadow">
-    <div class="row" style="padding: 15px 0;">
-        <div style="text-align: left; padding-left: 40px;" class="col-sm-8" style="padding-left: 40px;">
-            <div style="cursor: pointer; font-size: 25px;" class="bars-nav"><i class="fas fa-bars"></i></div>
-            <h4 class="current-title">
+    <div class="row" style="padding: 5px 0;">
+        <div style="text-align: left; padding-left: 40px;" class="col-sm-8">
+            <div style="margin-top: 8px; cursor: pointer; font-size: 25px;" class="bars-nav"><i class="fas fa-bars"></i></div>
+            <h4 style="margin-top: 8px;" class="current-title">
                 <i style="margin-right: 20px; color: #ff6f00;" class="fas fa-chevron-circle-right"></i><strong>{{ current_page }}</strong>
             </h4>
         </div>
         <div class="col-sm-4">
-            <div style="float: right;">
-                <i style="font-size: 25px; color: #4d3204; margin-top: 5px;" class="fas fa-bell"></i>
-                <span>profil</span>
+            <div style="width: 200px; float: right;">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <i style="font-size: 25px; color: #4d3204; margin-top: 12px;" class="fas fa-bell"></i>
+                    </div>
+                    <div style="width: 50px; height: 50px; cursor: pointer; border: 2px solid #a3a09b; border-radius: 50%; background-image: url('{{ asset("images/profile/profile.jpg") }}'); background-repeat: no-repeat; background-size: cover;" 
+                        class="col-sm-6" data-bs-toggle="modal" data-bs-target="#exampleModal"></div>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mon profil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div style="width: 100%;" class="text-center">
+        <div style="margin: 0 auto; width: 100px; height: 100px; border: 2px solid #a3a09b; border-radius: 50%; background-image: url('{{ asset("images/profile/profile.jpg") }}'); background-repeat: no-repeat; background-size: cover;"></div>
+        <h4 style="text-align: center; margin: 20px 0 0 0;">{{ user.firstname }} {{ user.lastname|upper }}</h4>
+        <span style="font-size: 13px;">{{ user.email }}</span>
+      </div>
+        <form method="POST">
+            <div class="avatar" style="margin: 15px 10%">
+                <label for="file-upload" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i> Mettre à jour ma photo de profil
+                </label>
+                <input type="file" name="avatar" class="form-control">
+            </div>
+            <button type="submit" style="display: none; margin-left: 15%;" class="_admin-validate-profile btn btn-primary">valider</button>        
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="{{ path("edit_admin", {id: user.id}) }}">
+            <button class="_btn-outline-onlineshop btn">Modifier mes informations personnelles</button>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
