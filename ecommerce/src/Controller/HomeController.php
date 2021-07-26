@@ -218,7 +218,8 @@ class HomeController extends AbstractController
      /**
      * @Route("/details/{id}", name="details")
      */
-    public function details(Product $produit, $id, CartService $cartService, CommentsRepository $commentsRepository): Response
+    public function details(Product $produit, $id, CartService $cartService, 
+        CommentsRepository $commentsRepository, Request $request): Response
     {
         $user = '';
         $client = null;
@@ -249,6 +250,42 @@ class HomeController extends AbstractController
                 array_push($products, $__products[$i]);
             }
 
+            $post = new Comments();
+        
+            $formulaire = $this->createForm(CommentsFormType::class, $post);
+    
+            $formulaire->handleRequest($request);
+    
+            $formulaire->getErrors();
+    
+            if($formulaire->isSubmitted() && $formulaire->isValid())
+            {
+                $post->setProduit($product);
+
+                //on recupère le contenu du champ parent
+                $parentId = $formulaire->get("parent")->getData();
+
+
+                //on va chercher le commentaire correspondant au parent
+                $em = $this->getDoctrine()->getManager();
+
+                if($parentId != null){
+                    $parent = $em->getRepository(Comments::class)->find($parentId) ;
+
+                }
+                
+                //on definit le parent
+                $post->setParent($parent);
+
+                $em->persist($post);
+                $em->flush();
+                $this->addFlash('message', 'Votre commentaire a bien été envoyé');
+                return $this->redirectToRoute("details", ['id' =>
+                    $product->getId()    
+                ]);
+            }
+    
+           
             $comments = $commentsRepository->findBy(['produit' => $produit]);
 
            //dd($comments);
@@ -260,6 +297,7 @@ class HomeController extends AbstractController
                 'total' => $cartService->getTotal(),
                 'totalItem' => $cartService->getTotalItem(),
                 'comments' => $comments,
+                'formulaire' => $formulaire->createView(),
             ]);
         }
         catch(\Exception $e){
@@ -306,6 +344,8 @@ class HomeController extends AbstractController
                
         ]);
     }
+
+   
     /**
     * @Route("/forum/creer_comment", name="create_comment")
     */
@@ -318,7 +358,9 @@ class HomeController extends AbstractController
         $formulaire = $this->createForm(CommentsFormType::class, $post);
 
         $formulaire->handleRequest($request);
+
         $formulaire->getErrors();
+
         if($formulaire->isSubmitted() && $formulaire->isValid())
         {
             $em = $this->getDoctrine()->getManager();

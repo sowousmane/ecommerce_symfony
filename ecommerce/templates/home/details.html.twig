@@ -119,35 +119,52 @@
       </tr>
 
     {% if comments | length > 0 %}
-       {% for _comment in comments %}
-      <tr>
-        <th rowspan="2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-person-fill" viewBox="0 0 16 16">
-              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-          </svg><br>
-          {{ _comment.nickname }}
-        </th>
-        <td> 
-            <a class="link-to-details-post" style="color:black;" href="{{ path("show_comment", {'id': _comment.id}) }}">
-                <strong> Topic: </strong> {{ _comment.title }}
-            </a>
-        </td>
-        <td> <strong> Publié le: </strong> {{ _comment.createdAt |date('d-m-Y:h-m-s') }}</td>
-        <td > {% if _comment.active %}actif{% else %}fermé{% endif %}</td>
-      </tr>
-      <tr>
-        <td colspan="2"> 
-            <a class="link-to-details-post"  style="color:black;" href="{{ path("show_comment", {'id': _comment.id}) }}">
-                {{ _comment.content }}
-            </a>
-        </td>
-        <td> 
-            <a class="btn"> Repondre</a>
-        </td>
-      </tr>
 
-  {% endfor %}
+        <div class="container " style="font-size:16px;">
+            {% for _comment in comments %}
+                {% if _comment.parent == null %}
+                    <p> publié par {{ _comment.nickname }} le {{_comment.createdAt |date('d/m/Y :H:i') }} ce post est:  {% if _comment.active %}actif{% else %}fermé{% endif %}
+                    <div> {{ _comment.content}}</div>
+                    <p> <a href="#create_comment" data-reply data-id="{{_comment.id}}" class="btn-primary"> Répondre</a></p>
+                    {# on affiche les reponses #}
+                    {% for reply in _comment.replies %}
+                        <p style="font-weight:bold;"> Réponse de {{ reply.nickname }} le {{reply.createdAt |date('d/m/Y :H:i') }} ce post est:  {% if reply.active %}actif{% else %}fermé{% endif %}
+                        <div> {{ reply.content}}</div>
+                    
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            
+        </div>
+        {% for _comment in comments %}
+            <tr>
+                <th rowspan="2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg><br>
+                {{ _comment.nickname }}
+                </th>
+                <td> 
+                    <a class="link-to-details-post" style="color:black;" href="{{ path("show_comment", {'id': _comment.id}) }}">
+                        <strong> Topic: </strong> {{ _comment.title }}
+                    </a>
+                </td>
+                <td> <strong> Publié le: </strong> {{ _comment.createdAt |date('d-m-Y:h-m-s') }}</td>
+                <td > {% if _comment.active %}actif{% else %}fermé{% endif %}</td>
+            </tr>
+            <tr>
+                <td colspan="2"> 
+                    <a class="link-to-details-post"  style="color:black;" href="{{ path("show_comment", {'id': _comment.id}) }}">
+                        {{ _comment.content }}
+                    </a>
+                </td>
+                <td> 
+                    <a href="#create_comment" data-reply data-id="{{_comment.id}}" class="btn-primary"> Répondre</a>
+                </td>
+            </tr>
+
+        {% endfor %}
     {% else %}
         <tr> <td colspan="10" style="background-color:rgb(253, 147, 128);"><h1 > Aucun commentaire sur ce produit</h1></td></tr>
     
@@ -155,12 +172,15 @@
     </table>
     
   </div>
-   <div class="col-sm-2">
-        <a href="{{ path("create_comment") }}" class="btn new_post_btn pulse ">
+   <div class="col-sm-2 new_post_btn" id="new_comm" style="display:block;">
             <span class="fa fa-plus"></span>
             <strong>Commentez ce produit</strong>
-        </a>
     </div>
+    <div id="create_comment" class="row commentaire_create " style=" display:block;margin:0px 50px; margin-top:27px;">
+        <h1 class="text-center"> Laissez-nous vos commentaires ou vos questions sur ce produit</h1>
+        {{ form(formulaire) }}
+    </div>
+
 </div>
 <script>
     $(document).ready(function () {
@@ -180,6 +200,20 @@
         }
 
     });
+
+  {#  document.getElementById('new_comm').onclick = function changeContent(){
+
+        document.getElementById('create_comment').style.display = "block";
+
+    } #}
+    window.onload = () => {
+        //on ecoute l'evenement sur tous les bouttons repondre
+        document.querySelectorAll("[data-reply]").forEach(element => {
+            element.addEventListener("click", function(){
+                document.querySelector("#comments_form_parent").value = this.dataset.id;
+            })
+        })
+    }
 </script>
 
 

@@ -68,6 +68,17 @@ tr, .commentaire_details , .commentaire_details_s{
     height: 50px;
 
 }
+.commentaire_create textarea {
+    padding: 10px;
+    max-width: 100%;
+    min-width: 100%;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+    height: 250px;
+}
+
 
 .btn-envoyer{
     background-color: rgb(243, 154, 38);
