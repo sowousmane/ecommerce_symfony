@@ -15,6 +15,27 @@ use App\Form\CreateCategoryFormType;
 class ProductController extends AbstractController
 {
     /**
+     * @Route("/products_by_category/{id}", name="products_by_category")
+     */
+    public function productsByCategory($id): Response
+    {
+        $user = '';
+        $client = null;
+        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
+            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+            $user = $client->getFirstname() . ' ';
+        }
+
+        $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $id]);
+        
+        return $this->render('home/productsByCategory.html.twig', [
+            'products' => $products,
+            'client' => $client,
+            'user' => $user,
+        ]);
+    }
+
+    /**
      * @Route("/add_product", name="add_product")
      */
     public function add(Request $request): Response
