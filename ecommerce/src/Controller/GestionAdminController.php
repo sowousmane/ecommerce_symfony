@@ -12,6 +12,8 @@ use App\Entity\Command;
 use App\Entity\History;
 use App\Entity\Payment;
 use App\Entity\Product;
+use App\Form\ProfilePictureFormType;
+use Symfony\Component\HttpFoundation\Request;
 
 class GestionAdminController extends AbstractController
 {
@@ -24,10 +26,20 @@ class GestionAdminController extends AbstractController
         {
             $user = $this->getDoctrine()->getRepository(Admin::class)
             ->findOneBy(['id' => $this->getUser()->getId()]);
+
+            if($user->getPicture() != null)
+            {
+                $_picture = 'admins/' . $user->getPicture();
+            } 
+            else 
+            {
+                $_picture = '_profile.png';
+            }
         
             return $this->render('admin/index.html.twig', [
                 'user' => $user,
                 'current_page' => 'Dashboard',
+                '_picture' => $_picture,
             ]);
         }
         catch(\Exception $e){
@@ -54,6 +66,15 @@ class GestionAdminController extends AbstractController
             $payments = $this->getDoctrine()->getRepository(Payment::class)->findAll();
             $user = $this->getDoctrine()->getRepository(Admin::class)
                 ->findOneBy(['id' => $this->getUser()->getId()]);
+
+            if($user->getPicture() != null)
+            {
+                $_picture = 'admins/' . $user->getPicture();
+            } 
+            else 
+            {
+                $_picture = '_profile.png';
+            }
             
             return $this->render('admin/gestionAdmin.html.twig', [
                 'admins' => $admins,
@@ -64,6 +85,7 @@ class GestionAdminController extends AbstractController
                 'payments' => $payments,
                 'user' => $user,
                 'current_page' => 'Gestions administratives',
+                '_picture' => $_picture,
             ]);
         }
         catch(\Exception $e){
@@ -85,11 +107,21 @@ class GestionAdminController extends AbstractController
             $histories = $this->getDoctrine()->getRepository(History::class)->findAll();
             $user = $this->getDoctrine()->getRepository(Admin::class)
                 ->findOneBy(['id' => $this->getUser()->getId()]);
+
+            if($user->getPicture() != null)
+            {
+                $_picture = 'admins/' . $user->getPicture();
+            } 
+            else 
+            {
+                $_picture = '_profile.png';
+            }
             
             return $this->render('admin/history.html.twig', [
                 'current_page' => 'Historique',
                 'histories' => $histories,
                 'user' => $user,
+                '_picture' => $_picture,
             ]);
         }
         catch(\Exception $e){
@@ -111,11 +143,21 @@ class GestionAdminController extends AbstractController
             $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
             $user = $this->getDoctrine()->getRepository(Admin::class)
                 ->findOneBy(['id' => $this->getUser()->getId()]);
+
+            if($user->getPicture() != null)
+            {
+                $_picture = 'admins/' . $user->getPicture();
+            } 
+            else 
+            {
+                $_picture = '_profile.png';
+            }
             
             return $this->render('admin/galery.html.twig', [
                 'products' => $products,
                 'current_page' => 'Galerie',
                 'user' => $user,
+                '_picture' => $_picture,
             ]);
         }
         catch(\Exception $e){

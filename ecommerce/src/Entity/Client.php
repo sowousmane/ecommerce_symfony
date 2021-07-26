@@ -64,6 +64,11 @@ class Client
      */
     private $commands;
 
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->commands = new ArrayCollection();
@@ -196,6 +201,18 @@ class Client
                 $command->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

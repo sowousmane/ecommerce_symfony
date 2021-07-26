@@ -6,6 +6,7 @@ use App\Entity\Admin;
 use App\Entity\History;
 use App\Entity\User;
 use App\Form\CreateAdminFormType;
+use App\Form\ProfilePictureFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,6 +88,33 @@ class AdminController extends AbstractController
             $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $admin->getEmail()]);
             $form = $this->createForm(CreateAdminFormType::class, $admin);
             $form->handleRequest($request);
+            $_form = $this->createForm(ProfilePictureFormType::class);
+            $_form->handleRequest($request);
+
+            if($_form->isSubmitted() && $_form->isValid())
+            {
+                $picture = $_form->get('picture')->getData();
+
+                if($picture)
+                {
+                    $newFilename = 'admin' . $id . '.' . $picture->guessExtension();
+
+                    $picture->move(
+                        $this->getParameter('admins'),
+                        $newFilename
+                    );
+
+                    $admin->setPicture($newFilename);
+                    $doctrine = $this->getDoctrine()->getManager();
+                    $doctrine->persist($admin);
+                    $doctrine->flush();
+
+                    return $this->render('admin/editAdmin.html.twig', [
+                        'editAdminForm' => $form->createView(),
+                        'editPictureForm' => $_form->createView(),
+                    ]);
+                }
+            }
 
             if($form->isSubmitted() && $form->isValid())
             {
@@ -112,6 +140,7 @@ class AdminController extends AbstractController
 
             return $this->render('admin/editAdmin.html.twig', [
                 'editAdminForm' => $form->createView(),
+                'editPictureForm' => $_form->createView(),
             ]);
         }
         catch(\Exception $e){

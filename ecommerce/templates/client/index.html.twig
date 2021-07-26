@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
 {% block title %}Mon profil{% endblock %}
 
@@ -34,12 +34,26 @@
     ._btn-none {
         display: none;
     }
+
+    ._photo-profile div {
+        float: right; 
+        text-align: right; 
+        margin: 50px 0; 
+        width: 150px; 
+        height: 150px; 
+        border: 2px solid #a3a09b; 
+        border-radius: 50%;
+        background-repeat: no-repeat; 
+        background-size: cover;
+    }
 </style>
 
 <div class="container">
     <div class="header shadow row">
         <div class="_photo-profile col-3">
-            <div style="float: right; text-align: right; margin: 50px 0; width: 150px; height: 150px; border: 2px solid #a3a09b; border-radius: 50%; background-image: url('{{ asset("images/profile/profile.jpg") }}'); background-repeat: no-repeat; background-size: cover;"></div>
+            <div style=" background-image: url('{{ asset("images/profile/" ~ _picture ~ "") }}');">
+                <i data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 25px; margin-top: 110px; margin-right: 7px; color: rgba(0, 0, 0, 0.7); cursor: pointer;" class="fas fa-camera"></i>
+            </div>
         </div>
         <div class="_infos-profile col-9">
             <h1><strong>{{ user.firstname }} {{ user.lastname|upper }}</strong></h1>
@@ -100,7 +114,7 @@
         <div style="padding: 56px 3%;" class="col-3">
             <button class="_btn-outline-onlineshop btn _modify">Modifier mes informations personnelles</button>
         </div>
-        <div class="_infos-profile col-9 text-right">
+        <div class="_infos-profile col-9">
             <form method="post">
                 <div class="row">
                     <div class="col-sm-6">
@@ -131,6 +145,24 @@
             </form>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modification de la photo de profil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ form(profilePictureForm) }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>

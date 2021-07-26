@@ -47,6 +47,11 @@ class Admin
      */
     private $updated_at;
 
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    private $picture;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class Admin
     public function setUpdatedAt(\DateTimeImmutable $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }
