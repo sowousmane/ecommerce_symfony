@@ -1,0 +1,79 @@
+body{
+    background-color: rgb(231, 229, 229); 
+  }
+  .retour a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+.retour{
+    width: auto;
+    position: fixed;
+    z-index:99999;
+    height: 50px;
+    padding: 10px;
+    margin: 20px;
+}
+._logo strong{
+    font-size: 50px;
+}
+._logo a{
+    text-decoration: none;
+    color: black;
+}
+.welcome-to-soth {
+    font-weight: bold;
+    font-size: 40px;
+}
+.commentaire_{
+    margin: 1500px;
+}
+.link-to-details-post{
+    color: black;
+    text-decoration: none;
+}
+tr, .commentaire_details , .commentaire_details_s{
+    background-color: rgb(238, 238, 238);
+}
+
+.commentaire_details{
+    text-align: center;
+    width: auto;
+}
+.new_post_btn{
+    background-color: rgb(243, 154, 38);
+    height: 50px;
+    width: auto;/* top | right | bottom | left *//* vertical | horizontal */
+    padding: 10px;
+    font-weight: bold;
+}
+.resize_ a , .resize_ td{
+    font-size: 20px;
+}
+
+.btn-cancel-comment{
+    margin-top: -2.5%;
+    width: auto;
+    height: 50px;
+    padding: 10px;
+    font-weight: bold;
+    margin-left: 80%;
+    background-color: rgb(228, 87, 87);
+}
+/*==============================  show comment ====================*/
+
+/*==================== create comment ==================*/
+.commentaire_create input{
+    height: 50px;
+
+}
+
+.btn-envoyer{
+    background-color: rgb(243, 154, 38);
+    width: auto;/* top | right | bottom | left *//* vertical | horizontal */
+    padding: 10px;
+    font-weight: bold;
+    float: right;
+    margin-top: 10px;
+}

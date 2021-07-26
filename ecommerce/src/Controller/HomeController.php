@@ -3,16 +3,21 @@
 namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Client;
+use App\Entity\Comments;
 use App\Entity\History;
 use App\Entity\Product;
 use App\Entity\User;
+use App\Form\CommentsFormType;
+use App\Form\CommentsType;
 use App\Form\CreateClientFormType;
 use App\Service\Cart\CartService;
 use App\Form\SearchProductFormType;
+use App\Repository\CommentsRepository;
 use App\Repository\ProductRepository;
 use App\Service\AppService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -213,10 +218,11 @@ class HomeController extends AbstractController
      /**
      * @Route("/details/{id}", name="details")
      */
-    public function details($id, CartService $cartService): Response
+    public function details(Product $produit, $id, CartService $cartService, CommentsRepository $commentsRepository): Response
     {
         $user = '';
         $client = null;
+
         if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
             $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
             $user = $client->getFirstname() . ' ';
@@ -243,6 +249,9 @@ class HomeController extends AbstractController
                 array_push($products, $__products[$i]);
             }
 
+            $comments = $commentsRepository->findBy(['produit' => $produit]);
+
+           //dd($comments);
             return $this->render('home/details.html.twig', [
                 'product' => $product,
                 'products' => $products,
@@ -250,6 +259,7 @@ class HomeController extends AbstractController
                 'user' => $user,
                 'total' => $cartService->getTotal(),
                 'totalItem' => $cartService->getTotalItem(),
+                'comments' => $comments,
             ]);
         }
         catch(\Exception $e){
@@ -260,19 +270,85 @@ class HomeController extends AbstractController
     }
 
   
+    /*======================================================== */
     /**
     * @Route("/forum", name="forum")
     */
-    public function forum(): Response
+    public function forum (CommentsRepository $commentsRepository, CartService $cartService, Request $request, ProductRepository $productRepository)
     {
-        try{
-            return $this->render('home/forum.html.twig', [
-                'controller_name' => 'HomeController',
-            ]);
+        $user = '';
+        $client = null;
+        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
+            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+            $user = $client->getFirstname() . ' ';
         }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        $search = $request->request->get('search_product');
+
+        if($request->getMethod() == 'POST')
+        {
+            $products = $productRepository->search($search);
         }
+
+        $posts = $commentsRepository->findAll();
+
+     /*    $newDate = DateTime::createFromFormat("l dS F Y", $dateFromDB);
+        $newDate = $newDate->format('d/m/Y'); // for example */
+        return $this->render('home/forum.html.twig', [
+            'posts' => $posts,
+            'categories' => $categories,
+            'products' => $products,
+            'client' => $client,
+            'user' => $user,
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
+               
+        ]);
+    }
+    /**
+    * @Route("/forum/creer_comment", name="create_comment")
+    */
+    public function post (Request $request)
+    {
+       
+      
+        $post = new Comments();
+        
+        $formulaire = $this->createForm(CommentsFormType::class, $post);
+
+        $formulaire->handleRequest($request);
+        $formulaire->getErrors();
+        if($formulaire->isSubmitted() && $formulaire->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+            return $this->redirectToRoute("forum");
+        }
+
+        //$em->persist($post);
+        
+        //$em->flush();
+
+        return $this->render('home/createComment.html.twig', [
+            'formulaire' => $formulaire->createView(),
+               
+        ]);
+    }
+        
+        
+
+     /**
+    * @Route("/show{id}", name="show_comment")
+    */
+    public function showComment(Comments $posts)
+    {
+       
+        return $this->render('home/showComment.html.twig', [
+            'posts' => $posts,
+               
+        ]);
     }
     /**
     * @Route("/contact", name="contact")
@@ -306,4 +382,6 @@ Envoyé par : '. $email);
             $this->addFlash('danger', $e->getMessage());
         }
     }
+
+    
 }

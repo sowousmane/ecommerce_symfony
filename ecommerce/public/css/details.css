@@ -33,6 +33,13 @@
     padding: 0px 20px 0px 0px;
 
 }
+.new_post_btn{
+    height: 50px;
+    width:  auto;
+    color: #020202;
+    background-color: rgb(243, 154, 38);
+    padding: 10px;
+}
 .details_article .buy_btn{
     text-decoration: none;
 }

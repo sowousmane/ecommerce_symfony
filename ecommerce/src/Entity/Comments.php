@@ -20,6 +20,11 @@ class Comments
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $content;
@@ -27,7 +32,7 @@ class Comments
     /**
      * @ORM\Column(type="boolean")
      */
-    private $active = false;
+    private $active = true;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -44,11 +49,7 @@ class Comments
      */
     private $created_at;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $rgpd;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
@@ -99,6 +100,18 @@ class Comments
         return $this;
     }
 
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -135,17 +148,7 @@ class Comments
         return $this;
     }
 
-    public function getRgpd(): ?bool
-    {
-        return $this->rgpd;
-    }
-
-    public function setRgpd(bool $rgpd): self
-    {
-        $this->rgpd = $rgpd;
-
-        return $this;
-    }
+   
 
     public function getProduit(): ?Product
     {

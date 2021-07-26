@@ -3,15 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Comments;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class CommentsType extends AbstractType
+class CommentsFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,30 +21,37 @@ class CommentsType extends AbstractType
                 'label' => 'Email',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => "Email"
+                    'placeholder' => "Votre e-mail"
                 ]
             ])
             ->add('nickname', TextType::class, [
                 'label' => 'Pseudo',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => "Pseudo"
+                    'placeholder' => "Votre pseudo"
                 ]
             ])
-            ->add('content', CKEditorType::class, [
-                'label' => 'Commentaire',
+            ->add('title', TextType::class, [
+                'label' => 'Objet',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => "L'objet de votre demande"
+                ]
+            ])
+            ->add('content', TextareaType::class, [
+                'label' => 'Vos coommentaire ici',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => "Votre commentaire"
                 ]
             ])
-            ->add('rgpd', CheckboxType::class)
+           
             ->add('parent', HiddenType::class, [
                 'mapped' => false
             ])
             ->add('Envoyer', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn-envoiyer btn-lg btn'
+                    'class' => 'btn-envoyer btn-lg btn'
                 ]
             ])
         ;
