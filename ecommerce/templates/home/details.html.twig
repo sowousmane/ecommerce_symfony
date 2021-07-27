@@ -112,27 +112,20 @@
     <h1 class="text-center"> Discussion sur ce produit</h1>
     {% if comments | length > 0 %}
        {% for _comment in comments %}
-        
+      
         {% endfor %}
+
     {% else %}
         <div colspan="10" style="background-color:rgb(253, 147, 128);"><h1 > Aucun commentaire sur ce produit</h1></div>
     
     {% endif %}
     
-  </div>
-   <div class="col-sm-2">
-        <a href="#" class="btn new_post_btn pulse ">
-            <span class="fa fa-plus"></span>
-            <strong>Commentez ce produit</strong>
-        </a>
-    </div>
-      <div class="row commentaire_create " style="margin:0px 50px; margin-top:27px;">
-    <h1 class="text-center"> Laissez-nous vos commentaires ou vos questions</h1>
-    {{ form(formulaire) }}
-     <a href="{{ path("forum") }}" class="btn btn-lg text-right btn-cancel-comment ">Anuller</a>
-  </div>
-
 </div>
+    <div class="row commentaire_create " style="margin:0px 50px; margin-top:27px;">
+        <h1 class="text-center"> Laissez-nous vos commentaires ou vos questions</h1>
+        {{ form(formulaire) }}
+    </div>
+
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
@@ -151,6 +144,20 @@
         }
 
     });
+
+  {#  document.getElementById('new_comm').onclick = function changeContent(){
+
+        document.getElementById('create_comment').style.display = "block";
+
+    } #}
+   {#  window.onload = () => {
+        //on ecoute l'evenement sur tous les bouttons repondre
+        document.querySelectorAll("[data-reply]").forEach(element => {
+            element.addEventListener("click", function(){
+                document.querySelector("#comments_form_parent").value = this.dataset.id;
+            })
+        })
+    } #}
 </script>
 
 
