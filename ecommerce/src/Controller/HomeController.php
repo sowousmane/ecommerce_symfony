@@ -390,52 +390,34 @@ class HomeController extends AbstractController
     }
 
    
-    /**
-    * @Route("/forum/creer_comment", name="create_comment")
-    */
-    public function post (Request $request)
-    {
-       
-      
-        $post = new Comments();
-        
-        $formulaire = $this->createForm(CommentsFormType::class, $post);
-
-        $formulaire->handleRequest($request);
-
-        $formulaire->getErrors();
-
-        if($formulaire->isSubmitted() && $formulaire->isValid())
-        {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($post);
-            $em->flush();
-            return $this->redirectToRoute("forum");
-        }
-
-        //$em->persist($post);
-        
-        //$em->flush();
-
-        return $this->render('home/createComment.html.twig', [
-            'formulaire' => $formulaire->createView(),
-               
-        ]);
-    }
-        
+   
         
 
      /**
     * @Route("/show{id}", name="show_comment")
     */
-    public function showComment(Comments $posts)
+    public function showComment($id,Comments $comments)
     {
-       
+        $posts =  $this->getDoctrine()->getRepository(Comments::class)->findOneBy(['id' => $id]);
+        //dd($posts);
+        $_posts_tab =  $this->getDoctrine()->getRepository(Comments::class)->findBy(['parent' => $comments->getParent()]);
+        //dd($_posts_tab);
+        $table_post = [];
+        foreach($_posts_tab as $post)
+        {
+            if($post->getId() != $id)
+            {
+                array_push($table_post, $post);
+            }
+        }
+
         return $this->render('home/showComment.html.twig', [
             'posts' => $posts,
+            '_posts_tab' => $_posts_tab,
                
         ]);
     }
+
     /**
     * @Route("/contact", name="contact")
     */
