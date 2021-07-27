@@ -94,12 +94,24 @@
 .class_to_delete{
     display: block;
 }
+.link-to-details-post{
+    color: black;
+    text-decoration: none;
+}
 
 .commentaire_create input{
     height: 50px;
 
 }
+.commentaire_details_product , .commentaire_create{
+    background-color: rgb(238, 238, 238);
+    width: 94%;
+    margin-bottom:50px ;
+    font-size: 20px;
+    margin-left:50px;
+    padding: 50px;
 
+}
 .btn-envoyer{
     background-color: rgb(243, 154, 38);
     width: auto;/* top | right | bottom | left *//* vertical | horizontal */

@@ -108,11 +108,47 @@
         </div>
     </div>
 </div>
-<div style="margin-bottom:150px;">
+ <div class="container-fluid commentaire_details_product" style="margin-bottom:150px;">
     <h1 class="text-center"> Discussion sur ce produit</h1>
+    <hr>
     {% if comments | length > 0 %}
-       {% for _comment in comments %}
-      
+       {% for post in comments %}
+          {% if post.parent == null %}
+             <div class="row">
+              
+              <h3> 
+                <strong>{{ post.title }} </strong>
+                <a href="#commentaire_create_id_forum" data-reply data-id="{{ post.id }}" class="btn new_post_btn pull-right" style="margin:10px;">
+                  Répondre
+                </a> 
+              </h3>
+              <p> publié par 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              </svg>
+              {{ post.nickname  }} le {{ post.createdAt |date('d/m/Y à H:i') }} ce post est: &nbsp; {% if post.active %}actif{% else %}fermé{% endif %}</p>
+              <div>
+                <a class="link-to-details-post" href="{{ path("show_comment", {'id': post.id}) }}">
+                  {{ post.content [:100] }} <span style="color:rgb(11, 114, 161);">voir plus</span>
+                </a>
+              </div>
+            </div> 
+            {% for reply in post.replies %}
+              <div style="margin-left:50px; background-color: rgb(221, 213, 202);">
+                <p> Répondu  par 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+                {{ reply.nickname  }} le {{ reply.createdAt |date('d/m/Y à H:i') }}</p>
+                <div>
+                  <a class="link-to-details-post" href="{{ path("show_comment", {'id': reply.id}) }}">
+                    {{ reply.content [:100] }} 
+                  </a>
+                </div>
+              </div>
+            {% endfor %}
+                <hr>
+          {% endif %}
         {% endfor %}
 
     {% else %}
@@ -121,7 +157,7 @@
     {% endif %}
     
 </div>
-    <div class="row commentaire_create " style="margin:0px 50px; margin-top:27px;">
+    <div class="container-fluid commentaire_create " id="commentaire_create_id_forum" style=" margin-top:27px;">
         <h1 class="text-center"> Laissez-nous vos commentaires ou vos questions</h1>
         {{ form(formulaire) }}
     </div>
@@ -133,9 +169,9 @@
     var second_div_right = document.getElementById("class_details_product_id");
     var foot__ = second_div_right.scrollHeight - second_div_right.scrollTop; //hauter du des produits
     var Y = foot__ - 600; // position du scroll
-    console.log(" y =  " + Y);
+    //console.log(" y =  " + Y);
     $(window).scroll(function () {
-        console.log("scrollY   " + window.scrollY)
+        //console.log("scrollY   " + window.scrollY)
         if (window.scrollY > Y) {
             $('#div_to_show_id').addClass("class_to_fix");
 
@@ -150,14 +186,15 @@
         document.getElementById('create_comment').style.display = "block";
 
     } #}
-   {#  window.onload = () => {
+    window.onload = () => {
         //on ecoute l'evenement sur tous les bouttons repondre
         document.querySelectorAll("[data-reply]").forEach(element => {
             element.addEventListener("click", function(){
+                //console.log(this);
                 document.querySelector("#comments_form_parent").value = this.dataset.id;
             })
         })
-    } #}
+    } 
 </script>
 
 

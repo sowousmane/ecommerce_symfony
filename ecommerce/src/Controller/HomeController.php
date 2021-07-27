@@ -261,22 +261,23 @@ class HomeController extends AbstractController
             {
                 $post->setProduit($product);
 
-                //on recupère le contenu du champ parent
                 $parentId = $formulaire->get("parent")->getData();
+        
 
-
-                //on va chercher le commentaire correspondant au parent
                 $em = $this->getDoctrine()->getManager();
 
-                if($parentId != null){
-                    $parent = $em->getRepository(Comments::class)->find($parentId) ;
-
-                }
+            
                 
-                //on definit le parent
-                $post->setParent($parent);
+                if($parentId != null){
+
+                    $parent = $em->getRepository(Comments::class)->find($parentId);
+                }
+
+                // On définit le parent
+                $post->setParent($parent ?? null);
 
                 $em->persist($post);
+                
                 $em->flush();
                 $this->addFlash('message', 'Votre commentaire a bien été envoyé');
                 return $this->redirectToRoute("details", ['id' =>
@@ -286,19 +287,8 @@ class HomeController extends AbstractController
     
            
             $comments = $commentsRepository->findBy(['produit' => $produit]);
-            $post = new Comments();
-        
-            $formulaire = $this->createForm(CommentsFormType::class, $post);
-    
-            $formulaire->handleRequest($request);
-            $formulaire->getErrors();
-            if($formulaire->isSubmitted() && $formulaire->isValid())
-            {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($post);
-                $em->flush();
-                return $this->redirectToRoute("deatils");
-            }
+            
+            
     
             //$em->persist($post);
             
