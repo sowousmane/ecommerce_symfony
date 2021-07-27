@@ -356,8 +356,23 @@ class HomeController extends AbstractController
         $formulaire->getErrors();
         if($formulaire->isSubmitted() && $formulaire->isValid())
         {   
+            $parentId = $formulaire->get("parent")->getData();
+        
+
             $em = $this->getDoctrine()->getManager();
+
+           
+            
+            if($parentId != null){
+
+                $parent = $em->getRepository(Comments::class)->find($parentId);
+            }
+
+            // On définit le parent
+            $post->setParent($parent ?? null);
+
             $em->persist($post);
+            
             $em->flush();
             return $this->redirectToRoute("forum");
         }

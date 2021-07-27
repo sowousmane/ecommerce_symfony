@@ -24,27 +24,42 @@
     </div>
      <div class="container-fluid commentaire_details">
         {% for post in posts %}
-          
-          <div class="row">
-            
-            <h3> 
-              <strong>{{ post.title }} </strong>
-              <a href="#commentaire_create_forum_id" data-reply data-id="{{ post.id }}" class="btn new_post_btn pull-right" style="margin:10px;">
-                Répondre
-              </a> 
-            </h3>
-            <p> publié par 
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-            </svg>
-            {{ post.nickname  }} le {{ post.createdAt |date('d/m/Y à H:i') }} ce post est: &nbsp; {% if post.active %}actif{% else %}fermé{% endif %}</p>
-            <div>
-              <a class="link-to-details-post" href="{{ path("show_comment", {'id': post.id}) }}">
-                {{ post.content [:100] }} <span style="color:rgb(11, 114, 161);">voir plus</span>
-              </a>
+          {% if post.parent == null %}
+            <div class="row">
+              
+              <h3> 
+                <strong>{{ post.title }} </strong>
+                <a href="#commentaire_create_forum_id" data-reply data-id="{{ post.id }}" class="btn new_post_btn pull-right" style="margin:10px;">
+                  Répondre
+                </a> 
+              </h3>
+              <p> publié par 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              </svg>
+              {{ post.nickname  }} le {{ post.createdAt |date('d/m/Y à H:i') }} ce post est: &nbsp; {% if post.active %}actif{% else %}fermé{% endif %}</p>
+              <div>
+                <a class="link-to-details-post" href="{{ path("show_comment", {'id': post.id}) }}">
+                  {{ post.content [:100] }} <span style="color:rgb(11, 114, 161);">voir plus</span>
+                </a>
+              </div>
             </div>
-          </div>
-              <hr>
+            {% for reply in post.replies %}
+              <div style="margin-left:50px; background-color: rgb(221, 213, 202);">
+                <p> Répondu  par 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+                {{ reply.nickname  }} le {{ reply.createdAt |date('d/m/Y à H:i') }}</p>
+                <div>
+                  <a class="link-to-details-post" href="{{ path("show_comment", {'id': reply.id}) }}">
+                    {{ reply.content [:100] }} 
+                  </a>
+                </div>
+              </div>
+            {% endfor %}
+                <hr>
+          {% endif %}
         {% endfor %}
         
       </div> 
@@ -54,7 +69,6 @@
           {{ form(formulaire) }}
           <a href="{{ path("forum") }}" class="btn btn-lg text-right btn-cancel-comment ">Anuller</a>
       </div>
- 
   </div>
 
 
@@ -66,6 +80,8 @@
         document.querySelector("#comments_form_parent").value = this.dataset.id;
       });
     });
+
+    
   }
 </script>
 
