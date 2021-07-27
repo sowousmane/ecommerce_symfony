@@ -110,57 +110,28 @@
 </div>
 <div style="margin-bottom:150px;">
     <h1 class="text-center"> Discussion sur ce produit</h1>
-     <div class="table-responsive">
-    <table class="table table-bordered text-center">
-       
-      <tr>
-        <th>Auteur</th>
-        <th colspan="3">Message</th>
-      </tr>
-
     {% if comments | length > 0 %}
        {% for _comment in comments %}
-      <tr>
-        <th rowspan="2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-person-fill" viewBox="0 0 16 16">
-              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-          </svg><br>
-          {{ _comment.nickname }}
-        </th>
-        <td> 
-            <a class="link-to-details-post" style="color:black;" href="{{ path("show_comment", {'id': _comment.id}) }}">
-                <strong> Topic: </strong> {{ _comment.title }}
-            </a>
-        </td>
-        <td> <strong> Publié le: </strong> {{ _comment.createdAt |date('d-m-Y:h-m-s') }}</td>
-        <td > {% if _comment.active %}actif{% else %}fermé{% endif %}</td>
-      </tr>
-      <tr>
-        <td colspan="2"> 
-            <a class="link-to-details-post"  style="color:black;" href="{{ path("show_comment", {'id': _comment.id}) }}">
-                {{ _comment.content }}
-            </a>
-        </td>
-        <td> 
-            <a class="btn"> Repondre</a>
-        </td>
-      </tr>
-
-  {% endfor %}
+        
+        {% endfor %}
     {% else %}
-        <tr> <td colspan="10" style="background-color:rgb(253, 147, 128);"><h1 > Aucun commentaire sur ce produit</h1></td></tr>
+        <div colspan="10" style="background-color:rgb(253, 147, 128);"><h1 > Aucun commentaire sur ce produit</h1></div>
     
     {% endif %}
-    </table>
     
   </div>
    <div class="col-sm-2">
-        <a href="{{ path("create_comment") }}" class="btn new_post_btn pulse ">
+        <a href="#" class="btn new_post_btn pulse ">
             <span class="fa fa-plus"></span>
             <strong>Commentez ce produit</strong>
         </a>
     </div>
+      <div class="row commentaire_create " style="margin:0px 50px; margin-top:27px;">
+    <h1 class="text-center"> Laissez-nous vos commentaires ou vos questions</h1>
+    {{ form(formulaire) }}
+     <a href="{{ path("forum") }}" class="btn btn-lg text-right btn-cancel-comment ">Anuller</a>
+  </div>
+
 </div>
 <script>
     $(document).ready(function () {

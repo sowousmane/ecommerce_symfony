@@ -1,30 +1,12 @@
 body{
     background-color: rgb(231, 229, 229); 
   }
-  .retour a {
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
-}
-.retour{
-    width: auto;
-    position: fixed;
-    z-index:99999;
-    height: 50px;
-    padding: 10px;
-    margin: 20px;
-}
-._logo strong{
-    font-size: 50px;
-}
-._logo a{
-    text-decoration: none;
-    color: black;
-}
+ 
+
 .welcome-to-soth {
     font-weight: bold;
     font-size: 40px;
+    
 }
 .commentaire_{
     margin: 1500px;
@@ -33,13 +15,12 @@ body{
     color: black;
     text-decoration: none;
 }
-tr, .commentaire_details , .commentaire_details_s{
-    background-color: rgb(238, 238, 238);
-}
 
-.commentaire_details{
-    text-align: center;
-    width: auto;
+.commentaire_details, .commentaire_create_forum{
+    background-color: rgb(238, 238, 238);
+    width: 1100px;
+    margin-bottom:50px ;
+    font-size: 20px;
 }
 .new_post_btn{
     background-color: rgb(243, 154, 38);
@@ -48,14 +29,12 @@ tr, .commentaire_details , .commentaire_details_s{
     padding: 10px;
     font-weight: bold;
 }
-.resize_ a , .resize_ td{
-    font-size: 20px;
-}
+
 
 .btn-cancel-comment{
-    margin-top: -2.5%;
+    margin-top: 1%;
     width: auto;
-    height: 50px;
+    height: 45px;
     padding: 10px;
     font-weight: bold;
     margin-left: 80%;
@@ -64,11 +43,14 @@ tr, .commentaire_details , .commentaire_details_s{
 /*==============================  show comment ====================*/
 
 /*==================== create comment ==================*/
-.commentaire_create input{
+.commentaire_create_forum input{
     height: 50px;
 
 }
 
+.commentaire_create_forum textarea{
+    height: 200px;
+}
 .btn-envoyer{
     background-color: rgb(243, 154, 38);
     width: auto;/* top | right | bottom | left *//* vertical | horizontal */
@@ -76,4 +58,11 @@ tr, .commentaire_details , .commentaire_details_s{
     font-weight: bold;
     float: right;
     margin-top: 10px;
+}
+
+@media only screen and (max-width: 1040px) {
+    .btn-cancel-comment{
+        
+        margin-left: 10%;
+    }
 }

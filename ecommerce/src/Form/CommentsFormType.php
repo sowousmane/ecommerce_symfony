@@ -35,7 +35,8 @@ class CommentsFormType extends AbstractType
                 'label' => 'Objet',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => "L'objet de votre demande"
+                    'placeholder' => "L'objet de votre demande",
+                    'value' => "ceci est une réponse"
                 ]
             ])
             ->add('content', TextareaType::class, [

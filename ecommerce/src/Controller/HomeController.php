@@ -218,7 +218,7 @@ class HomeController extends AbstractController
      /**
      * @Route("/details/{id}", name="details")
      */
-    public function details(Product $produit, $id, CartService $cartService, CommentsRepository $commentsRepository): Response
+    public function details(Product $produit, Request $request, $id, CartService $cartService, CommentsRepository $commentsRepository): Response
     {
         $user = '';
         $client = null;
@@ -250,7 +250,25 @@ class HomeController extends AbstractController
             }
 
             $comments = $commentsRepository->findBy(['produit' => $produit]);
-
+            $post = new Comments();
+        
+            $formulaire = $this->createForm(CommentsFormType::class, $post);
+    
+            $formulaire->handleRequest($request);
+            $formulaire->getErrors();
+            if($formulaire->isSubmitted() && $formulaire->isValid())
+            {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($post);
+                $em->flush();
+                return $this->redirectToRoute("deatils");
+            }
+    
+            //$em->persist($post);
+            
+            //$em->flush();
+    
+           
            //dd($comments);
             return $this->render('home/details.html.twig', [
                 'product' => $product,
@@ -260,6 +278,7 @@ class HomeController extends AbstractController
                 'total' => $cartService->getTotal(),
                 'totalItem' => $cartService->getTotalItem(),
                 'comments' => $comments,
+                'formulaire' => $formulaire->createView(),
             ]);
         }
         catch(\Exception $e){
@@ -293,8 +312,19 @@ class HomeController extends AbstractController
 
         $posts = $commentsRepository->findAll();
 
-     /*    $newDate = DateTime::createFromFormat("l dS F Y", $dateFromDB);
-        $newDate = $newDate->format('d/m/Y'); // for example */
+        $post = new Comments();
+        
+        $formulaire = $this->createForm(CommentsFormType::class, $post);
+
+        $formulaire->handleRequest($request);
+        $formulaire->getErrors();
+        if($formulaire->isSubmitted() && $formulaire->isValid())
+        {   
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+            return $this->redirectToRoute("forum");
+        }
         return $this->render('home/forum.html.twig', [
             'posts' => $posts,
             'categories' => $categories,
@@ -303,6 +333,7 @@ class HomeController extends AbstractController
             'user' => $user,
             'total' => $cartService->getTotal(),
             'totalItem' => $cartService->getTotalItem(),
+            'formulaire' => $formulaire->createView(),
                
         ]);
     }
