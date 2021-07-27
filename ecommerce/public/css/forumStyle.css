@@ -1,0 +1,79 @@
+body{
+    background-color: rgb(231, 229, 229); 
+  }
+ 
+
+.welcome-to-soth {
+    font-weight: bold;
+    font-size: 40px;
+    
+}
+.commentaire_{
+    margin: 1500px;
+}
+.link-to-details-post{
+    color: black;
+    text-decoration: none;
+}
+
+.commentaire_details, .commentaire_create_forum{
+    background-color: rgb(238, 238, 238);
+    width: 1100px;
+    margin-bottom:50px ;
+    font-size: 20px;
+}
+.new_post_btn{
+    background-color: rgb(243, 154, 38);
+    height: 50px;
+    width: auto;/* top | right | bottom | left *//* vertical | horizontal */
+    padding: 10px;
+    font-weight: bold;
+}
+
+
+.btn-cancel-comment{
+    margin-top: 1%;
+    width: auto;
+    height: 45px;
+    padding: 10px;
+    font-weight: bold;
+    margin-left: 80%;
+    background-color: rgb(228, 87, 87);
+}
+/*==============================  show comment ====================*/
+
+/*==================== create comment ==================*/
+.commentaire_create_forum input{
+    height: 50px;
+
+}
+.commentaire_create textarea {
+    padding: 10px;
+    max-width: 100%;
+    min-width: 100%;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+    height: 250px;
+}
+
+
+.commentaire_create_forum textarea{
+    height: 200px;
+}
+.btn-envoyer{
+    background-color: rgb(243, 154, 38);
+    width: auto;/* top | right | bottom | left *//* vertical | horizontal */
+    padding: 10px;
+    font-weight: bold;
+    float: right;
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 1040px) {
+    .btn-cancel-comment{
+        
+        margin-left: 10%;
+    }
+}

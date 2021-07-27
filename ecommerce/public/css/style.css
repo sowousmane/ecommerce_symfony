@@ -80,16 +80,13 @@
     background-color: rgb(243, 154, 38);
     height: 50px;
     width: 100%;/* top | right | bottom | left *//* vertical | horizontal */
-    padding: 0px 10px 50px 20px ;
+    padding: 10px;
+    text-align: center;
 }
 
 .btn-add strong,
-.btn-add i , .btn-add .fa-heart, .btn-add nav{
+.btn-add i , .btn-add nav{
     font-size: 25px;
-}
-
-.btn-add .fa-heart {
-    color: rgb(255, 95, 95);
 }
 
 
