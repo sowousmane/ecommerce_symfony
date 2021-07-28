@@ -55,47 +55,6 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/products_by_category/{id}", name="products_by_category")
-     */
-    public function productsByCategory($id, CartService $cartService): Response
-    {
-        $user = '';
-        $client = null;
-        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
-            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
-            $user = $client->getFirstname() . ' ';
-        }
-
-        $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $id]);
-        
-        return $this->render('home/productsByCategory.html.twig', [
-            'products' => $products,
-            'client' => $client,
-            'user' => $user,
-            'total' => $cartService->getTotal(),
-            'totalItem' => $cartService->getTotalItem(),
-        ]);
-    }
-    
-    /**
-     * @Route("/profile", name="profile")
-     */
-    public function profile(): Response
-    {
-        try{
-            $user = $this->getDoctrine()->getRepository(Client::class)
-                ->findOneBy(['id' => $this->getUser()->getId()]);
-
-            return $this->render('client/profile.html.twig', [
-                'user' => $user,
-            ]);
-        }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
-    }
-
-    /**
      * @Route("/panier", name="panier")
      */
     public function panier(CartService $cartService){
