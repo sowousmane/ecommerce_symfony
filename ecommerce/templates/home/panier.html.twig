@@ -1,3 +1,4 @@
+
 {% block body %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -74,29 +75,27 @@
                     {% endfor %}
                 </tbody>
                 <tfoot style="  font-weight: bold;">
-                    <tr style="  background-color: rgb(255, 211, 141);">
-                     <form>
-                       <td >  <strong>Type de livraison</strong>
-                        </td>
-                        <td > 
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio" checked>Livraison normale à domicile  
-                            </label>
-                        </td>
-                       <td colspan="2"> 
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio">Livraison express à domicile <strong> 5€ </strong>
-                            </label>
-                       </td> 
-                       <td colspan="2"> 
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio">Point de retrait
-                            </label>
-                       </td> 
-                    </form>
-                        
-                        
-                    </tr>
+                    {# <tr style="  background-color: rgb(255, 211, 141);">
+                        <form>
+                            <td >  <strong>Type de livraison</strong>
+                                </td>
+                                <td > 
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio" checked>Livraison normale à domicile  
+                                    </label>
+                                </td>
+                            <td colspan="2"> 
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio">Livraison express à domicile <strong> 5€ </strong>
+                                    </label>
+                            </td> 
+                            <td colspan="2"> 
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio">Point de retrait
+                                    </label>
+                            </td> 
+                        </form>
+                    </tr> #}
                     <tr>
                         <td colspan="4" class="text-right total-article"> Nombre d'articles :</td>
                         <td>{{ totalItem  }} </td>

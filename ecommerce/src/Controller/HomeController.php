@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Form\CommentsFormType;
 use App\Form\CommentsType;
 use App\Form\CreateClientFormType;
+use App\Form\LivraisonFormType;
 use App\Service\Cart\CartService;
 use App\Form\SearchProductFormType;
 use App\Repository\CommentsRepository;
@@ -99,7 +100,7 @@ class HomeController extends AbstractController
      * @Route("/panier", name="panier")
      */
     public function panier(CartService $cartService){
-        
+
         return $this->render('home/panier.html.twig', [
             'items' => $cartService->getFullCart(),
             'total' => $cartService->getTotal(),
@@ -114,7 +115,7 @@ class HomeController extends AbstractController
        
         $cartService->add($product);
 
-        return $this->redirectToRoute("home");
+        return $this->redirectToRoute("panier");
 
     }
 
@@ -154,15 +155,26 @@ class HomeController extends AbstractController
     {
         return $this->render('home/login_essai.html.twig');
     }
+    
     /**
      * @Route("/payment", name="payment")
      */
-    public function payment(Request $request): Response
-    {
-        
+    public function payment(Request $request,  CartService $cartService): Response
+    {   
+        $user = '';
+        $client = null;
+        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
+            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+            $user = $client->getFirstname() . ' ';
+        }
 
         return $this->render('home/payment.html.twig', [
-            
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
+            'items' => $cartService->getFullCart(),
+            'user' => $user,
+            'client' => $client,
+
         ]);
     }
 
