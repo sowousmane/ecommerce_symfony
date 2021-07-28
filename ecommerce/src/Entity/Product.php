@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
- * @ORM\Table(name="product", indexes={@ORM\Index(columns={"name", "description"}, flags={"fulltext"})})
  */
 class Product
 {
@@ -62,13 +61,19 @@ class Product
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Command::class, mappedBy="products")
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="product")
      */
-    private $commands;
+    private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CommandProduct::class, mappedBy="product", orphanRemoval=true)
+     */
+    private $commandProducts;
 
     public function __construct()
     {
-        $this->commands = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->commandProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,27 +178,60 @@ class Product
     }
 
     /**
-     * @return Collection|Command[]
+     * @return Collection|Comments[]
      */
-    public function getCommands(): Collection
+    public function getComments(): Collection
     {
-        return $this->commands;
+        return $this->comments;
     }
 
-    public function addCommand(Command $command): self
+    public function addComment(Comments $comment): self
     {
-        if (!$this->commands->contains($command)) {
-            $this->commands[] = $command;
-            $command->addProduct($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeCommand(Command $command): self
+    public function removeComment(Comments $comment): self
     {
-        if ($this->commands->removeElement($command)) {
-            $command->removeProduct($this);
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getProduct() === $this) {
+                $comment->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CommandProduct[]
+     */
+    public function getCommandProducts(): Collection
+    {
+        return $this->commandProducts;
+    }
+
+    public function addCommandProduct(CommandProduct $commandProduct): self
+    {
+        if (!$this->commandProducts->contains($commandProduct)) {
+            $this->commandProducts[] = $commandProduct;
+            $commandProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandProduct(CommandProduct $commandProduct): self
+    {
+        if ($this->commandProducts->removeElement($commandProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($commandProduct->getProduct() === $this) {
+                $commandProduct->setProduct(null);
+            }
         }
 
         return $this;

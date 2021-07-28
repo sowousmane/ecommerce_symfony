@@ -36,19 +36,19 @@ class Command
     private $client;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="commands")
-     */
-    private $products;
-
-    /**
      * @ORM\OneToMany(targetEntity=Payment::class, mappedBy="command", orphanRemoval=true)
      */
     private $payments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CommandProduct::class, mappedBy="command", orphanRemoval=true)
+     */
+    private $commandProducts;
+
     public function __construct()
     {
-        $this->products = new ArrayCollection();
         $this->payments = new ArrayCollection();
+        $this->commandProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,30 +93,6 @@ class Command
     }
 
     /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        $this->products->removeElement($product);
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Payment[]
      */
     public function getPayments(): Collection
@@ -140,6 +116,36 @@ class Command
             // set the owning side to null (unless already changed)
             if ($payment->getCommand() === $this) {
                 $payment->setCommand(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CommandProduct[]
+     */
+    public function getCommandProducts(): Collection
+    {
+        return $this->commandProducts;
+    }
+
+    public function addCommandProduct(CommandProduct $commandProduct): self
+    {
+        if (!$this->commandProducts->contains($commandProduct)) {
+            $this->commandProducts[] = $commandProduct;
+            $commandProduct->setCommand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandProduct(CommandProduct $commandProduct): self
+    {
+        if ($this->commandProducts->removeElement($commandProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($commandProduct->getCommand() === $this) {
+                $commandProduct->setCommand(null);
             }
         }
 
