@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block body %}   
+  <link rel="stylesheet" href="{{ asset('css/forumStyle.css') }}" />
+    {% include 'home/menu.html.twig' %}
+  <div class="row commentaire_ " style="margin:0px 50px; margin-top:217px;">
+    <div class="btn-add-comment  text-center row">
+      <div class="col-sm-10 text-center  welcome-to-soth " style="margin-bottom:50px;">
+       
+        Bienvenu au forum de
+        <span style="color: #ff4d00; margin-right:0%;">H</span>
+        <span style="color: #ff6f00;">T</span>
+        <span style="color: #f27d00;">&</span>
+        <span style="color: #fa6e02;">&</span>
+        <span style="color: #ff8400;">O</span>
+        <span style="color: #f5a00c;">S</span> &nbsp; online shope
+                
+      </div>
+      <div class="col-sm-2">
+        <a href="#commentaire_create_forum_id" class="btn new_post_btn pulse ">
+            <span class="fa fa-plus"></span>
+            <strong>Crée un nouveau sujet</strong>
+        </a>
+      </div> 
+    </div>
+     <div class="container-fluid commentaire_details">
+        {% for post in posts %}
+          
+          <div class="row">
+            
+            <h3> 
+              <strong>{{ post.title }} </strong>
+              <a href="#commentaire_create_forum_id" data-reply data-id="{{ post.id }}" class="btn new_post_btn pull-right" style="margin:10px;">
+                Répondre
+              </a> 
+            </h3>
+            <p> publié par 
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
+            {{ post.nickname  }} le {{ post.createdAt |date('d/m/Y à H:i') }} ce post est: &nbsp; {% if post.active %}actif{% else %}fermé{% endif %}</p>
+            <div>
+              <a class="link-to-details-post" href="{{ path("show_comment", {'id': post.id}) }}">
+                {{ post.content [:100] }} <span style="color:rgb(11, 114, 161);">voir plus</span>
+              </a>
+            </div>
+          </div>
+              <hr>
+        {% endfor %}
+        
+      </div> 
+      
+      <div id="commentaire_create_forum_id" class=" container-fluid commentaire_create_forum " >
+          <h1 class="text-center"> Laissez-nous vos commentaires ou vos questions</h1>
+          {{ form(formulaire) }}
+          <a href="{{ path("forum") }}" class="btn btn-lg text-right btn-cancel-comment ">Anuller</a>
+      </div>
+ 
+  </div>
+
+
+<script>
+  window.onload = () =>{
+    //on met un écouter sur l'evenment des button
+    document.querySelectorAll("[data-reply]").forEach(element =>{
+      element.addEventListener("click", function(){
+        document.querySelector("#comments_form_parent").value = this.dataset.id;
+      });
+    });
+  }
+</script>
+
+
+{% endblock %}

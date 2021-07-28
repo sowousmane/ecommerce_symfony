@@ -21,7 +21,7 @@
 
 .sidebar_home a {
     display: block;
-    height: 80px;
+    height: 75px;
     width: 100%;
     color: black;
     line-height: 50px;
@@ -38,7 +38,7 @@
 .sidebar_home a:hover {
     border-left: 5px solid #b93632;
     color: #020202;
-    background-color: rgb(243, 154, 38);;
+    background-color: rgb(243, 154, 38);
 }
 
 .sidebar_home a span {
@@ -101,4 +101,6 @@
         opacity: 1;
         visibility: visible;
     }
+
+    
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base-admin.html.twig' %}
 
 {% block title %}Nouvel administrateur{% endblock %}
@@ -5,5 +6,33 @@
 {% block body %}
 
 {{ form(adminForm) }}
+||||||| e858958
+{% extends 'base.html.twig' %}
 
+{% block title %}Nouvel administrateur{% endblock %}
+
+{% block body %}
+
+{{ form(adminForm) }}
+=======
+{% block body %}   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/loginStyle.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/createClientStyle.css') }}" />
+   
+    
+>>>>>>> 060a0665927208b1733cbdb9280f7064b7c41244
+
+    <div class="loginDiv" style ="margin-top: 150px;">
+        <div  class="text-center _logo shadow p-4 ">
+            <strong>
+                <a href="{{ path("gestion_admin") }}" > 
+                    <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+                </a>
+            </strong>
+        </div>
+         {{ form(adminForm) }}
+    </div>
+   
+       
 {% endblock %}

@@ -27,7 +27,7 @@ class Command
     /**
      * @ORM\Column(type="datetime")
      */
-    private $command_date;
+    private $date_command;
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="commands")
@@ -41,14 +41,14 @@ class Command
     private $payments;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="commands")
+     * @ORM\OneToMany(targetEntity=CommandProduct::class, mappedBy="command", orphanRemoval=true)
      */
-    private $products;
+    private $commandProducts;
 
     public function __construct()
     {
         $this->payments = new ArrayCollection();
-        $this->products = new ArrayCollection();
+        $this->commandProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,14 +68,14 @@ class Command
         return $this;
     }
 
-    public function getCommandDate(): ?\DateTimeInterface
+    public function getDateCommand(): ?\DateTimeInterface
     {
-        return $this->command_date;
+        return $this->date_command;
     }
 
-    public function setCommandDate(\DateTimeInterface $command_date): self
+    public function setDateCommand(\DateTimeInterface $date_command): self
     {
-        $this->command_date = $command_date;
+        $this->date_command = $date_command;
 
         return $this;
     }
@@ -123,27 +123,30 @@ class Command
     }
 
     /**
-     * @return Collection|Product[]
+     * @return Collection|CommandProduct[]
      */
-    public function getProducts(): Collection
+    public function getCommandProducts(): Collection
     {
-        return $this->products;
+        return $this->commandProducts;
     }
 
-    public function addProduct(Product $product): self
+    public function addCommandProduct(CommandProduct $commandProduct): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addCommand($this);
+        if (!$this->commandProducts->contains($commandProduct)) {
+            $this->commandProducts[] = $commandProduct;
+            $commandProduct->setCommand($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeCommandProduct(CommandProduct $commandProduct): self
     {
-        if ($this->products->removeElement($product)) {
-            $product->removeCommand($this);
+        if ($this->commandProducts->removeElement($commandProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($commandProduct->getCommand() === $this) {
+                $commandProduct->setCommand(null);
+            }
         }
 
         return $this;

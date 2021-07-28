@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html.twig' %}
 
 {% block title %}Nouveau client{% endblock %}
@@ -14,3 +15,48 @@
 </form>
 
 {% endblock %}
+||||||| e858958
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau client{% endblock %}
+
+{% block body %}
+
+{{ form(clientForm) }}
+
+<form method="POST">
+    <input type="hidden" name="id" value="client">
+    <a href="{{ path("app_login") }}">
+        <button type="submit">Mon profil</button>
+    </a>
+</form>
+
+{% endblock %}
+=======
+{% block body %}   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/loginStyle.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/createClientStyle.css') }}" />
+   
+   <div class="loginDiv">
+        <div  class="text-center _logo shadow p-4 ">
+            <strong>
+                <a href="{{ path("home") }}" > 
+                    <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+                </a>
+            </strong>
+        </div>
+        <h1 class="h3 mb-3 new-client" >Nouveau client?</h1>
+        {{ form(clientForm) }}
+    </div>
+    <div class="new-client-div">
+        
+        <h1 class="h3 mb-3 new-client" >Déjà client ?</h1>
+        <a href="{{ path("app_login") }}"  class="btn btn-lg btn-inscription " type="submit">
+            Se connecter
+        </a>
+    </div>  
+       
+    
+{% endblock %}
+>>>>>>> 060a0665927208b1733cbdb9280f7064b7c41244

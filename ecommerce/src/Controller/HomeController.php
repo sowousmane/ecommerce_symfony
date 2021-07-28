@@ -1,62 +1,80 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Category;
 use App\Entity\Client;
+use App\Entity\Comments;
+use App\Entity\History;
 use App\Entity\Product;
 use App\Entity\User;
+use App\Form\CommentsFormType;
+use App\Form\CommentsType;
 use App\Form\CreateClientFormType;
+use App\Service\Cart\CartService;
+use App\Form\SearchProductFormType;
+use App\Repository\CommentsRepository;
+use App\Repository\ProductRepository;
 use App\Service\AppService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class HomeController extends AbstractController
 {
-    /**
+     /**
      * @Route("/", name="home")
      */
-    public function home(): Response
+    public function home( CartService $cartService, Request $request, ProductRepository $productRepository)
     {   
+        $user = '';
         $client = null;
         if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
             $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+            $user = $client->getFirstname() . ' ';
         }
-        
-        try{
-            $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-            $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
-            
-            return $this->render('home/home.html.twig', [
-                'products' => $products,
-                'categories' => $categories,
-                'client' => $client,
-            ]);
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        $search = $request->request->get('search_product');
+
+        if($request->getMethod() == 'POST')
+        {
+            $products = $productRepository->search($search);
         }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
+        return $this->render('home/home.html.twig', [
+            'categories' => $categories,
+            'products' => $products,
+            'client' => $client,
+            'user' => $user,
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
+        ]);
+       
     }
 
     /**
-     * @Route("/profile", name="profile")
+     * @Route("/panier", name="panier")
      */
-    public function profile(): Response
-    {
-        try{
-            $user = $this->getDoctrine()->getRepository(Client::class)
-                ->findOneBy(['id' => $this->getUser()->getId()]);
+    public function panier(CartService $cartService){
 
-            return $this->render('client/profile.html.twig', [
-                'user' => $user,
-            ]);
-        }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
+        return $this->render('home/panier.html.twig', [
+            'items' => $cartService->getFullCart(),
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
+        ]);
+    }
+
+      /**
+     * @Route("/panier/add/{id}", name="cart_add")
+     */
+    public function add(Product $product, CartService $cartService){
+       
+        $cartService->add($product);
+
+        return $this->redirectToRoute("home");
+
     }
      /**
      * @Route("/login_test", name="login_test")
@@ -66,19 +84,41 @@ class HomeController extends AbstractController
         return $this->render('admin/login_essai.html.twig');
     }
     /**
-     * @Route("/panier", name="panier")
+     * @Route("panier/remove/{id}", name="cart_remove")
      */
-    public function panier(Request $request): Response
-    {
-        if($request->isMethod('POST')){
-            return $this->redirectToRoute('payment');
-        }
+    public function remove(Product $product, CartService $cartService){
+       
+        $cartService->remove($product);
 
-        return $this->render('home/panier.html.twig', [
-            
-        ]);
+        return $this->redirectToRoute("panier");
+    }
+    /**
+     * @Route("panier/delete/{id}", name="cart_delete")
+     */
+    public function delete(Product $product, CartService $cartService){
+       
+        $cartService->delete($product);
+
+        return $this->redirectToRoute("panier");
     }
 
+    /**
+     * @Route("panier/delete", name="cart_delete_all")
+     */
+    public function deleteAll( CartService $cartService){
+       
+        $cartService->deleteAll();
+
+        return $this->redirectToRoute("panier");
+    }
+
+    /**
+     * @Route("/login_test", name="login_test")
+     */
+    public function login_test():Response
+    {
+        return $this->render('home/login_essai.html.twig');
+    }
     /**
      * @Route("/payment", name="payment")
      */
@@ -99,6 +139,7 @@ class HomeController extends AbstractController
     {
         $client = new Client();
         $user = new User();
+        $history = new History();
         $form = $this->createForm(CreateClientFormType::class, $client);
         $form->handleRequest($request);
 
@@ -111,9 +152,21 @@ class HomeController extends AbstractController
                 )
             );
             $user->setRoles(['ROLE_USER']);
+
+            $history->setTitle('Inscription d\'un client');
+            $history->setContent(
+                "Informations du client inscrit : 
+                Prénom : " . $client->getFirstname() . "
+                Nom : " . $client->getLastname() . "
+                E-mail : " . $client->getEmail()
+            );
+            $history->setSentAt(date('l jS \of F Y h:i:s A'));
+            $history->setColor('alert alert-success');
+
             $doctrine = $this->getDoctrine()->getManager();
             $doctrine->persist($client);
             $doctrine->persist($user);
+            $doctrine->persist($history);
             $doctrine->flush();
 
             $this->addFlash('message', 'Le client a été créé avec succès !');
@@ -128,92 +181,246 @@ class HomeController extends AbstractController
     
     
 
+    
+
      /**
-     * @Route("/alimentation", name="alimentation")
+     * @Route("/details/{id}", name="details")
      */
-    public function Alimentation(): Response
+    public function details(Product $produit, Request $request, $id, CartService $cartService, CommentsRepository $commentsRepository): Response
     {
+        $user = '';
+        $client = null;
+
+        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
+            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+            $user = $client->getFirstname() . ' ';
+        }
+
         try{
-            return $this->render('home/Alimentation.html.twig', [
-                'controller_name' => 'HomeController',
+            $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
+            $_products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $product->getCategory()]);
+            $__products = [];
+            $products = [];
+
+            foreach($_products as $_product)
+            {
+                if($_product->getId() != $id)
+                {
+                    array_push($__products, $_product);
+                }
+            }
+
+            $index = array_rand($__products, 3);
+
+            foreach($index as $i)
+            {
+                array_push($products, $__products[$i]);
+            }
+
+            $post = new Comments();
+        
+            $formulaire = $this->createForm(CommentsFormType::class, $post);
+    
+            $formulaire->handleRequest($request);
+    
+            $formulaire->getErrors();
+    
+            if($formulaire->isSubmitted() && $formulaire->isValid())
+            {
+                $post->setProduit($product);
+
+                //on recupère le contenu du champ parent
+                $parentId = $formulaire->get("parent")->getData();
+
+
+                //on va chercher le commentaire correspondant au parent
+                $em = $this->getDoctrine()->getManager();
+
+                if($parentId != null){
+                    $parent = $em->getRepository(Comments::class)->find($parentId) ;
+
+                }
+                
+                //on definit le parent
+                $post->setParent($parent);
+
+                $em->persist($post);
+                $em->flush();
+                $this->addFlash('message', 'Votre commentaire a bien été envoyé');
+                return $this->redirectToRoute("details", ['id' =>
+                    $product->getId()    
+                ]);
+            }
+    
+           
+            $comments = $commentsRepository->findBy(['produit' => $produit]);
+            $post = new Comments();
+        
+            $formulaire = $this->createForm(CommentsFormType::class, $post);
+    
+            $formulaire->handleRequest($request);
+            $formulaire->getErrors();
+            if($formulaire->isSubmitted() && $formulaire->isValid())
+            {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($post);
+                $em->flush();
+                return $this->redirectToRoute("deatils");
+            }
+    
+            //$em->persist($post);
+            
+            //$em->flush();
+    
+           
+           //dd($comments);
+            return $this->render('home/details.html.twig', [
+                'product' => $product,
+                'products' => $products,
+                'client' => $client,
+                'user' => $user,
+                'total' => $cartService->getTotal(),
+                'totalItem' => $cartService->getTotalItem(),
+                'comments' => $comments,
+                'formulaire' => $formulaire->createView(),
             ]);
         }
         catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
-    }
-
-     /**
-     * @Route("/Hygiene", name="Hygiene")
-     */
-    public function Hygiene(): Response
-    {
-        try{
-            return $this->render('home/Hygiene.html.twig', [
-                'controller_name' => 'HomeController',
+            return $this->render('error.html.twig', [
+                'error' => $e->getMessage(),
             ]);
         }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
     }
 
-     /**
-     * @Route("/Details", name="Details")
-     */
-    public function Details(): Response
-    {
-        try{
-            return $this->render('home/Details.html.twig', [
-                'controller_name' => 'HomeController',
-            ]);
-        }
-        catch(\Exception $e){
-            $this->addFlash('danger', $e->getMessage());
-        }
-    }
-
-    /**
-    * @Route("/Maison", name="Maison")
-    */
-   public function Maison(): Response
-   {
-       try{
-           return $this->render('home/Maison.html.twig', [
-               'controller_name' => 'HomeController',
-           ]);
-       }
-       catch(\Exception $e){
-           $this->addFlash('danger', $e->getMessage());
-       }
-   }
   
+    /*======================================================== */
     /**
-    * @Route("/Forum", name="Forum")
+    * @Route("/forum", name="forum")
     */
-    public function Forum(): Response
+    public function forum (CommentsRepository $commentsRepository, CartService $cartService, Request $request, ProductRepository $productRepository)
     {
+        $user = '';
+        $client = null;
+        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
+            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+            $user = $client->getFirstname() . ' ';
+        }
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        $search = $request->request->get('search_product');
+
+        if($request->getMethod() == 'POST')
+        {
+            $products = $productRepository->search($search);
+        }
+
+        $posts = $commentsRepository->findAll();
+
+        $post = new Comments();
+        
+        $formulaire = $this->createForm(CommentsFormType::class, $post);
+
+        $formulaire->handleRequest($request);
+        $formulaire->getErrors();
+        if($formulaire->isSubmitted() && $formulaire->isValid())
+        {   
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+            return $this->redirectToRoute("forum");
+        }
+        return $this->render('home/forum.html.twig', [
+            'posts' => $posts,
+            'categories' => $categories,
+            'products' => $products,
+            'client' => $client,
+            'user' => $user,
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
+            'formulaire' => $formulaire->createView(),
+               
+        ]);
+    }
+
+   
+    /**
+    * @Route("/forum/creer_comment", name="create_comment")
+    */
+    public function post (Request $request)
+    {
+       
+      
+        $post = new Comments();
+        
+        $formulaire = $this->createForm(CommentsFormType::class, $post);
+
+        $formulaire->handleRequest($request);
+
+        $formulaire->getErrors();
+
+        if($formulaire->isSubmitted() && $formulaire->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+            return $this->redirectToRoute("forum");
+        }
+
+        //$em->persist($post);
+        
+        //$em->flush();
+
+        return $this->render('home/createComment.html.twig', [
+            'formulaire' => $formulaire->createView(),
+               
+        ]);
+    }
+        
+        
+
+     /**
+    * @Route("/show{id}", name="show_comment")
+    */
+    public function showComment(Comments $posts)
+    {
+       
+        return $this->render('home/showComment.html.twig', [
+            'posts' => $posts,
+               
+        ]);
+    }
+    /**
+    * @Route("/contact", name="contact")
+    */
+    public function contact(Request $request, \Swift_Mailer $mailer): Response
+    {
+        if($request->getMethod() == 'POST')
+        {
+            $email = $request->request->get('email');
+            $body = $request->request->get('message');
+            $_website = $request->request->get('website');
+            $message = (new \Swift_Message('Prise de contact'))
+            ->setFrom($email)
+            ->setTo('sowousmane4811@gmail.com')
+            ->setBody($body .  '
+
+Mon website est : ' . $_website . '
+
+Envoyé par : '. $email);
+            
+    
+            $mailer->send($message);
+        }
+
         try{
-            return $this->render('home/Forum.html.twig', [
-                'controller_name' => 'HomeController',
+            return $this->render('home/contact.html.twig', [
+               'controller_name' => 'HomeController',
             ]);
         }
         catch(\Exception $e){
             $this->addFlash('danger', $e->getMessage());
         }
     }
-    /**
-    * @Route("/Contact", name="Contact")
-    */
-   public function Contact(): Response
-   {
-       try{
-           return $this->render('home/contact.html.twig', [
-               'controller_name' => 'HomeController',
-           ]);
-       }
-       catch(\Exception $e){
-           $this->addFlash('danger', $e->getMessage());
-       }
-   }
+
+    
 }

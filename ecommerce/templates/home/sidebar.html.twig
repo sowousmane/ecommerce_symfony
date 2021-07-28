@@ -1,42 +1,50 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}SidebarHomePage{% endblock %}
+<head>
+    <meta charset="utf-8">
+    <!-- <title>Responsive Sidebar Menu</title> -->
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
-{% block body %}
     <link rel="stylesheet" href="{{ asset('css/sidebar_style.css') }}" />
-    
+</head>
+<body>  
     <div class="sidebar_home">
         <header>catégories</header>
-        <a href="{{ path("alimentation") }}" >
+        <a href="#link_1" >
             <img src="{{ asset("images/riz_2.png") }}" alt="Avatar" style="width:20px; height:20px;" />
             <span>Féculents</span>
         </a> 
-        <a href="{{ path("alimentation") }}" >
+        <a href="#link_2" >
             <img src="{{ asset("images/riz_2.png") }}" alt="Avatar"  style="width:20px; height:20px;"/>
             <span>fruits</span>
         </a>
-         <a href="{{ path("alimentation") }}" >
+         <a href="#link_3" >
             <img src="{{ asset("images/riz_2.png") }}" alt="Avatar"  style="width:20px; height:20px;"/>
             <span>Légumes</span>
         </a>
-        <a href="{{ path("alimentation") }}" >
-            <img src="{{ asset("images/riz_2.png") }}" alt="Avatar"  style="width:20px; height:20px;"/>
-            <span>Cuisine</span>
-        </a>
-        <a href="{{ path("Hygiene") }}">
+        <a href="#link_4">
             <img src="{{ asset("images/evier-de-cuisine.png") }}" alt="Avatar" style="width:20px; height:20px;"/>
             <span>Hygiène</span>
         </a>
+        <a href="#link_5" >
+            <img src="{{ asset("images/riz_2.png") }}" alt="Avatar"  style="width:20px; height:20px;"/>
+            <span>Cuisine</span>
+        </a>
         
         
-        <a href="{{ path("Forum") }}">
+        
+        <a href="{{ path("forum") }}">
             <img src="{{ asset("images/question.png") }}" alt="Avatar" style="width:20px; height:20px;"/>
             <span>FAQ</span>
         </a>
-        <a href="{{ path("Contact") }}">
+        <a href="{{ path("contact") }}">
             <img src="{{ asset("images/communicate.png") }}" alt="Avatar" style="width:20px; height:20px;"/>
             <span>Contact</span>
         </a>
     </div>
+</body>
 
-{% endblock %}
+</html>

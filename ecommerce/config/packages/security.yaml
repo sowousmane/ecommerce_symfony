@@ -35,7 +35,18 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/create_admin, roles: ROLE_ADMIN }
+        - { path: ^/edit_admin, roles: ROLE_ADMIN }
+        - { path: ^/gestion_admin, roles: ROLE_ADMIN }
+        - { path: ^/history, roles: ROLE_ADMIN }
         - { path: ^/galery, roles: ROLE_ADMIN }
+        - { path: ^/add_product, roles: ROLE_ADMIN }
+        - { path: ^/edit_product, roles: ROLE_ADMIN }
+        - { path: ^/delete_product, roles: ROLE_ADMIN }
+        - { path: ^/create_admin, roles: ROLE_ADMIN }
+        - { path: ^/delete_admin, roles: ROLE_ADMIN }
+        - { path: ^/create_category, roles: ROLE_ADMIN }
+        - { path: ^/edit_category, roles: ROLE_ADMIN }
+        - { path: ^/delete_category, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/payment, roles: ROLE_USER }
+        - { path: ^/delete_account, roles: ROLE_USER }
