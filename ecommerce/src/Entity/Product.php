@@ -61,19 +61,20 @@ class Product
      */
     private $category;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Command::class, mappedBy="products")
-     */
-    private $commands;
-
+   
     /**
      * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="produit", orphanRemoval=true)
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CommandProduct::class, inversedBy="product")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commandProduct;
+
     public function __construct()
     {
-        $this->commands = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -178,33 +179,7 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|Command[]
-     */
-    public function getCommands(): Collection
-    {
-        return $this->commands;
-    }
-
-    public function addCommand(Command $command): self
-    {
-        if (!$this->commands->contains($command)) {
-            $this->commands[] = $command;
-            $command->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommand(Command $command): self
-    {
-        if ($this->commands->removeElement($command)) {
-            $command->removeProduct($this);
-        }
-
-        return $this;
-    }
-
+ 
     /**
      * @return Collection|Comments[]
      */
@@ -231,6 +206,18 @@ class Product
                 $comment->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCommandProduct(): ?CommandProduct
+    {
+        return $this->commandProduct;
+    }
+
+    public function setCommandProduct(?CommandProduct $commandProduct): self
+    {
+        $this->commandProduct = $commandProduct;
 
         return $this;
     }

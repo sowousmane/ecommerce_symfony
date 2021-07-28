@@ -3,8 +3,11 @@
 namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Client;
+use App\Entity\Command;
+use App\Entity\CommandProduct;
 use App\Entity\Comments;
 use App\Entity\History;
+use App\Entity\Payment;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\CommentsFormType;
@@ -99,8 +102,8 @@ class HomeController extends AbstractController
     /**
      * @Route("/panier", name="panier")
      */
-    public function panier(CartService $cartService){
-
+    public function panier(CartService $cartService)
+    {
         return $this->render('home/panier.html.twig', [
             'items' => $cartService->getFullCart(),
             'total' => $cartService->getTotal(),
@@ -161,18 +164,51 @@ class HomeController extends AbstractController
      */
     public function payment(Request $request,  CartService $cartService): Response
     {   
-        $user = '';
+        $_id = $this->getUser()->getId();
+        $_client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['id' => $_id]);
         $client = null;
+
         if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
             $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
-            $user = $client->getFirstname() . ' ';
+        }
+        
+        if($request->getMethod() == 'POST')
+        {
+            //insertion de la commande
+            $command = new Command();
+            $num_com = 'OSHT' . $_id . date('Ymdhms');
+            $command->setNumberCommand($num_com);
+            $command->setClient($_client);
+
+            //insertion de l'objet paiement
+            $_payment = new Payment();
+            $_payment->setCommand($command);
+            $_payment->setDelivryMethod($request->request->get('shipping'));
+
+            //$_em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($command);
+            $em->persist($_payment);
+            $em->flush();
+
+            //insertion de command_product            
+            foreach($cartService->getFullCart() as $line_command)
+            {
+                $command_product = new CommandProduct();
+                $command_product->setCommandId($command);
+                $command_product->setProductId($this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $line_command['product']]));
+                $command_product->setQuantity($line_command['quantity']);   
+                
+                $em->persist($command_product);
+                $em->flush();   
+            }
+
         }
 
         return $this->render('home/payment.html.twig', [
             'total' => $cartService->getTotal(),
             'totalItem' => $cartService->getTotalItem(),
             'items' => $cartService->getFullCart(),
-            'user' => $user,
             'client' => $client,
 
         ]);

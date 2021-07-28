@@ -36,18 +36,18 @@ class Command
     private $client;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="commands")
-     */
-    private $products;
-
-    /**
      * @ORM\OneToMany(targetEntity=Payment::class, mappedBy="command", orphanRemoval=true)
      */
     private $payments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CommandProduct::class, inversedBy="command")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commandProduct;
+
     public function __construct()
     {
-        $this->products = new ArrayCollection();
         $this->payments = new ArrayCollection();
     }
 
@@ -92,30 +92,10 @@ class Command
         return $this;
     }
 
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
+ 
+  
 
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        $this->products->removeElement($product);
-
-        return $this;
-    }
-
+  
     /**
      * @return Collection|Payment[]
      */
@@ -142,6 +122,18 @@ class Command
                 $payment->setCommand(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCommandProduct(): ?CommandProduct
+    {
+        return $this->commandProduct;
+    }
+
+    public function setCommandProduct(?CommandProduct $commandProduct): self
+    {
+        $this->commandProduct = $commandProduct;
 
         return $this;
     }
