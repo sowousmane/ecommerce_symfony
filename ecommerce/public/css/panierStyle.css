@@ -39,6 +39,8 @@ tbody tr{
   width: 200px;
   font-weight: bold;
   color:black;
+  height:50px;
+
 }
 .empty{
   font-size: 20px;

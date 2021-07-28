@@ -41,7 +41,27 @@ body{
     background-color: rgb(228, 87, 87);
 }
 /*==============================  show comment ====================*/
-
+.retour a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+.retour{
+    width: auto;
+    position: fixed;
+    z-index:99999;
+    height: 50px;
+    padding: 10px;
+    margin: 20px;
+}
+._logo strong{
+    font-size: 50px;
+}
+._logo a{
+    text-decoration: none;
+    color: black;
+}
 /*==================== create comment ==================*/
 .commentaire_create_forum input{
     height: 50px;

@@ -71,22 +71,44 @@
                             </td>
 
                         </tr>
-                        <hr>
                     {% endfor %}
                 </tbody>
                 <tfoot style="  font-weight: bold;">
+                    <tr style="  background-color: rgb(255, 211, 141);">
+                     <form>
+                       <td >  <strong>Type de livraison</strong>
+                        </td>
+                        <td > 
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio" checked>Livraison normale à domicile  
+                            </label>
+                        </td>
+                       <td colspan="2"> 
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Livraison express à domicile <strong> 5€ </strong>
+                            </label>
+                       </td> 
+                       <td colspan="2"> 
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Point de retrait
+                            </label>
+                       </td> 
+                    </form>
+                        
+                        
+                    </tr>
                     <tr>
                         <td colspan="4" class="text-right total-article"> Nombre d'articles :</td>
-                        <td>{{ totalItem }} </td>
+                        <td>{{ totalItem  }} </td>
                         
                     </tr>
                     <tr>
                         <td colspan="4" class="text-right"> Prix total :</td>
-                        <td>{{ total }} €</td>
+                        <td>{{ total  }} €</td>
                     </tr>
                     <tr>
                         <td colspan="5" class="text-right ">
-                             <a href="{{ path("cart_delete_all") }}" class="btn btn-danger  empty"style=" width: 250px;" >
+                             <a href="{{ path("cart_delete_all") }}" class="btn btn-danger  empty" style=" width: 250px; height:50px;" >
                                <span style=" margin-right: -20px;"> Vider votre panier </span>
                                <svg style=" margin-left: -55px;" xmlns="http://www.w3.org/2000/svg" width="200" height="30" fill="currentColor" class="bi bi-cart-x"
                                     viewBox="0 0 16 16">
@@ -97,7 +119,7 @@
                             </a>
                         </td>
                         <td >
-                            <a href="" class="btn btn-lg btn-valide-cart ">Valider mon panier</a>
+                            <a href="{{ path('payment') }}" class="btn btn-lg btn-valide-cart ">Valider mon panier</a>
                         </td>
                     </tr>
                 </tfoot>

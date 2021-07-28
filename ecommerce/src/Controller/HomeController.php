@@ -99,7 +99,7 @@ class HomeController extends AbstractController
      * @Route("/panier", name="panier")
      */
     public function panier(CartService $cartService){
-
+        
         return $this->render('home/panier.html.twig', [
             'items' => $cartService->getFullCart(),
             'total' => $cartService->getTotal(),
@@ -386,24 +386,15 @@ class HomeController extends AbstractController
      /**
     * @Route("/show{id}", name="show_comment")
     */
-    public function showComment($id,Comments $comments)
+    public function showComment($id)
     {
         $posts =  $this->getDoctrine()->getRepository(Comments::class)->findOneBy(['id' => $id]);
-        //dd($posts);
-        $_posts_tab =  $this->getDoctrine()->getRepository(Comments::class)->findBy(['parent' => $comments->getParent()]);
-        //dd($_posts_tab);
-        $table_post = [];
-        foreach($_posts_tab as $post)
-        {
-            if($post->getId() != $id)
-            {
-                array_push($table_post, $post);
-            }
-        }
-
+        $_posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(['parent' => $id]);
+      
         return $this->render('home/showComment.html.twig', [
             'posts' => $posts,
-            '_posts_tab' => $_posts_tab,
+            '_posts' => $_posts,
+            
                
         ]);
     }
@@ -441,5 +432,6 @@ Envoyé par : '. $email);
         }
     }
 
+   
     
 }
