@@ -1,10 +1,20 @@
+
+._logo strong{
+  font-size: 50px;
+}
+.well p{
+  font-size: 50px;
+}
+._logo a{
+  text-decoration: none;
+  color: black;
+}
 ._contact_div input {
   height: 50px;
 }
 
 ._contact_div{
-   padding: 10%;
-    margin-top: 20px;
+   padding:10px 10%;
   }
 
 ._contact_div h3, ._contact_div .panel-footer, ._contact_div h4{
@@ -74,6 +84,14 @@
 }
 /*=======================Contacter par courrier============================*/
 /*======================================================================*/
+@media only screen and (max-width: 946px) {
+  
+  .well .para p{
+    font-size: 40px !important;
+    margin-left:150px;
+    margin-top:10px;
+  }
+}
 @media only screen and (max-width: 775px) {
   #send-email{
       display: flex !important;
@@ -84,6 +102,24 @@
     min-width: 500px;
     width: 500px;
   }
+  .logo_div strong{
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center;
+  }
+  .well .para p{
+    margin-left:0px;
+    font-size: 40px !important;
+  }
+}
+
+@media only screen and (max-width: 711px) {
+  
+  .well .para p{
+    font-size: 30px !important;
+    margin-left:150px;
+    margin-top: 20px;
+  }
 }
 @media only screen and (max-width: 665px) {
   ._par_courriel input , ._par_courriel textarea {
@@ -91,6 +127,11 @@
     min-width: 420px;
     width: 420px;
   }  
+  .well .para p{
+    font-size: 30px !important;
+    margin-left:50px;
+    margin-top: 15px;
+  }
 }
 
 @media only screen and (max-width: 590px) {
@@ -99,6 +140,11 @@
      max-width: 400px;
      min-width: 400px;
    }
+   .well .para p{
+    font-size: 50px !important;
+    margin-left:0px;
+    margin-top: 0px;
+  }
  }
 @media only screen and (max-width: 575px) {
  ._par_courriel input, ._par_courriel textarea {

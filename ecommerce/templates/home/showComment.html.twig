@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<link rel="stylesheet" href="{{ asset('css/forumStyle.css') }}" />
+<div class="well">
+    <div class=" row retour">
+        <a href="{{ path("forum") }}">
+            < retour aux forum </a>
+    </div>
+    <div class="text-center _logo   ">
+        <strong>
+            <a href="{{ path("home") }}">
+                <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span
+                    style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span
+                    style="color: #ff8400;">n</span><span
+                    style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+            </a>
+        </strong>
+    </div>
+</div>
+<div class="row commentaire_details_s " style="margin:50px 30%;">
+  <h1 class="text-center" style="margin-bottom:50px;">Ceci est un detail du post</h1>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <tr>
+        <th>Auteur</th>
+        <th colspan="3">Message</th>
+      </tr>
+      <tr>
+        <th rowspan="2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-person-fill" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+          </svg><br>
+          {{ posts.nickname }}
+        </th>
+        <td> <strong> Topic: </strong> {{ posts.title }}</td>
+        <td> <strong> Publié le: </strong> {{ posts.createdAt |date('d-m-Y:h-m-s') }}</td>
+        <td> {% if posts.active %}actif{% else %}fermé{% endif %}</td>
+      </tr>
+      <tr>
+        <td colspan="3">{{ posts.content }}</td>
+      </tr>
+    </table>
+    <button type="submit" class="btn ">
+      <strong>Repondre</strong>
+    </button>
+  </div>
+</div>  
+{% endblock %}
