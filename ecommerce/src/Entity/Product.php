@@ -61,24 +61,13 @@ class Product
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="product")
+     * @ORM\ManyToMany(targetEntity=Command::class, mappedBy="products")
      */
-    private $comments;
-
-    /**
-     * @ORM\OneToMany(targetEntity=CommandProduct::class, mappedBy="product", orphanRemoval=true)
-     */
-    private $commandProducts;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="produit", orphanRemoval=true)
-     */
-    private $comments;
+    private $commands;
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
-        $this->commandProducts = new ArrayCollection();
+        $this->commands = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,90 +172,27 @@ class Product
     }
 
     /**
-     * @return Collection|Comments[]
+     * @return Collection|Command[]
      */
-    public function getComments(): Collection
+    public function getCommands(): Collection
     {
-        return $this->comments;
+        return $this->commands;
     }
 
-    public function addComment(Comments $comment): self
+    public function addCommand(Command $command): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setProduct($this);
+        if (!$this->commands->contains($command)) {
+            $this->commands[] = $command;
+            $command->addProduct($this);
         }
 
         return $this;
     }
 
-    public function removeComment(Comments $comment): self
+    public function removeCommand(Command $command): self
     {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getProduct() === $this) {
-                $comment->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CommandProduct[]
-     */
-    public function getCommandProducts(): Collection
-    {
-        return $this->commandProducts;
-    }
-
-    public function addCommandProduct(CommandProduct $commandProduct): self
-    {
-        if (!$this->commandProducts->contains($commandProduct)) {
-            $this->commandProducts[] = $commandProduct;
-            $commandProduct->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommandProduct(CommandProduct $commandProduct): self
-    {
-        if ($this->commandProducts->removeElement($commandProduct)) {
-            // set the owning side to null (unless already changed)
-            if ($commandProduct->getProduct() === $this) {
-                $commandProduct->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Comments[]
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comments $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comments $comment): self
-    {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getProduit() === $this) {
-                $comment->setProduit(null);
-            }
+        if ($this->commands->removeElement($command)) {
+            $command->removeProduct($this);
         }
 
         return $this;
