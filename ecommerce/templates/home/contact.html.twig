@@ -1,7 +1,22 @@
 {% extends 'base.html.twig' %} {% block body %}
 
-  {% include 'home/menu.html.twig' %}
+  
   <link rel="stylesheet" href="{{ asset('css/contactStyle.css') }}" />
+  <div class="well row logo_div">
+    <div class=" text-left  _logo  col-sm-4">
+      <strong>
+          <a href="{{ path("home") }}" >
+              <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span
+                  style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span
+                  style="color: #ff8400;">n</span><span
+                  style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+          </a>
+      </strong>
+    </div>
+    <div class="col-sm-8  para "> 
+      <strong> <p> Contactez-nous</p></strong>
+    </div> 
+  </div>
   <div class="row _contact_div"> 
     <div class="panel-group" id="accordion">
       <div class="panel panel-default _par_courriel">
