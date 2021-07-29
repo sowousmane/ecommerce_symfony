@@ -1,124 +1,196 @@
- {% extends 'base.html.twig' %} {% block body %}
+{% extends 'base.html.twig' %} {% block body %}
 
-    {% include 'home/menu.html.twig' %}
-    {% include 'home/nav_bar.html.twig' %}
-    <link rel="stylesheet" href="{{ asset('css/details.css') }}" />
-     <div class="retour" style="position:fixed;">  <a href="{{ path("home") }}"><span>←</span> RETOUR </a> </div>
-    <div class="row details_first" style="margin-top:217px; margin-bottom:20px;">     
+{% include 'home/menu.html.twig' %}
+{% include 'home/nav_bar.html.twig' %}
+<link rel="stylesheet" href="{{ asset('css/details.css') }}" />
+
+<div class="row details_first" style="margin-top:217px; margin-bottom:20px;">
+    <div class=" row retour">
+
+        <a href="{{ path("home") }}">← retour </a>
+    </div>
+
+    <div class="row _details">
         <div class="col-sm-8 class_details_product" id="class_details_product_id">
-            <img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}" alt="Avatar" style="width:450px; height:450px; margin-left:300px;  margin-top: 5%;" />
+            <img src="{{ asset("images/products/" ~ product.image ~ ".PNG" ) }}" alt="Avatar"
+                style="width:450px; height:450px; margin-left:300px;  margin-top: 5%;" />
             <h2> Caractéristiques produit</h2>
             <p>
-                Eco-Score L'Eco-score vous indique l’impact sur l'environnement des produits alimentaires. Il a été élaboré pour favoriser une alimentation plus durable.<br>
+                Eco-Score L'Eco-score vous indique l’impact sur l'environnement des produits alimentaires. Il a été
+                élaboré pour favoriser une alimentation plus durable.<br>
                 La méthode de calcul estime l’impact de chaque étape de la vie d’un produit
-                (production, transport, vente en magasin, cuisine, recyclage des emballages) sur la pollution de l'environnement.<br>
+                (production, transport, vente en magasin, cuisine, recyclage des emballages) sur la pollution de
+                l'environnement.<br>
                 Elle prend notamment en compte :</p>
-                  <pre> -le mode de production</pre>   
-                  <pre> -le transport</pre> 
-                  <pre> -l’origine géographique des ingrédients</pre> 
-                  <pre> -la recyclabilité de l’emballage</pre> 
-                  <pre> -l’impact sur les espèces menacées </pre> 
-                <p> Sources des calculs de l'Eco-score: Les scores des produits de marque Carrefour sont calculés par Conso Trust.<br>
+            <pre> -le mode de production</pre>
+            <pre> -le transport</pre>
+            <pre> -l’origine géographique des ingrédients</pre>
+            <pre> -la recyclabilité de l’emballage</pre>
+            <pre> -l’impact sur les espèces menacées </pre>
+            <p> Sources des calculs de l'Eco-score: Les scores des produits de marque Carrefour sont calculés par Conso
+                Trust.<br>
                 Les scores des marques nationales sont calculés par Open Food Facts et consultables
-                sur "  <a href="https://openfoodfacts.org">https://openfoodfacts.org</a>".<br> Certains scores sont gris, en raison du manque d'informations nécessaires, il n'est pas possible de calculer l'Eco-score de ces produits.
+                sur " <a href="https://openfoodfacts.org">https://openfoodfacts.org</a>".<br> Certains scores sont gris,
+                en raison du manque d'informations nécessaires, il n'est pas possible de calculer l'Eco-score de ces
+                produits.
 
 
             </p>
             <hr>
             <h2>Vous pourriez aussi aimer</h2>
-            <div class="row"> 
+            <div class="row">
                 <ul class='row articles'>
                     {% for _product in products %}
-                        <div class="col-md-3" >
-                            <li>
-                                <div class="cardi">
+                    <div class="col-md-4">
+                        <li>
+                            <div class="cardi">
 
-                                    <a href="{{ path("details", {id: _product.id}) }}">
+                                <a href="{{ path("details", {id: _product.id}) }}">
 
-                                        <img src="{{ asset("images/products/" ~ _product.image ~ ".PNG") }}" alt="Avatar" style="width:100%" />
-                                        <div class="foot_article">
-                                            <h2>Asperges blanches ou violettes</h2>
-                                            <h5>la botte de 500g</h5>
-                                            <h5>5€ /kilogramme</h5>
-                                            <h3>origine: France</h2>
-                                            <h2>2,50€</h2>
-                                        </div>
+                                    <img src="{{ asset("images/products/" ~ _product.image ~ ".PNG" ) }}" alt="Avatar"
+                                        style="width:100%" />
+                                    <div class="foot_article">
+                                        <h3>{{ product.name }}</h3>
+                                        <h4>{{ product.description [:30] }} ...</h4>
+                                        <h2> {{ product.price }} €</h2>
+                                    </div>
+                                </a>
+
+                                <div class="btn-add  text-center">
+                                    <a href="{{ path("cart_add", {'id': product.id}) }}" class="btn ">
+                                        <span class="fa fa-plus"></span>
+                                        <strong>ajouter</strong>
                                     </a>
 
-                                    <div class="btn-add">
-                                        <button type="submit" class="btn "> 
-                                                            <span class="fa fa-plus"></span>
-                                                            <strong>ajouter</strong>
-                                                </button>
-                                        <button type="submit" class="btn pull-right"> 
-                                                            <i class="fa fa-heart"></i>
-                                                </button>
-
-                                    </div>
                                 </div>
-                            </li>
-                        </div>
+                            </div>
+                        </li>
+                    </div>
                     {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="col-sm-4 details_div" id="div_to_show_id">
             <div class="details_article">
-                <h2>Asperges blanches ou violettes</h2>
-                <h5>la botte de 500g</h5>
-                <h5>5€ /kilogramme</h5>
-                <h3>origine: France</h2>
-                    <h2>2,50€</h2>
-                    <a href="#" class="btn buy_btn">
-                        <button type="submit" class="btn " data-toggle="tooltip" data-placement="top" title="Ajouter ce produit dans votre panier"> 
+                <h3>{{ product.name }}</h3>
+                <h4>{{ product.description}}</h4>
+                <h2> {{ product.price }} €</h2>
+                <a href="{{ path("cart_add", {'id': product.id}) }}" class="btn buy_btn">
+                    <button type="submit" class="btn " data-toggle="tooltip" data-placement="top"
+                        title="Ajouter ce produit dans votre panier">
                         <strong>Acheter</strong>
-                        <img class="" src="{{ asset("images/shopping-cart.png") }}" alt="chariot!" style="width:50px; height:50px;"/>        
-                
-					</button>
-                    </a>
-                    <button type="submit" class="btn like pull-right"> 
-					<i class="fa fa-heart"></i>
-				</button>
+                        <img class="" src="{{ asset("images/shopping-cart.png") }}" alt="chariot!"
+                            style="width:50px; height:50px;" />
+
+                    </button>
+                </a>
+                <button type="submit" class="btn like pull-right">
+                    <i class="fa fa-heart"></i>
+                </button>
             </div>
             <div class="bottom_details row">
-                <a href="{{ path("home") }}" class="btn ">
-                    <button type="submit" class="btn " data-toggle="tooltip" data-placement="top" title="Retourner sur la page d'accueil"> 
+                <a href="{{ path("products_by_category", {id: product.category.id}) }}" class="btn ">
+                    <button type="submit" class="btn " data-toggle="tooltip" data-placement="top"
+                        title="Retourner sur la page d'accueil">
                         <div class="col-sm-9">
                             <strong>VOIR TOUS LES PRODUITS DU RAYON </strong>
                             <span></span>
-                            <img class="details_pic" src="{{ asset("images/carotte.jpg") }}" alt="carotte!" style="width:50px; height:50px;"/>        
-                
+                            <img class="details_pic" src="{{ asset("images/carotte.jpg") }}" alt="carotte!"
+                                style="width:50px; height:50px;" />
+
                         </div>
                         <div class="col-sm-3 test">
                             <strong> > </strong>
                         </div>
-					</button>
+                    </button>
                 </a>
             </div>
         </div>
+    </div>
+</div>
+ <div class="container-fluid commentaire_details_product" style="margin-bottom:150px;">
+    <h1 class="text-center"> Discussion sur ce produit</h1>
+    <hr>
+    {% if comments | length > 0 %}
+       {% for post in comments %}
+          {% if post.parent == null %}
+             <div class="row">
+              
+              <h3> 
+                <strong>{{ post.title }} </strong>
+                <a href="#commentaire_create_id_forum" data-reply data-id="{{ post.id }}" class="btn new_post_btn pull-right" style="margin:10px;">
+                  Répondre
+                </a> 
+              </h3>
+              <p> publié par 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              </svg>
+              <strong style="  background-color: rgb(221, 213, 202);">{{ post.nickname  }} </strong>le {{ post.createdAt |date('d/m/Y à H:i') }} ce post est: &nbsp; {% if post.active %}actif{% else %}fermé{% endif %}</p>
+              <div>
+                <a class="link-to-details-post" href="{{ path("show_comment", {'id': post.id}) }}">
+                  {{ post.content [:100] }} <span style="color:rgb(11, 114, 161);">voir plus</span>
+                </a>
+              </div>
+            </div> 
+            {% for reply in post.replies %}
+              <div style="margin-left:50px; background-color: rgb(221, 213, 202);">
+                <p> Répondu  par 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+                <strong style="  background-color: rgb(221, 213, 202);">{{ reply.nickname  }} </strong>le {{ reply.createdAt |date('d/m/Y à H:i') }}</p>
+                <div>
+                  <a class="link-to-details-post" href="{{ path("show_comment", {'id': reply.id}) }}">
+                    {{ reply.content [:100] }} 
+                  </a>
+                </div>
+              </div>
+            {% endfor %}
+                <hr>
+          {% endif %}
+        {% endfor %}
 
+    {% else %}
+        <div colspan="10" style="background-color:rgb(253, 147, 128);"><h1 > Aucun commentaire sur ce produit</h1></div>
+    
+    {% endif %}
+    
+</div>
+    <div class="container-fluid commentaire_create " id="commentaire_create_id_forum" style=" margin-top:27px;">
+        <h1 class="text-center"> Laissez-nous vos commentaires ou vos questions</h1>
+        {{ form(formulaire) }}
     </div>
 
-
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-        var second_div_right = document.getElementById("class_details_product_id");
-        var foot__ = second_div_right.scrollHeight - second_div_right.scrollTop ; //hauter du des produits
-        var Y = foot__ -600; // position du scroll
-        console.log(" y =  " + Y);
-        $(window).scroll(function () {
-            console.log("scrollY   " + window.scrollY)
-            if (window.scrollY > Y) {
-                 $('#div_to_show_id').addClass("class_to_fix");
-
-            } else {
-             $('#div_to_show_id').removeClass("class_to_fix");
-            }
-            
-        });
-    </script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    var second_div_right = document.getElementById("class_details_product_id");
+    var foot__ = second_div_right.scrollHeight - second_div_right.scrollTop; //hauter du des produits
+    var Y = foot__ - 600; // position du scroll
+    //console.log(" y =  " + Y);
+    $(window).scroll(function () {
+        //console.log("scrollY   " + window.scrollY)
+        if (window.scrollY > Y) {
+            $('#div_to_show_id').addClass("class_to_fix");
+        } else {
+            $('#div_to_show_id').removeClass("class_to_fix");
+        }
+    });
+  {#  document.getElementById('new_comm').onclick = function changeContent(){
+        document.getElementById('create_comment').style.display = "block";
+    } #}
+    window.onload = () => {
+        //on ecoute l'evenement sur tous les bouttons repondre
+        document.querySelectorAll("[data-reply]").forEach(element => {
+            element.addEventListener("click", function(){
+                //console.log(this);
+                document.querySelector("#comments_form_parent").value = this.dataset.id;
+            })
+        })
+    } 
+</script>
 
 
 {% endblock %}

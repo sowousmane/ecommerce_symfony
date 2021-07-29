@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}   
+  <link rel="stylesheet" href="{{ asset('css/forumStyle.css') }}" />
+   
+  <div  class="text-center _logo shadow p-4 ">
+    <strong>
+        <a href="{{ path("home") }}" > 
+            <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+        </a>
+    </strong>
+    </div>
+  <div class="row commentaire_create " style="margin:0px 50px; margin-top:27px;">
+    <h1 class="text-center"> Laissez-nous vos commentaires ou vos questions</h1>
+    {{ form(formulaire) }}
+     <a href="{{ path("forum") }}" class="btn btn-lg text-right btn-cancel-comment ">Anuller</a>
+  </div>
+
+
+{% endblock %}

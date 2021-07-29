@@ -1,9 +1,111 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Paiement{% endblock %}
-
 {% block body %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ asset('css/paymentStyle.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <div class="logo_and_so_on">
+    <div class=" row retour">
 
-<h1>Paiement</h1>
+        <a href="{{ path("cart") }}">
+             <span> <i class="far fa-arrow-alt-circle-left"></i>retour au panier</span></a>
+    </div>
+    <div class=" _logo   ">
+      <strong>
+        <a href="{{ path("home") }}">
+            <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span
+                style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span
+                style="color: #ff8400;">n</span><span
+                style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+        </a>
+      </strong>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-75">
+    <div class="container">
+      <form method="POST">
+      
+        <div class="row">
+          <div class="col-50">
+            <h3>Adresse de livraison</h3>
+            <label for="fname"><i class="fa fa-user"></i> Prénom && Nom</label>
+            <input type="text" id="fname" name="firstname" value="{{ client.firstname }} {{ client.lastname }}" placeholder="{{ client.firstname }} {{ client.lastname }}">
+            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+            <input type="text" id="email" name="email" placeholder="{{ client.email }}" value="{{ client.email }}">
+            <label for="adr"><i class="fa fa-address-card-o"></i> Adresse</label>
+            <input type="text" id="city" name="city" placeholder="{{ client.address }}" value="{{client.address}}">
+            <label for="adr">
+              <i class="fa fa-truck" aria-hidden="true"></i> Livraison</label>
+            <label>
+            <input type="radio" checked="checked" name="shipping" value="0">Normale chez vous
+            <input type="radio"  name="shipping" value="5"> Expresse chez vous 5.00€
+            <input type="radio"  name="shipping" value="0"> Un point de retrait
+            </label>
+          </div>
+
+          <div class="col-50">
+            <h3>paiement</h3>
+            <label for="fname">Cartes acceptées</label>
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <label for="cname">Nom sur la carte</label>
+            <input type="text" id="cname" name="cardname" value="{{ client.firstname }} {{ client.lastname }}" placeholder="{{ client.firstname }} {{ client.lastname }}">
+            <label for="ccnum">Carte de crédit</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" value="1111-2222-3333-4444">
+            <div class="row">
+              <div class="col-25">
+                <label for="expmonth">Date d'expiration</label>
+                <input type="text" id="expmonth" name="expmonth" placeholder="September" value="September">
+              </div>
+              <div class="col-25">
+                <label for="expyear">Année</label>
+                <input type="text" id="expyear" name="expyear" placeholder="2018" value="2018">
+              </div>
+              <div class="col-25">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="352" value="352">
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <label>
+          <a href="{{ path("home") }}" style="color:black; text-decoration:none; margin-left:10%; background-color: rgb(149, 149, 149);">
+            changer d'adresse de livraison
+          </a>
+        </label>
+        <br>
+        <input type="submit" value="Continuer le paiement" class="btn">
+      </form>
+    </div>
+  </div>
+  <div class="col-25">
+    <div class="container">
+      <h4>Contenu du panier <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{ totalItem  }} </b></span></h4>
+        {% for item in items %}
+          <p>
+            <a href="#" style="color:black; text-decoration:none;">
+              {{ item.product.name }}
+            </a> 
+            <span class="price">
+              {% if item.quantity > 1 %}
+                {{ item.quantity}} &nbsp;<strong  style="color:black;">x&nbsp;</strong> {{ item.product.price }} €
+              {% else %} 
+                {{ item.product.price }} €
+              {% endif %}
+            </span>
+          </p>
+        {% endfor %}
+     
+      <hr>
+      <p>Total <span class="price" style="color:black;"><b>{{ total  }} €</b></span></p>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}

@@ -8,39 +8,25 @@
     td {
         padding: 10px;
     }
-
     ._head {
         font-size: 22px;
         background-color: #c2beb6;
     }
-
     .table_produit {
         width: 100%;
     }
-
     ._add {
-        border: 2px solid #ff8400;
-        background-color: #ff8400; 
-        color: white; 
         margin-top: 20px;
         margin-right: 8px;
     }
-
-    ._add:hover {
-        border: 2px solid #f27d00;
-        background-color: #f27d00;
-        color: white;
-    }
-
     ._all {
-        border: 2px solid #ff8400;
         margin-top: 20px;
-        color: #ff4d00;
     }
-
-    ._all:hover {
-        background-color: #ff8400;
-        color: white;
+    ._link-little-products {
+        color: #ff4d00;
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
     }
 </style>
 
@@ -50,7 +36,7 @@
     {% include 'admin/header.html.twig' %}
         <div style="width: 100%; background-color: white; padding: 40px;" class="admin_content shadow">
             
-            
+            <h1 id="_title-products" style="margin: 0 0 50px 0; text-align: center;">Les produits</h1>
 
             <table class="table_produit">
                 <tr class="_head">
@@ -83,7 +69,7 @@
                                 <p>Confirmez la suppréssion</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                 <a href="{{ path("delete_product", {id: products[i].id}) }}">
                                     <button type="button" class="btn btn-primary">Confirmer</button>
                                 </a>
@@ -92,9 +78,8 @@
                     </div>
                 </div>
                 {% endfor %}
-            
                 {% for i in 5..(products|length - 1) %}
-                <tr class="_none _tr">
+                <tr id="_tr{{ i }}" class="_none">
                     <td> {{ products[i].description }} </td>
                     <td> {{ products[i].price }} </td>
                     <td> {{ products[i].stock }} </td>
@@ -117,7 +102,7 @@
                                 <p>Confirmez la suppréssion</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                 <a href="{{ path("delete_product", {id: products[i].id}) }}">
                                     <button type="button" class="btn btn-primary">Confirmer</button>
                                 </a>
@@ -128,10 +113,116 @@
                 {% endfor %}
 
             </table>
-            <button type="button" class="btn _add">Ajouter un produit</button>
-            <button type="button" class="btn _all rounded">Voir tous les produits</button>
+            <a href="{{ path("add_product") }}"><button type="button" class="btn _btn-onlineshop _add">Ajouter un produit</button></a>
+            <button id="{{ products|length }}" type="button" class="btn _btn-outline-onlineshop _all _all-products rounded">Voir tous les produits</button>
+            <a class="_link-little-products" href="#_title-products"><button type="button" class="btn _btn-outline-onlineshop _none _all _little-products rounded">Voir moins de produits</button></a>
+
+            <h1 style="margin: 50px; text-align: center;">Les catégories</h1>
+
+            <table class="table_produit">
+                <tr class="_head">
+                    <td><strong>Nom</strong></td>
+                    <td colspan="2"><strong>Actions</strong></td>
+                </tr>
+                {% for category in categories %}
+                <tr>
+                    <td> {{ category.name }} </td>
+                    <td><button type="button" class="btn btn-outline-secondary">Modifier</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
+                            data-bs-target="#exampleModal{{category.id}}">Supprimer</button>
+                    </td>
+                </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{category.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Confirmez la suppréssion</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                <a href="{{ path("delete_category", {id: category.id}) }}">
+                                    <button type="button" class="btn btn-primary">Confirmer</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </table>
+            <a href="{{ path("create_category") }}"><button type="button" class="btn _btn-onlineshop _add">Ajouter une catégorie</button></a>
+
+            <h1 style="margin: 50px; text-align: center;">Les administrateurs</h1>
+
+            <table class="table_produit">
+                <tr class="_head">
+                    <td><strong>Nom</strong></td>
+                    <td><strong>Prénom</strong></td>
+                    <td><strong>E-mail</strong></td>
+                    <td colspan="2"><strong>Actions</strong></td>
+                </tr>
+                {% for admin in admins %}
+                <tr>
+                    <td> {{ admin.firstname }} </td>
+                    <td> {{ admin.lastname }} </td>
+                    <td> {{ admin.email }} </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
+                            data-bs-target="#exampleModal{{admin.id}}">Supprimer</button>
+                    </td>
+                </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{admin.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Confirmez la suppréssion</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{{ path("delete_admin", {id: admin.id}) }}">
+                                    <button type="button" class="btn btn-primary">Confirmer</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </table>
+            <a href="{{ path("create_admin") }}"><button type="button" class="btn _btn-onlineshop _add">Ajouter un administrateur</button></a>
         </div>
     </div>
 </div>
+
+<script>
+    var _allProducts = document.querySelector('._all-products'); 
+    var _littleProducts = document.querySelector('._little-products');
+    var _length = _allProducts.id;
+    _allProducts.addEventListener('click', function(){
+        for(var i = 5; i < _length; i++){
+            document.querySelector('#_tr' + i).classList.remove('_none');
+            _allProducts.classList.add('_none');
+            _littleProducts.classList.remove('_none');
+        }
+    });
+    _littleProducts.addEventListener('click', function(){
+        for(var i = 5; i < _length; i++){
+            document.querySelector('#_tr' + i).classList.add('_none');
+            _allProducts.classList.remove('_none');
+            _littleProducts.classList.add('_none');
+        }
+    });
+</script>
 
 {% endblock %}

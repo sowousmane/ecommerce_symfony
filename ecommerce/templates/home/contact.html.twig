@@ -1,26 +1,136 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+{% extends 'base.html.twig' %} {% block body %}
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  
+  <link rel="stylesheet" href="{{ asset('css/contactStyle.css') }}" />
+  <div class="well row logo_div">
+    <div class=" text-left  _logo  col-sm-4">
+      <strong>
+          <a href="{{ path("home") }}" >
+              <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span
+                  style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span
+                  style="color: #ff8400;">n</span><span
+                  style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+          </a>
+      </strong>
+    </div>
+    <div class="col-sm-8  para "> 
+      <strong> <p> Contactez-nous</p></strong>
+    </div> 
+  </div>
+  <div class="row _contact_div"> 
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default _par_courriel">
+        <div class="panel-heading">
+          <h3>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+              <span data-toggle="tooltip" title="cliquez pour me cacher ou m'afficher">
+                <img class="" src="{{ asset("images/enveloppe.png") }}" alt="email!"
+                  style="width:30px; height:30px;" />                
+                <strong>  Par courriel</strong>
+              </span>
+          </a>
+          </h3>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+          <form method="post">
+            <div class="panel-body" id="send-email">
+              <div class="col-sm-6">
+                <label for="inputName"> Nom <span> *</span></label>
+                <input type="text"  value="" name="nom" id="inputName" class="form-control"  required autofocus>
+                <label for="inputEmail">E-mail <span> *</span></label>
+                <input type="email"  value="" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                <label for="inputWebsite">Website</label>
+                <input type="text"  name="website" id="inputWebsite" class="form-control" > 
+              </div>
+              <div class="col-sm-6">
+                <label for="message">Message<span> *</span></label>
+                <textarea id="message" name="message" rows="9" > </textarea>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-connexion" type="submit">Envoyer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default _via_un_conseiller_par_phone">
+        <div class="panel-heading">
+          <h3>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+              <span data-toggle="tooltip" title="cliquez pour me cacher ou m'afficher">
+                <img class="" src="{{ asset("images/telephone.png") }}" alt="telephone!"/> 
+                <strong>  Par téléphone</strong>
+              </span>
+            </a>
+          </h3>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+          <div class="panel-body" id="phone-id">
+              <h4><strong>Besoin d'un conseil ?</strong></h4>
 
-  </head>
-  <body>
-    <h1>Contact</h1>
+              <p> Simplicité et sécurité, commandez n'importe quel produit du site en 2 étapes :</p>
 
-    <!-- Optional JavaScript; choose one of the two! -->
+              <p> • Composez le 07 06 06 06 06 (Du lundi au vendredi de 9h à 19h. Week-ends et Jours Fériés de 9h à 18h.)</p>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
-  </body>
-</html>
+              <p> • Passez commande avec l‘un de nos conseillers</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default _par_courrier">
+        <div class="panel-heading">
+          <h3>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+              <span data-toggle="tooltip" title="cliquez pour me cacher ou m'afficher">
+                <img class="" src="{{ asset("images/delivery-man.png") }}" alt="telephone!"
+                  style="width:40px; height:40px;"/> 
+                <strong>  Par courrier</strong> 
+              </span>
+            </a>
+          </h3>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse">
+          <div class="panel-body" id="phone-id">
+            <h4><strong>Besoin d'un conseil ?</strong></h4>
+            <p> En indiquant votre nom, prénom et numéro de commande:</p>
+            <p> <strong> HT&&OShopOnline.com </strong></p>
+            <p> Service Clients</p>
+            <p> BP 17200</p>
+            <p> 611 boulevard shopOnline 93472 Neuilly Sur Marne</p>
+            <p> Merci de ne faire aucun retour de colis à cette adresse</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default _via_reseau_sociaux ">
+        <div class="panel-heading">
+          <h3>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+              <span data-toggle="tooltip" title="cliquez pour me cacher ou m'afficher">
+                <img class="" src="{{ asset("images/reseaux-sociaux_2.jpg") }}" alt="telephone!"
+                  style="width:60px; height:60px;"/> 
+                <strong>  Par réseaux sociaux</strong> 
+              </span>
+            </a>
+          </h3>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+          <div class="panel-body">
+          <strong> Rejoignez-nous sur  &nbsp;  &nbsp; </strong>
+            <a class="btn" href="https://touch.facebook.com/sowEtEcriture/?ref=bookmarks">
+              <img class=" img-network" src="{{ asset("images/facebook.png") }}" alt="user_mobile!" />                
+            </a>
+            
+            <a class="btn" href="https://twitter.com/login">
+              <img class=" img-network" src="{{ asset("images/twitter.png") }}" alt="user_mobile!" />                
+            </a>
+            <a class="btn" href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin">
+              <img class=" img-network" src="{{ asset("images/linkedin.png") }}" alt="user_mobile!" />                
+            </a>
+          </div>
+        </div>
+      </div>
+      
+    </div> 
+  </div>
+   
+{% endblock %}

@@ -13,7 +13,32 @@
                 {% for product in products %}
 
                 <div class="picture">
-                    <img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}">
+                    <a href="{{ path("admin") }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ product.id }}">
+                        <div class="_picture"><img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}"></div>
+                    </a>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop{{ product.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div style="background-color: #d6d6d6;" class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Informations sur l'image</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class=""><img src="{{ asset("images/products/" ~ product.image ~ ".PNG") }}"></div> 
+                            <div>
+                                <h5>Nom du product : {{ product.name }}</h5>
+                                <h6>Catégorie : {{ product.category.name }}</h6>
+                                <h6 class="_h6">Image : </h6><span class="_span-image">{{ product.image }}.PNG</span>
+                            </div>                               
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    </div>
                 </div>
 
                 {% endfor %}

@@ -16,11 +16,29 @@ class CreateAdminFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
-            ->add('Enregistrer', SubmitType::class)
+            ->add('firstname', TextType::class, [
+                'attr' => [ 'placeholder' => "Prénom",
+                ]
+            ])
+            ->add('lastname', TextType::class, [
+                'attr' => [ 'placeholder' => "Nom",
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'placeholder' => "E-mail",
+                ]
+            ])
+            ->add('password', PasswordType::class, [
+                'attr' => [
+                    'placeholder' => "Mot de passe",
+                ]
+            ])
+            ->add('Enregistrer', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn-connexion btn-lg btn'
+                ]
+            ])
         ;
     }
 

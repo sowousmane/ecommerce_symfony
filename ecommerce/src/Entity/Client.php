@@ -60,6 +60,11 @@ class Client
     private $updated_at;
 
     /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $picture;
+
+    /**
      * @ORM\OneToMany(targetEntity=Command::class, mappedBy="client", orphanRemoval=true)
      */
     private $commands;
@@ -166,6 +171,18 @@ class Client
     public function setUpdatedAt(\DateTimeImmutable $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

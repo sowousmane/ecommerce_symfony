@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<link rel="stylesheet" href="{{ asset('css/forumStyle.css') }}" />
+<div class="well">
+    <div class=" row retour">
+        <a href="{{ path("forum") }}">
+            < retour aux forum </a>
+    </div>
+    <div class="text-center _logo   ">
+        <strong>
+            <a href="{{ path("home") }}">
+                <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span
+                    style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span
+                    style="color: #ff8400;">n</span><span
+                    style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+            </a>
+        </strong>
+    </div>
+</div>
+<div class="row commentaire_details_s  container" style="margin:50px 40%;">
+  <h1 style="margin-bottom:50px; ">Ceci est un detail du commentaire  </h1>
+
+    <h3> <strong> <i>{{ posts.title }} </i></strong></h3>
+        
+      </h3>
+      <p> publié par 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+      </svg>
+      <strong style="  background-color: rgb(221, 213, 202);"> {{ posts.nickname  }} </strong> le {{ posts.createdAt |date('d/m/Y à H:i') }} ce post est: &nbsp; {% if posts.active %}actif{% else %}fermé{% endif %}</p>
+      <div>
+          {{ posts.content }} 
+      </div>
+      <h1 class=" text-success"> Réponses:</h1>
+  {% for comment in _posts %}
+      <p> Répondu par 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+      </svg>
+      <strong style="  background-color: rgb(221, 213, 202);">{{ comment.nickname  }}</strong> le {{ comment.createdAt |date('d/m/Y à H:i') }} ce post est: &nbsp; {% if comment.active %}actif{% else %}fermé{% endif %}</p>
+      <div>
+          {{ comment.content }} 
+      </div>
+  {% endfor %}
+</div>  
+
+
+{% endblock %}

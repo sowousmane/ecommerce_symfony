@@ -1,3 +1,4 @@
+  
 /* top | right | bottom | left *//* vertical | horizontal */
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
@@ -9,10 +10,15 @@
     font-weight: bold;
 }
 .retour{
-    margin-top: 150px;
+    background-color: rgb(243, 154, 38);
+    width: auto;
+    position: fixed;
+    z-index:99999;
+    height: 50px;
+    padding: 10px;
 }
-.retour span {
-    font-size: 50px;
+._details{
+    margin-top: 90px;
 }
 .details_first{
     margin: 50px;
@@ -27,6 +33,13 @@
     background-color: rgb(243, 154, 38);
     padding: 0px 20px 0px 0px;
 
+}
+.new_post_btn{
+    height: 50px;
+    width:  auto;
+    color: #020202;
+    background-color: rgb(243, 154, 38);
+    padding: 10px;
 }
 .details_article .buy_btn{
     text-decoration: none;
@@ -82,8 +95,42 @@
 .class_to_delete{
     display: block;
 }
+.link-to-details-post{
+    color: black;
+    text-decoration: none;
+}
 
+.commentaire_create input{
+    height: 50px;
 
+}
+.commentaire_details_product , .commentaire_create{
+    background-color: rgb(238, 238, 238);
+    width: 94%;
+    margin-bottom:50px ;
+    font-size: 20px;
+    margin-left:50px;
+    padding: 50px;
+
+}
+.btn-envoyer{
+    background-color: rgb(243, 154, 38);
+    width: auto;/* top | right | bottom | left *//* vertical | horizontal */
+    padding: 10px;
+    font-weight: bold;
+    float: right;
+    margin-top: 10px;
+}
+.commentaire_create textarea {
+    padding: 10px;
+    max-width: 100%;
+    min-width: 100%;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+    height: 250px;
+}
 
 @media(max-width : 1700px) {
 

@@ -1,0 +1,208 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+
+<style>
+    body {
+        background-color: #f5f5f5;
+    }
+    .header {
+        background-color: white;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+    }
+    ._content-chiffres {
+        height: 250px;
+        background-color: white;
+        border-radius: 5px;
+    }
+    ._infos-profile {
+        padding: 40px;
+    }
+    ._dive-retourn {
+        position: absolute;
+        width: 70%;
+    }
+    ._btn-none {
+        display: none;
+    }
+    ._photo-profile div {
+        float: right; 
+        text-align: right; 
+        margin: 50px 0; 
+        width: 150px; 
+        height: 150px; 
+        border: 2px solid #a3a09b; 
+        border-radius: 50%;
+        background-repeat: no-repeat; 
+        background-size: cover;
+    }
+</style>
+
+<div class="container">
+    <div class="header shadow row">
+        <div class="_photo-profile col-3">
+            <div style=" background-image: url('{{ asset("images/profile/" ~ _picture ~ "") }}');">
+                <i data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 25px; margin-top: 110px; margin-right: 7px; color: rgba(0, 0, 0, 0.7); cursor: pointer;" class="fas fa-camera"></i>
+            </div>
+        </div>
+        <div class="_infos-profile col-9">
+            <h1><strong>{{ user.firstname }} {{ user.lastname|upper }}</strong></h1>
+            <div style="padding-top: 10px;">
+                <i style="color: #ff8400; font-size: 16px; margin-right: 10px;" class="fas fa-envelope"></i><span style="font-size: 16px; color: #17d4ff; text-decoration: underline;">{{ user.email }}</span>
+            </div>
+            <div style="padding-top: 10px;">
+                <i style="color: #ff8400; font-size: 16px; margin-right: 10px;" class="fa fa-map-marker" aria-hidden="true"></i><span style="font-size: 16px;">{{ user.address }}</span>
+            </div>
+            <div style="padding-top: 10px;">
+                <i style="color: #ff8400; font-size: 16px; margin-right: 10px;" class="fas fa-phone"></i><span style="font-size: 16px;">{{ user.phone }}</span>
+            </div>
+        </div>
+        <div class="_dive-retourn row">
+            <div class="col-sm-10"></div>
+            <div class="col-sm-2" style="padding-top: 70px;"><a href="{{ path("home") }}"><button class="_btn-outline-onlineshop btn">Retour à l'accueil</button></a></div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="_content-chiffres shadow"></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="_content-chiffres shadow"></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="_content-chiffres shadow"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+    <div style="padding: 30px;" class="header shadow row">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="_content-chiffres shadow"></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="_content-chiffres shadow"></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="_content-chiffres shadow"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="header shadow row">
+        <div style="padding: 56px 3%;" class="col-3">
+            <button class="_btn-outline-onlineshop btn _modify">Modifier mes informations personnelles</button>
+        </div>
+        <div class="_infos-profile col-9">
+            <form method="post">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input class="form-control firstname"  style="background-color: rgba(207, 230, 232, 0.3); margin: 15px;" disabled value="{{ user.firstname }}" type="text" name="firstname">
+                    </div>
+                    <div class="col-sm-6">
+                        <input class="form-control lastname"  style="background-color: rgba(207, 230, 232, 0.3); margin: 15px;" disabled value="{{ user.lastname }}" type="text" name="lastname">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input class="form-control address"  style="background-color: rgba(207, 230, 232, 0.3); margin: 15px;" disabled value="{{ user.address }}" type="text" name="address">
+                    </div>
+                    <div class="col-sm-6">
+                        <input class="form-control phone"  style="background-color: rgba(207, 230, 232, 0.3); margin: 15px;" disabled value="{{ user.phone }}" type="text" name="phone">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input class="form-control email"  style="background-color: rgba(207, 230, 232, 0.3); margin: 15px;" disabled value="{{ user.email }}" type="email" name="email">
+                    </div>
+                    <div class="col-sm-6">
+                        <input class="form-control password"  style="background-color: rgba(207, 230, 232, 0.3); margin: 15px;" disabled value="{{ user.password }}" type="password" name="password">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger _btn-none _annulate">Annuler</button>
+                <button class="_btn-outline-onlineshop _btn-none _validate btn">Valider</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modification de la photo de profil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ form(profilePictureForm) }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    var _modify = document.querySelector('._modify');
+    var _validate = document.querySelector('._validate');
+    var _annulate = document.querySelector('._annulate');
+    var firstname = document.querySelector('.firstname');
+    var lastname = document.querySelector('.lastname');
+    var address = document.querySelector('.address');
+    var phone = document.querySelector('.phone');
+    var email = document.querySelector('.email');
+    var password = document.querySelector('.password');
+    _modify.addEventListener('click', function(){
+        _modify.classList.add('_btn-none');
+        _validate.classList.remove('_btn-none');
+        _annulate.classList.remove('_btn-none');
+        firstname.removeAttribute('disabled');
+        firstname.style.backgroundColor = 'white';
+        lastname.removeAttribute('disabled');
+        lastname.style.backgroundColor = 'white';
+        address.removeAttribute('disabled');
+        address.style.backgroundColor = 'white';
+        phone.removeAttribute('disabled');
+        phone.style.backgroundColor = 'white';
+        email.removeAttribute('disabled');
+        email.style.backgroundColor = 'white';
+        password.removeAttribute('disabled');
+        password.style.backgroundColor = 'white';
+    });
+    _annulate.addEventListener('click', function(){
+        _modify.classList.remove('_btn-none');
+        _validate.classList.add('_btn-none');
+        _annulate.classList.add('_btn-none');
+        firstname.setAttribute('disabled', '');
+        firstname.style.backgroundColor = 'rgba(207, 230, 232, 0.3)';
+        lastname.setAttribute('disabled', '');
+        lastname.style.backgroundColor = 'rgba(207, 230, 232, 0.3)';
+        address.setAttribute('disabled', '');
+        address.style.backgroundColor = 'rgba(207, 230, 232, 0.3)';
+        phone.setAttribute('disabled', '');
+        phone.style.backgroundColor = 'rgba(207, 230, 232, 0.3)';
+        email.setAttribute('disabled', '');
+        email.style.backgroundColor = 'rgba(207, 230, 232, 0.3)';
+        password.setAttribute('disabled', '');
+        password.style.backgroundColor = 'rgba(207, 230, 232, 0.3)';
+    });
+</script>
+
+{% endblock %}

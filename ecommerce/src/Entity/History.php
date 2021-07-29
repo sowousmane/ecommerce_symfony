@@ -28,9 +28,14 @@ class History
     private $content;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=45)
      */
     private $sent_at;
+
+    /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $color;
 
     public function getId(): ?int
     {
@@ -61,14 +66,26 @@ class History
         return $this;
     }
 
-    public function getSentAt(): ?\DateTimeInterface
+    public function getSentAt(): ?string
     {
         return $this->sent_at;
     }
 
-    public function setSentAt(\DateTimeInterface $sent_at): self
+    public function setSentAt(string $sent_at): self
     {
         $this->sent_at = $sent_at;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
