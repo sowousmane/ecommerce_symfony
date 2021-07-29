@@ -155,7 +155,7 @@ class ClientController extends AbstractController
             $doctrine->persist($history);
             $doctrine->flush();
 
-            $this->addFlash('message', 'Le client a été créé avec succès !');
+            //$this->addFlash('message', 'Le client a été créé avec succès !');
             return $this->redirectToRoute('app_login');
         }
         

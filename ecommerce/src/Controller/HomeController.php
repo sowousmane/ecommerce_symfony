@@ -3,28 +3,16 @@
 namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Client;
-use App\Entity\Command;
-use App\Entity\CommandProduct;
 use App\Entity\Comments;
-use App\Entity\History;
-use App\Entity\Payment;
 use App\Entity\Product;
-use App\Entity\User;
 use App\Form\CommentsFormType;
-use App\Form\CommentsType;
-use App\Form\CreateClientFormType;
-use App\Form\LivraisonFormType;
 use App\Service\Cart\CartService;
-use App\Form\SearchProductFormType;
 use App\Repository\CommentsRepository;
 use App\Repository\ProductRepository;
-use App\Service\AppService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class HomeController extends AbstractController
 {
@@ -125,11 +113,10 @@ class HomeController extends AbstractController
     
             if($formulaire->isSubmitted() && $formulaire->isValid())
             {
-               // $post->setProduit($product);
-
+                $post->setProduct($product);
+                
                 $parentId = $formulaire->get("parent")->getData();
         
-
                 $em = $this->getDoctrine()->getManager();
 
             
@@ -152,16 +139,9 @@ class HomeController extends AbstractController
             }
     
            
-            $comments = $commentsRepository->findBy(['produit' => $produit]);
-            
-            
-    
-            //$em->persist($post);
-            
-            //$em->flush();
-    
+            $comments = $commentsRepository->findBy(['product' => $produit]);
            
-           //dd($comments);
+
             return $this->render('home/details.html.twig', [
                 'product' => $product,
                 'products' => $products,
@@ -290,6 +270,12 @@ Envoyé par : '. $email);
         }
     }
 
-   
+    /**
+    * @Route("/about", name="about")
+    */
+    public function about()
+    {
+        return $this->render('divers/about.html.twig');
+    }
     
 }
