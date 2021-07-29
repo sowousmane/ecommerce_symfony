@@ -1,67 +1,137 @@
-  <link rel="stylesheet" href="{{ asset('css/style_menu.css') }}" />
-{% block body %}
+<link rel="stylesheet" href="{{ asset('css/style_menu.css') }}" />
+
+<ul class="first_div container-fluid" id="desktop" style="position:fixed; z-index: 9999 !important; margin: 0;">
+  <li style="height: 150px">
+    <a class="_online-shop" href="{{ path("home") }}">
+      <div
+        style="width: 60%; background-color: white; padding: 11% 13%; margin: 30px 12%; border-radius: 15px; min-width: 200px;"
+        class="text-center _logo shadow p-4 bg-white">
+        <strong>
+          <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span
+            style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span
+            style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span
+            style="color: black;">S</span><span style="color: black;">h</span><span style="color: black;">o</span><span
+            style="color: black;">p</span>
+        </strong>
+      </div>
+    </a>
+  </li>
+
+  <li style="padding-top: 22px;">
+    <form style="margin-left: 7%;" class="d-flex" method="POST">
+      <input class="form-control search_input"
+        style="border: solid rgb(243, 154, 38);margin-top:2%; margin-right:-10px; height:50px;width: 50vw;"
+        type="search" placeholder="Que recherchez vous {{ user }}?" aria-label="Search" name="search_product">
+      <button class="search" style="border: solid rgb(243, 154, 38); " type="submit">Rechercher</button>
+    </form>
+  </li>
+  <li style="padding-top: 22px;" class="text-right">
+    <a href="#" class="btn user pull-right">
+      <div class="dropdown">
+        <img class=" img-user" src="{{ asset("images/user-shape.png") }}" alt="user_mobile!" /> <br>
+        <span class="dropbtn">
+          {% if client is defined and client != null %}
+          {{ client.firstname }}
+
+          <div class="dropdown-content">
+            <a href="{{path("app_logout")}}" class="btn">deconnexion</a>
+          </div>
+          {% else %}
+          Compte
+          <div class="dropdown-content">
+            <a href="{{ path("app_login") }}" class="btn">Connexion</a>
+            <a href="{{ path("create_client") }}" class="btn">Inscription</a>
+          </div>
+          {% endif %}
+        </span>
+
+      </div>
+    </a>
+  </li>
+  <li><a class=" pull-right cart" aria-current="page" href="{{path("cart")}}">
+      <span class="glyphicon glyphicon-shopping-cart"></span>
+      <br> {{ totalItem}} articles : &nbsp; {{total}} €
+      <br> Mon panier
+    </a>
+  </li>
+</ul>
 
 
-<div class="topnav_menu" id="mytopnav_menu">
-<a class="_online-shop" href="{{ path("home") }}">
-            <div style="width: 60%; background-color: white; padding: 11% 13%; margin: 30px 12%; border-radius: 15px; min-width: 200px;" 
-                class="text-center _logo shadow p-4 bg-white">
-                <strong>
-                    <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span style="color: black;">S</span><span style="color: black;">h</span><span style="color: black;">o</span><span style="color: black;">p</span>
-                </strong>
-            </div>
-        </a>
-   <form style="margin-left: 7%;" class="d-flex" method="POST">
-            <input class="form-control search_input"
-                style="border: solid rgb(243, 154, 38);margin-top:2%; margin-right:-10px; height:50px;width: 50vw;"
-                type="search" placeholder="Que recherchez vous {{ user }}?" aria-label="Search" name="search_product">
-            <button class="search" style="border: solid rgb(243, 154, 38); " type="submit">Rechercher</button>
-        </form>
-  <a href="#" class="btn user ">
-            <div class="dropdown">
-                <img class=" img-user" src="{{ asset("images/user-shape.png") }}" alt="user_mobile!" /> <br>               
-                <span class="dropbtn">
-                    {% if client is defined and client  != null %}
-                        {{ client.firstname }}
-                        
-                        <div class="dropdown-content">  
-                            <a href="{{path("app_logout")}}" class="btn">deconnexion</a>
-                        </div>
-                    {% else %}
-                        Compte
-                        <div class="dropdown-content">
-                            <a href="{{ path("app_login") }}" class="btn">Connexion</a>
-                            <a href="{{ path("create_client") }}" class="btn">Inscription</a>
-                        </div>
-                    {% endif %}
-                </span>
-                
-            </div>
-        </a>
-  <a class=" pull-right cart" aria-current="page" href="{{path("cart")}}">
-            <span class="glyphicon glyphicon-shopping-cart"></span>
-            <br> {{ totalItem}}   articles :     &nbsp; {{total}} €
-            <br> My Cart
-        </a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
+
+<div class="mobile row">
+
+  <div class="col-sm-3  ">
+    <a href="{{ path("home") }}">
+      <div class="text-center log_mobile ">
+        <strong>
+          <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span
+            style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span
+            style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span
+            style="color: black;">S</span><span style="color: black;">h</span><span style="color: black;">o</span><span
+            style="color: black;">p</span>
+        </strong>
+      </div>
+    </a>
+  </div>
+
+
+  <div class="col-sm-3 search_mobile">
+    <form method="POST">
+      <input class="form-control " style="border: solid rgb(243, 154, 38)" type="search"
+        placeholder="Que recherchez vous {{ user }}?" aria-label="Search" name="search_product">
+    </form>
+  </div>
+  <div class="col-sm-3" id="connexion_mobile_id">
+    {% if client is defined and client != null %}
+    {{ client.firstname }}
+
+
+    <a href="{{path("app_logout")}}" class="btn connexion_mobile">deconnexion</a>
+
+    {% else %}
+
+    <a href="{{ path("app_login") }}" class="btn connexion_mobile">Connexion</a>
+    <a href="{{ path("create_client") }}" class="btn connexion_mobile">Inscription</a>
+
+    {% endif %}
+  </div>
+  <div class="col-sm-3 text-left" id="cart_mobile">
+    <span class="glyphicon glyphicon-shopping-cart"></span>
+    <br> {{ totalItem}} articles : &nbsp; {{total}} €
+
+  </div>
 </div>
 
 
+<div class="mobile_2 row">
+  <span class="text-center log_mobile "> <a href="{{ path("home") }}">
+      <strong>
+        <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span
+          style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span
+          style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span
+          style="color: black;">S</span><span style="color: black;">h</span><span style="color: black;">o</span><span
+          style="color: black;">p</span>
+      </strong>
+    </a>
+  </span>
+  <span>
+      <input  style="border: solid rgb(243, 154, 38)" type="search"
+        placeholder="Que recherchez vous {{ user }}?" aria-label="Search" name="search_product">
+  </span>
+    <span> 
+        {% if client is defined and client != null %}
+            {{ client.firstname }}
 
-<script>
-function myFunction() {
-  var x = document.getElementById("mytopnav_menu");
-  if (x.className === "topnav_menu") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav_menu";
-  }
-}
-</script>
 
-{% endblock %}
+            <a href="{{path("app_logout")}}" class="btn connexion_mobile">deconnexion</a>
 
+            {% else %}
 
+            <a href="{{ path("app_login") }}" class="btn connexion_mobile">Connexion</a>
+            <a href="{{ path("create_client") }}" class="btn connexion_mobile">Inscription</a>
 
+        {% endif %}
+    </span>
+    <img class=" img-user" src="{{ asset("images/shopping-cart.png") }}" alt="user_mobile!"  style="width:50px; height:50px;"/> <br>
+    
+</div>
