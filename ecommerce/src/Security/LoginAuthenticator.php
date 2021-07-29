@@ -49,7 +49,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-        
+        return new RedirectResponse('/');
     }
 
     protected function getLoginUrl(Request $request): string
