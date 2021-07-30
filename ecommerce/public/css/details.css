@@ -22,6 +22,8 @@
 }
 .details_first{
     margin: 50px;
+    margin-top:217px;
+    margin-bottom:20px;
 }
 .buy_btn strong{
     font-size: 30px;
@@ -155,6 +157,7 @@
         margin-left: 25px;
     }
 }
+
 .class_details_product  h2{
     font-weight: bold;
 }
@@ -170,4 +173,26 @@
     font-size: 20px;
     font-family: cursive;
     padding-left: 50px;
+}
+#product_image_div{
+    width:450px; 
+    height:450px; 
+    margin-left:30%; 
+}
+@media(max-width : 1140px) {
+    .details_div{
+        margin-top: 1px;
+    } 
+    .details_first{
+        margin: 50px;
+        margin-bottom:20px;
+    }
+}
+
+@media(max-width : 880px) {
+    #product_image_div{
+        width:450px; 
+        height:450px; 
+        margin-left:0%; 
+    }
 }

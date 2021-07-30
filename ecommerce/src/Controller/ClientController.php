@@ -169,6 +169,40 @@ class ClientController extends AbstractController
             'clientForm' => $form->createView(),
         ]);
     }
+
+     /**
+     * @Route("/edit_client", name="edit_client")
+     */
+    public function edit_client(Request $request, 
+    UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
+        $form = $this->createForm(CreateClientFormType::class, $client);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $user->setEmail($client->getEmail());
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $client->getPassword()
+                )
+            );
+
+            $doctrine = $this->getDoctrine()->getManager();
+            $doctrine->persist($client);
+            $doctrine->persist($user);
+            $doctrine->flush();
+
+            //$this->addFlash('message', 'Le client a été créé avec succès !');
+            return $this->redirectToRoute('home');
+        }
+        
+        return $this->render('client/edit_client.html.twig', [
+            'clientForm' => $form->createView(),
+        ]);
+    }
 }
 
     

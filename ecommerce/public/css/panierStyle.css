@@ -54,12 +54,14 @@ text-align: center;
 }
 
 /*========================================================================*/
+
+
 @media(max-width : 790px) {
-.retour{
-  display: none;
-}
-.panier-first-div{
-  margin: 0;
-  width: 100%;
-}
+  .retour{
+    display: none;
+  }
+  .panier-first-div{
+    margin: 0;
+    width: 100%;
+  }
 }

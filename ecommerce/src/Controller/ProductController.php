@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Client;
 use App\Entity\History;
 use App\Entity\Product;
 use App\Form\CreateProductFormType;
@@ -11,13 +12,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\CreateCategoryFormType;
+use App\Repository\ProductRepository;
+use App\Service\Cart\CartService;
 
 class ProductController extends AbstractController
 {
     /**
      * @Route("/products_by_category/{id}", name="products_by_category")
      */
-    public function productsByCategory($id): Response
+    public function productsByCategory($id,CartService $cartService, Request $request, ProductRepository $productRepository): Response
     {
         $user = '';
         $client = null;
@@ -28,10 +31,21 @@ class ProductController extends AbstractController
 
         $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $id]);
         
+       
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $search = $request->request->get('search_product');
+
+        if($request->getMethod() == 'POST')
+        {
+            $products = $productRepository->search($search);
+        }
         return $this->render('home/productsByCategory.html.twig', [
             'products' => $products,
             'client' => $client,
             'user' => $user,
+            'categories' => $categories,
+            'total' => $cartService->getTotal(),
+            'totalItem' => $cartService->getTotalItem(),
         ]);
     }
 
