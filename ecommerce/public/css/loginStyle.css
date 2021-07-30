@@ -29,6 +29,17 @@ body{
   margin-top: 1.5%;
   width: 100%;
 }
+._btn-onlineshop{
+  height: 40px;
+  background-color: rgb(179, 219, 86);
+  margin-top: 1.5%;
+  width: 100%;
+  font-size: 1.2em;
+}
+.choose_picture{
+  margin: 50px;
+  font-size: 20px;
+}
 .loginDiv a:hover{
   text-decoration: none;
 }

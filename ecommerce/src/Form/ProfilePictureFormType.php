@@ -16,6 +16,9 @@ class ProfilePictureFormType extends AbstractType
         $builder
             ->add('picture', FileType::class, [
                 'label' => false,
+                'attr' => [
+                    'class' => ' choose_picture',
+                ],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -23,11 +26,11 @@ class ProfilePictureFormType extends AbstractType
                             'image/jpg',
                             'image/jpeg',
                             'image/png',
-                        ],
+                        ],                        
                     ])
                 ],
             ])
-            ->add('Valider', SubmitType::class, [
+            ->add('Enregistrez_votre_photo', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn _btn-onlineshop _validate-picture'
                 ]
