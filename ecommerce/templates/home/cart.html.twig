@@ -74,7 +74,7 @@
                         </tr>
                     {% endfor %}
                 </tbody>
-                <tfoot style="  font-weight: bold;">
+                <tfoot style=" font-weight: bold;">
                   
                     <tr>
                         <td colspan="4" class="text-right total-article"> Nombre d'articles :</td>
@@ -85,22 +85,24 @@
                         <td colspan="4" class="text-right"> Prix total :</td>
                         <td>{{ total  }} €</td>
                     </tr>
-                    <tr>
-                        <td colspan="5" class="text-right ">
-                             <a href="{{ path("cart_delete_all") }}" class="btn btn-danger  empty" style=" width: 250px; height:50px;" >
-                               <span style=" margin-right: -20px;"> Vider votre panier </span>
-                               <svg style=" margin-left: -55px;" xmlns="http://www.w3.org/2000/svg" width="200" height="30" fill="currentColor" class="bi bi-cart-x"
-                                    viewBox="0 0 16 16">
-                                    <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z"/>
-                                    <path
-                                        d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                </svg>
+                    <tr class="row element_1">
+                        <td colspan="1" class="_element text-right ">
+                            <a href="{{ path('payment') }}" class="btn btn-lg btn-success"
+                             style="font-weight: bold;">
+                                Contunuer mes achats
                             </a>
                         </td>
-                        <td >
+                        <td colspan="1" class="_element text-right" id="second">
+                            <a href="{{ path("cart_delete_all") }}" class="btn btn-danger btn-lg empty" >
+                              Vider votre panier 
+                              
+                            </a>
+                        </td>
+                         <td colspan="1" class="_element" >
                             <a href="{{ path('payment') }}" class="btn btn-lg btn-valide-cart ">Valider mon panier</a>
                         </td>
                     </tr>
+                   
                 </tfoot>
 
             </table>
