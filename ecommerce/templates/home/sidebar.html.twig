@@ -13,23 +13,23 @@
 <body>  
     <div class="sidebar_home">
         <header>catégories</header>
-        <a href="#link_1" >
+        <a href="{{ path("products_by_category", {id: 1 }) }}">
             <img src="{{ asset("images/riz_2.png") }}" alt="Avatar" style="width:20px; height:20px;" />
             <span>Féculents</span>
         </a> 
-        <a href="#link_2" >
+        <a href="{{ path("products_by_category", {id: 2 }) }}" >
             <img src="{{ asset("images/riz_2.png") }}" alt="Avatar"  style="width:20px; height:20px;"/>
             <span>fruits</span>
         </a>
-         <a href="#link_3" >
+         <a href="{{ path("products_by_category", {id: 3 }) }}" >
             <img src="{{ asset("images/riz_2.png") }}" alt="Avatar"  style="width:20px; height:20px;"/>
             <span>Légumes</span>
         </a>
-        <a href="#link_4">
+        <a href="{{ path("products_by_category", {id: 4 }) }}">
             <img src="{{ asset("images/evier-de-cuisine.png") }}" alt="Avatar" style="width:20px; height:20px;"/>
             <span>Hygiène</span>
         </a>
-        <a href="#link_5" >
+        <a href="{{ path("products_by_category", {id: 5 }) }}" >
             <img src="{{ asset("images/riz_2.png") }}" alt="Avatar"  style="width:20px; height:20px;"/>
             <span>Cuisine</span>
         </a>

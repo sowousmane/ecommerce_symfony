@@ -6,14 +6,14 @@
     <div class="btn-add-comment  text-center row">
       <div class="col-sm-10 text-center  welcome-to-soth " style="margin-bottom:50px;">
        
-        Bienvenu au forum de
-        <span style="color: #ff4d00; margin-right:0%;">H</span>
-        <span style="color: #ff6f00;">T</span>
-        <span style="color: #f27d00;">&</span>
-        <span style="color: #fa6e02;">&</span>
-        <span style="color: #ff8400;">O</span>
-        <span style="color: #f5a00c;">S</span> &nbsp; online shope
-                
+        Bienvenu au forum  
+        <strong class="bg-white" style=" border-radius: 20px; padding:10px">  
+          {% if client is defined and client != null %}
+            {{ client.firstname }}
+          {% else %}
+            visiteur
+          {% endif %}
+        </strong>   
       </div>
       <div class="col-sm-2">
         <a href="#commentaire_create_forum_id" class="btn new_post_btn pulse ">
