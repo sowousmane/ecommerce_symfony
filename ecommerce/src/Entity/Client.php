@@ -60,14 +60,14 @@ class Client
     private $updated_at;
 
     /**
-     * @ORM\Column(type="string", length=45)
-     */
-    private $picture;
-
-    /**
      * @ORM\OneToMany(targetEntity=Command::class, mappedBy="client", orphanRemoval=true)
      */
     private $commands;
+
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -175,18 +175,6 @@ class Client
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): self
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Command[]
      */
@@ -213,6 +201,18 @@ class Client
                 $command->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }
