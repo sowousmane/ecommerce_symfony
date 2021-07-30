@@ -58,29 +58,6 @@ class HomeController extends AbstractController
        
     }
 
-    /**
-     * @Route("/products_by_category/{id}", name="products_by_category")
-     */
-    public function productsByCategory($id, CartService $cartService): Response
-    {
-        $user = '';
-        $client = null;
-        if($this->getUser() && $this->getUser()->getRoles()[0] == "ROLE_USER") {
-            $client = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['email' => $this->getUser()->getEmail()]);
-            $user = $client->getFirstname() . ' ';
-        }
-
-        $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['category' => $id]);
-        
-        return $this->render('home/productsByCategory.html.twig', [
-            'products' => $products,
-            'client' => $client,
-            'user' => $user,
-            'total' => $cartService->getTotal(),
-            'totalItem' => $cartService->getTotalItem(),
-        ]);
-    }   
-
      /**
      * @Route("/details/{id}", name="details")
      */
@@ -125,8 +102,8 @@ class HomeController extends AbstractController
     
             if($formulaire->isSubmitted() && $formulaire->isValid())
             {
-               // $post->setProduit($product);
-
+                $post->setProduct($product);
+                
                 $parentId = $formulaire->get("parent")->getData();
         
 
@@ -146,22 +123,14 @@ class HomeController extends AbstractController
                 
                 $em->flush();
                 $this->addFlash('message', 'Votre commentaire a bien été envoyé');
-                return $this->redirectToRoute("details", ['id' =>
-                    $product->getId()    
+                return $this->redirectToRoute("details", [
+                    'id' => $product->getId()    
                 ]);
             }
     
            
-            $comments = $commentsRepository->findBy(['produit' => $produit]);
-            
-            
-    
-            //$em->persist($post);
-            
-            //$em->flush();
-    
-           
-           //dd($comments);
+            $comments = $commentsRepository->findBy(['product' => $produit]);
+
             return $this->render('home/details.html.twig', [
                 'product' => $product,
                 'products' => $products,

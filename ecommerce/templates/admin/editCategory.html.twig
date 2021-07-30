@@ -13,22 +13,8 @@
                 </a>
             </strong>
         </div>
-         <form method="POST">
-            <input type="text" class="form-control" name="name">
-            <input type="text" class="form-control" name="description">
-            <input type="number" class="form-control" name="price">
-            <input type="number" class="form-control" name="stock">
-            <input type="text" class="form-control" name="image">
-            <select class="form-control" name="category" required>
-                <option>Choisir une catégorie</option>
-                {% for category in categories %}
-                    <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
-            <button style="margin: 10px;" type="submit" class="btn btn-primary">Enrégistrer</button>
-        </form>
+         {{ form(categoryForm) }}
     </div>
    
        
 {% endblock %}
-

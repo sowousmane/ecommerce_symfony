@@ -40,6 +40,7 @@
 
             <table class="table_produit">
                 <tr class="_head">
+                    <td><strong>name</strong></td>
                     <td><strong>Description</strong></td>
                     <td><strong>Prix</strong></td>
                     <td><strong>Stock</strong></td>
@@ -47,69 +48,27 @@
                 </tr>
                 {% for i in 0..4 %}
                 <tr>
+                    <td> {{ products[i].name }} </td>
                     <td> {{ products[i].description }} </td>
                     <td> {{ products[i].price }} </td>
                     <td> {{ products[i].stock }} </td>
-                    <td><button type="button" class="btn btn-outline-secondary">Modifier</button></td>
+                    <td><a href="{{ path("edit_product", {id: products[i].id}) }}"><button type="button" class="btn btn-outline-secondary">Modifier</button></a></td>
                     <td>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
-                            data-bs-target="#exampleModal{{products[i].id}}">Supprimer</button>
+                        <a href="{{ path("delete_product", {id: products[i].id}) }}"><button type="button" class="btn btn-danger">Suprimer</button></a>
                     </td>
                 </tr>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal{{products[i].id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Confirmez la suppréssion</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                <a href="{{ path("delete_product", {id: products[i].id}) }}">
-                                    <button type="button" class="btn btn-primary">Confirmer</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 {% endfor %}
                 {% for i in 5..(products|length - 1) %}
                 <tr id="_tr{{ i }}" class="_none">
+                    <td> {{ products[i].name }} </td>
                     <td> {{ products[i].description }} </td>
                     <td> {{ products[i].price }} </td>
                     <td> {{ products[i].stock }} </td>
-                    <td><button type="button" class="btn btn-outline-secondary">Modifier</button></td>
+                    <td><a href="{{ path("edit_product", {id: products[i].id}) }}"><button type="button" class="btn btn-outline-secondary">Modifier</button></a></td>
                     <td>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
-                            data-bs-target="#exampleModal{{products[i].id}}">Supprimer</button>
+                        <a href="{{ path("delete_product", {id: products[i].id}) }}"><button type="button" class="btn btn-danger">Suprimer</button></a>
                     </td>
                 </tr>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal{{products[i].id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Confirmez la suppréssion</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                <a href="{{ path("delete_product", {id: products[i].id}) }}">
-                                    <button type="button" class="btn btn-primary">Confirmer</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 {% endfor %}
 
             </table>
@@ -117,7 +76,7 @@
             <button id="{{ products|length }}" type="button" class="btn _btn-outline-onlineshop _all _all-products rounded">Voir tous les produits</button>
             <a class="_link-little-products" href="#_title-products"><button type="button" class="btn _btn-outline-onlineshop _none _all _little-products rounded">Voir moins de produits</button></a>
 
-            <h1 style="margin: 50px; text-align: center;">Les catégories</h1>
+            <h1 id="_title-categories" style="margin: 50px; text-align: center;">Les catégories</h1>
 
             <table class="table_produit">
                 <tr class="_head">
@@ -127,38 +86,17 @@
                 {% for category in categories %}
                 <tr>
                     <td> {{ category.name }} </td>
-                    <td><button type="button" class="btn btn-outline-secondary">Modifier</button></td>
+                    <td><a href="{{ path("edit_category", {id: category.id}) }}"><button type="button" class="btn btn-outline-secondary">Modifier</button></a></td>
                     <td>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
-                            data-bs-target="#exampleModal{{category.id}}">Supprimer</button>
+                        <a href="{{ path("delete_category", {id: category.id}) }}"><button type="button" class="btn btn-danger">Suprimer</button></a>
                     </td>
                 </tr>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal{{category.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Confirmez la suppréssion</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                <a href="{{ path("delete_category", {id: category.id}) }}">
-                                    <button type="button" class="btn btn-primary">Confirmer</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 {% endfor %}
             </table>
             <a href="{{ path("create_category") }}"><button type="button" class="btn _btn-onlineshop _add">Ajouter une catégorie</button></a>
 
-            <h1 style="margin: 50px; text-align: center;">Les administrateurs</h1>
+            <h1 id="_title-admins" style="margin: 50px; text-align: center;">Les administrateurs</h1>
 
             <table class="table_produit">
                 <tr class="_head">
@@ -173,31 +111,9 @@
                     <td> {{ admin.lastname }} </td>
                     <td> {{ admin.email }} </td>
                     <td>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
-                            data-bs-target="#exampleModal{{admin.id}}">Supprimer</button>
+                        <a href="{{ path("delete_admin", {id: admin.id}) }}"><button type="button" class="btn btn-danger">Suprimer</button></a>
                     </td>
                 </tr>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal{{admin.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Confirmez la suppréssion</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <a href="{{ path("delete_admin", {id: admin.id}) }}">
-                                    <button type="button" class="btn btn-primary">Confirmer</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 {% endfor %}
             </table>
             <a href="{{ path("create_admin") }}"><button type="button" class="btn _btn-onlineshop _add">Ajouter un administrateur</button></a>

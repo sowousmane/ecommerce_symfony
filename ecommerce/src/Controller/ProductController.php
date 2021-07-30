@@ -95,14 +95,15 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/edit_product", name="edit_product")
+     * @Route("/edit_product/{id}", name="edit_product")
      */
-    public function editProduct(Request $request): Response
+    public function editProduct(Request $request, $id): Response
     {
-        $id = 1;
         try{
+            $history = new History();
             $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
-
+            $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+            
             if(!$product){
                 return $this->render('admin/response.html.twig', [
                     'response' => 'Le produit dont l\'id est ' . $id . ' n\'existe pas',
@@ -114,13 +115,43 @@ class ProductController extends AbstractController
             $form = $this->createForm(CreateProductFormType::class, $product);
             $form->handleRequest($request);
 
-            
+            if($request->getMethod() == 'POST')
+            {
+                $product->setName($request->request->get('name'));
+                $product->setDescription($request->request->get('description'));
+                $product->setPrice($request->request->get('price'));
+                $product->setStock($request->request->get('stock'));
+                $product->setImage($request->request->get('image'));
+                $product->setCategory(
+                    $this->getDoctrine()->getRepository(Category::class)->findOneBy(['id' => $request->request->get('category')])
+                );
+
+                $history->setTitle('Mise à jour d\'un produit');
+                $history->setContent(
+                    "Informations sur le produit mis à jour : 
+                    Nom : " . $product->getName() . "
+                    Description : " . $product->getDescription() . "
+                    Prix : " . $product->getPrice()
+                );
+                $history->setSentAt(date('l jS \of F Y h:i:s A'));
+                $history->setColor('alert alert-warning');
+
+                $doctrine = $this->getDoctrine()->getManager();
+                $doctrine->persist($product);
+                $doctrine->persist($history);
+                $doctrine->flush();
+
+                return $this->render('admin/response.html.twig', [
+                    'response' => 'Le produit a été créé avec succès !',
+                    'current_page' => 'Réponse',
+                    'class' => 'alert alert-success',
+                ]);
+            }
 
             return $this->render('admin/editProduct.html.twig', [
                 'editProductForm' => $form->createView(),
-                'response' => 'Le produit dont l\'id est ' . $id . ' a été modifié !',
-                'current_page' => 'Réponse',
-                'class' => 'alert alert-success',
+                'product' => $product,
+                'categories' => $categories,
             ]);
         } catch (\Exception $e) {
             return $this->render('admin/response.html.twig', [
@@ -212,35 +243,79 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/delete_category/{id}", name="delete_category")
+     * @Route("/edit_category/{id}", name="edit_category")
      */
-    public function deleteCategory($id): Response
+    public function editCategory(Request $request, $id): Response
     {
-       
-        try
-        {
+        try{
+
             $category = $this->getDoctrine()->getRepository(Category::class)->findOneBy(['id' => $id]);
-            
-            if(!$category){
+            $history = new History();
+            $form = $this->createForm(CreateCategoryFormType::class, $category);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $history->setTitle('Mise à jour d\'une catégorie de produit');
+                $history->setContent(
+                    "Informations de la catégorie mise à jour : 
+                    Nom : " . $category->getName() 
+                );
+                $history->setSentAt(date('l jS \of F Y h:i:s A'));
+                $history->setColor('alert alert-warning');
+
+                $doctrine = $this->getDoctrine()->getManager();
+                $doctrine->persist($category);
+                $doctrine->persist($history);
+                $doctrine->flush();
+
                 return $this->render('admin/response.html.twig', [
-                    'response' => 'La catégorie dont l\'id est ' . $id . ' n\'existe pas',
+                    'response' => 'La catégorie a été mise à jour avec succès !',
                     'current_page' => 'Réponse',
-                    'class' => 'alert alert-danger',
+                    'class' => 'alert alert-success',
                 ]);
             }
 
+            return $this->render('admin/editCategory.html.twig', [
+                'categoryForm' => $form->createView(),
+            ]);
+        }
+        catch(\Exception $e){
+            return $this->render('admin/response.html.twig', [
+                'response' =>  $e->getMessage(),
+                'current_page' => 'Réponse',
+                'class' => 'alert alert-danger',
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/delete_category/{id}", name="delete_category")
+     */
+    public function deleteCategory(Category $category): Response
+    {
+        try{
+            $history = new History();
+
+            $history->setTitle('Suppression d\'une catégorie de produit');
+            $history->setContent(
+                "Informations de la catégorie supprimée : 
+                Nom : " . $category->getName() 
+            );
+            $history->setSentAt(date('l jS \of F Y h:i:s A'));
+            $history->setColor('alert alert-danger');
+
             $doctrine = $this->getDoctrine()->getManager();
             $doctrine->remove($category);
+            $doctrine->persist($history);
             $doctrine->flush();
 
             return $this->render('admin/response.html.twig', [
-                'response' => 'La catégorie dont l\'id est ' . $id . ' a été supprimée !',
+                'response' => 'La catégorie a été supprimée avec succès !',
                 'current_page' => 'Réponse',
                 'class' => 'alert alert-success',
             ]);
-        } 
-        catch(\Exception $e) 
-        {
+        }
+        catch(\Exception $e){
             return $this->render('admin/response.html.twig', [
                 'response' =>  $e->getMessage(),
                 'current_page' => 'Réponse',

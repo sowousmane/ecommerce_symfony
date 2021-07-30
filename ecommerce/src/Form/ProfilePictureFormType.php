@@ -16,6 +16,9 @@ class ProfilePictureFormType extends AbstractType
         $builder
             ->add('picture', FileType::class, [
                 'label' => false,
+                'attr' => [
+                    'class' => 'choose_picture'
+                ],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',

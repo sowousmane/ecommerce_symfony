@@ -1,3 +1,16 @@
+
+<style>
+    ._link-item {
+        text-decoration: none;
+        color: black;
+        margin: 0;
+    }
+
+    ._link-item:hover {
+        color: #ff4d00;
+    }
+</style>
+
 <div class="sidebar col-sm-3">
     <div style="text-align: right; cursor: pointer; display: none;" class="sidebar-close">
         <i style="margin: 10px;" class="fa fa-window-close" aria-hidden="true"></i>
@@ -27,9 +40,9 @@
                 </a>
                 <span><i class="rotate rotate-gestions far fa-angle-right"></i></span>
                 <div class="gestions-dive">
-                    <a {# href="{{ path("#") }}" #}>item</a>
-                    <a {# href="{{ path("#") }}" #}>item</a>
-                    <a {# href="{{ path("#") }}" #}>item</a>
+                    <a class="_link-item" href="{{ path("gestion_admin") }}#_title-products">Produits</a>
+                    <a class="_link-item" href="{{ path("gestion_admin") }}#_title-categories">Catégories</a>
+                    <a class="_link-item" href="{{ path("gestion_admin") }}#_title-admins">Administrateurs</a>
                 </div>
             </div>
             <div class="item">

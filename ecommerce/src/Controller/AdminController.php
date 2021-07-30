@@ -156,25 +156,37 @@ class AdminController extends AbstractController
     /**
      * @Route("/delete_admin/{id}", name="delete_admin")
      */
-    public function deleteAdmin($id): Response
+    public function deleteAdmin(Admin $admin): Response
     {
         try{
-            $admin = $this->getDoctrine()->getRepository(Admin::class)->findOneBy(['id' => $id]);
-            
             if(!$admin){
                 return $this->render('admin/response.html.twig', [
-                    'response' => 'L\'administrateur dont l\'id est ' . $id . ' n\'existe pas',
+                    'response' => 'L\'administrateur dont l\'id est ' . $admin->getId() . ' n\'existe pas',
                     'current_page' => 'Réponse',
                     'class' => 'alert alert-danger',
                 ]);
             }
 
+            $history = new History();
+
+            $history->setTitle('Suppression d\'un administrateur');
+            $history->setContent(
+                'Informations de l\'administrateur supprimé : 
+                Prénom : ' . $admin->getFirstname() . '
+                Nom : ' . $admin->getLastname() . '
+                E-mail : ' . $admin->getEmail()
+            );
+
+            $history->setSentAt(date('l jS \of F Y h:i:s A'));
+            $history->setColor('alert alert-danger');
+
             $doctrine = $this->getDoctrine()->getManager();
+            $doctrine->persist($history);
             $doctrine->remove($admin);
             $doctrine->flush();
 
             return $this->render('admin/response.html.twig', [
-                'response' => 'L\'administrateur dont l\'id est ' . $id . ' a été supprimé !',
+                'response' => 'L\'administrateur dont l\'id est ' . $admin->getId() . ' a été supprimé !',
                 'current_page' => 'Réponse',
                 'class' => 'alert alert-success',
             ]);

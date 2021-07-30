@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Entity\Command;
 use App\Entity\History;
 use App\Entity\User;
 use App\Form\CreateClientFormType;
@@ -35,6 +36,8 @@ class ClientController extends AbstractController
             {
                 $_picture = '_profile.png';
             }
+
+            $commands = $this->getDoctrine()->getRepository(Command::class)->findBy(['client' => $client]);
 
             $user = $this->getDoctrine()->getRepository(User::class)
                 ->findOneBy(['email' => $this->getUser()->getEmail()]);
@@ -69,6 +72,7 @@ class ClientController extends AbstractController
                             'user' => $client,
                             'profilePictureForm' => $form->createView(),
                             '_picture' => $_picture,
+                            '_count' => count($commands),
                         ]);
                     }
                 } 
@@ -98,6 +102,7 @@ class ClientController extends AbstractController
                         'user' => $client,
                         'profilePictureForm' => $form->createView(),
                         '_picture' => $_picture,
+                        '_count' => count($commands),
                     ]);
                 }
             }
@@ -106,6 +111,7 @@ class ClientController extends AbstractController
                 'user' => $client,
                 'profilePictureForm' => $form->createView(),
                 '_picture' => $_picture,
+                '_count' => count($commands),
             ]);
         }
         catch(\Exception $e)

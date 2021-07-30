@@ -1,1 +1,36 @@
-{{ form(editProductForm) }}
+{% block body %}   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/loginStyle.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/createClientStyle.css') }}" />
+   
+    
+
+    <div class="loginDiv" style ="margin-top: 150px;">
+        <div  class="text-center _logo shadow p-4 ">
+            <strong>
+                <a href="{{ path("admin") }}" > 
+                    <span style="color: #ff4d00;">O</span><span style="color: #ff6f00;">n</span><span style="color: #f27d00;">l</span><span style="color: #fa6e02;">i</span><span style="color: #ff8400;">n</span><span style="color: #f5a00c;">e</span><span>S</span><span>h</span><span>o</span><span>p</span>
+                </a>
+            </strong>
+        </div>
+         <form method="POST">
+            <input type="text" value="{{ product.name }}" class="form-control" name="name" required>
+            <input type="text" value="{{ product.description }}" class="form-control" name="description" required>
+            <input type="number" value="{{ product.price }}" class="form-control" name="price" required>
+            <input type="number" value="{{ product.stock }}" class="form-control" name="stock" required>
+            <input type="text" value="{{ product.image }}" class="form-control" name="image" required>
+            <select class="form-control" name="category" value="2" required>
+                <option value="{{ product.category.id }}">{{ product.category.name }}</option>
+                {% for category in categories %}
+                    {% if category.id != product.category.id %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <button style="margin: 10px;" type="submit" class="btn btn-primary">Enrégistrer</button>
+        </form>
+    </div>
+   
+       
+{% endblock %}
+

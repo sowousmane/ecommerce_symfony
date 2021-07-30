@@ -69,39 +69,28 @@
     <div class="content">
         <div class="row">
             <div class="col-sm-4">
-                <div class="_content-chiffres shadow"></div>
+                <div style="padding: 20px;" class="_content-chiffres shadow text-center">
+                    <h3 style="text-align: center; color: #ff8400;"><strong> Tous mes achats</strong></h3>
+                    <span style="font-size: 120px;"> {{ _count }} </span>
+                </div>
             </div>
             <div class="col-sm-4">
-                <div class="_content-chiffres shadow"></div>
+                <div style="padding: 20px;" class="_content-chiffres shadow text-center">
+                    <h3 style="text-align: center; color: #ff8400;"><strong> Commandes en cours</strong></h3>
+                    <span style="font-size: 120px;"> 0 </span>
+                </div>
             </div>
             <div class="col-sm-4">
-                <div class="_content-chiffres shadow"></div>
+                <div style="padding: 20px;" class="_content-chiffres shadow text-center">
+                    <h3 style="text-align: center; color: #ff8400;"><strong> Commandes livrées </strong></h3>
+                    <span style="font-size: 120px;"> {{ _count }} </span>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4"></div>
             <div class="col-sm-4"></div>
-        </div>
-    </div>
-    <div style="padding: 30px;" class="header shadow row">
-        <div class="content">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="_content-chiffres shadow"></div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="_content-chiffres shadow"></div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="_content-chiffres shadow"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4"></div>
-            </div>
         </div>
     </div>
     <div class="header shadow row">
@@ -138,6 +127,7 @@
                 <button class="_btn-outline-onlineshop _btn-none _validate btn">Valider</button>
             </form>
         </div>
+        <a href="{{path("app_logout")}}" class="btn"><button class="btn btn-danger">Deconnexion</button></a>
     </div>
 </div>
 

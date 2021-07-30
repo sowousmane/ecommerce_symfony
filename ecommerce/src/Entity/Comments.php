@@ -32,7 +32,7 @@ class Comments
     /**
      * @ORM\Column(type="boolean")
      */
-    private $active;
+    private $active = true;
 
     /**
      * @ORM\Column(type="string", length=45)
@@ -55,7 +55,7 @@ class Comments
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity=Comments::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $parent;
